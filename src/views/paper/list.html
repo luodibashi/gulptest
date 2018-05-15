@@ -1,0 +1,179 @@
+<div class="main" ng-controller="paperlist">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/paper/list/0" class="paper-list-selected selected">我的习题</a>
+                    <a href="#/paper/public" class="paper-list">公共习题库</a>
+                    <a href="#/paper/name" class="paper-create">录入习题</a>
+                    <a href="#/paper/tag" class="paper-list">标签管理</a>
+                </div>
+                <div class="detail">
+                    <div class="class-list">
+                        <div class="class-list-type">
+                            <span ng-class="{'type-selected':type==0}" ng-click="checkType(0)">本地习题</span><span>|</span><span ng-class="{'type-selected':type==1}" ng-click="checkType(1)">外部获取</span><span>|</span><span ng-class="{'type-selected':type==2}" ng-click="checkType(2)">协助录题申请列表</span>
+                        </div>
+                        <div class="class-list-handle">
+                            <img src="./static/images/checked.png" class="allcheck" ng-show="isAllVisible" ng-click="allCheck()" />
+                            <img src="./static/images/uncheck.png" class="allcheck" ng-hide="isAllVisible" ng-click="allCheck()" />
+                            <div class="input-group input-group-sm page">
+                                <div class="page-left" ng-click="prev()">
+                                    <button class="left-detail-button">◀</button>
+                                </div>
+                                <div class="page-num">
+                                    <span class="pagination-info">{{currentPage}}/{{num}}</span>
+                                </div>
+                                <div class="page-right" ng-click="next()">
+                                    <button class="right-detail-button">▶</button>
+                                </div>
+                            </div>
+                            <div class="search" ng-show="type!=2">
+                                <div class="input-search">
+                                    <input type="text" class="form-control" placeholder="习题搜索" ng-model="paperName">
+                                </div>
+                                <button class="btn btn-success search-paper-list" ng-click="search()">搜索</button>
+                            </div>
+                            <div id="handle" ng-mouseover="mouse.mouseover()" ng-mouseout="mouse.mouseout()" ng-show="type==0">
+                                操作
+                                <ul class="handle-menu" style="display: none;">
+                                    <li class="delete-paper" ng-click="delete()">删除习题</li>
+                                    <li class="pass-paper" ng-click="confirmPaper()">最后敲定</li>
+                                    <li class="pass-paper" ng-click="edit()">转为编辑</li>
+                                    <li class="pass-paper" ng-click="publish()">公共发布</li>
+                                    <li class="import-paper" ng-click="load()">拷贝习题</li>
+                                    <li class="export-paper disabled">
+                                        <a href="" target="_blank" ng-click="export($event)">导出Word</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <table class="class-list-table" ng-show="type==0">
+                            <thead>
+                                <tr class="class-list-header">
+                                    <td style="width:80px;">序号</td>
+                                    <td>习题名</td>
+                                    <td style="width:160px;">创建时间</td>
+                                    <td style="width:80px;">状态</td>
+                                    <td style="width:230px;">编辑</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="paper in paperlist track by $index">
+                                    <td class="paper-list-number">
+                                        <img src="./static/images/checked.png" class="allcheck" ng-show="visible[paper['pid']]" ng-click='oneCheck(paper["pid"],$index)' />
+                                        <img src="./static/images/uncheck.png" class="allcheck" ng-hide="visible[paper['pid']]" ng-click='oneCheck(paper["pid"],$index)' />
+                                        <span>{{$index+1}}</span>
+                                    </td>
+                                    <td>
+                                        {{paper.paperName}}
+                                    </td>
+                                    <td>{{paper.createTime}}</td>
+                                    <td class="status">
+                                        <span ng-class="paper.isFinish==0?'':'ischeck'">{{paper.isFinish==0?"编辑中":"已敲定"}}</span>
+                                    </td>
+                                    <td>
+                                        <!-- 如果是未敲定状态 直接跳到 编辑页面-->
+                                        <!-- 如果是已经敲定状态 直接跳到 预览页面-->
+                                        <a href="#/paper/input/{{paper.pid}}" class="lookup" ng-if="paper.isFinish==0">编辑</a>
+                                        <a href="#/paper/wxpreview/{{paper.pid}}" class="lookup" ng-if="paper.isFinish==1">预览</a>
+                                        <a href="#/work/arrange/{{paper.pid}}/0" class="lookup" ng-if="paper.isFinish==1">安排作业</a>
+                                        <a href="#/paper/publish/{{paper.pid}}/0" class="lookup" ng-if="paper.isFinish==1">公共发布</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="class-list-table" ng-show="type==1">
+                            <thead>
+                                <tr class="class-list-header">
+                                    <td style="width:80px;">序号</td>
+                                    <td style="width:80px;">价格</td>
+                                    <td>习题名</td>
+                                    <td>商品名</td>
+                                    <td style="width:80px;">来源</td>
+                                    <td style="width:170px;">期限</td>
+                                    <td style="width:150px;">操作</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="paper in goodslist">
+                                    <td class="paper-list-number">
+                                        <img src="./static/images/checked.png" class="allcheck" ng-show="visible[paper['pid']]" ng-click='oneCheck(paper["pid"])' />
+                                        <img src="./static/images/uncheck.png" class="allcheck" ng-hide="visible[paper['pid']]" ng-click='oneCheck(paper["pid"])' />
+                                        <span>{{$index+1}}</span>
+                                    </td>
+                                    <td>
+                                        <span class="work-price-goods">{{paper.paperPrice}}学豆</span>
+                                    </td>
+                                    <td>{{paper.paperName}}</td>
+                                    <td>{{paper.goodsName}}</td>
+                                    <td>{{paper.goodsCreatorName}}</td>
+                                    <td>{{paper.validityEndTime}}到期</td>
+                                    <td>
+                                        <a href="#/paper/goodspreview/{{paper.pid}}/{{paper.goodsId}}" class="lookup">预览</a>
+                                        <a href="#/work/arrange/{{paper.pid}}/{{paper.goodsId}}" class="lookup" ng-if="paper.goodsStatus!=5">安排作业</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="class-list-table" ng-show="type==2">
+                            <thead>
+                                <tr class="class-list-header">
+                                    <td style="width:80px;">序号</td>
+                                    <td>说明</td>
+                                    <td style="width:120px;">文档地址</td>
+                                    <td>申请时间</td>
+                                    <td style="width:80px;">状态</td>
+                                    <td style="width:150px;">操作</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="assist in assistList">
+                                    <td class="paper-list-number">
+                                        <span>{{$index+1}}</span>
+                                    </td>
+                                    <td>{{assist.applyExplain}}</td>
+                                    <td><a class="assist-url" ng-href="{{assist.resourcesUrl}}">{{assist.resourcesName}}</a></td>
+                                    <td>{{assist.applyTime}}</td>
+                                    <td>{{assist.applyStatus==2?"已完成":(assist.applyStatus==3?"已拒绝":"待处理")}}</td>
+                                    <td>
+                                        <a ng-click="cancelAssist(assist.id)" ng-if="assist.applyStatus==1" class="lookup">取消申请</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+    <div class="mask none"></div>
+    <div class="dialog_wrp simple label_block none">
+        <div class="dialog">
+            <div class="dialog_hd">
+                <h3>拷贝习题</h3>
+                <a href="javascript:void(0);" onclick="return false" class="icon16_opr closed pop_closed" ng-click="cancel()">关闭</a>
+            </div>
+            <div class="dialog_bd">
+                <p>
+                    <input type="text" ng-model="copycode" placeholder="输入授权码..." class="copycode" />
+                </p>
+                <p>
+                    <input class="inp_yzm" type="text" placeholder="验证码" ng-model="captcha">
+                    <img class="inp_code" ng-src="data:image/png;base64,{{image}}" id="code" ng-click="refresh()" />
+                </p>
+                <p ng-if="copyFalie">{{copyFalie}}</p>
+            </div>
+            <div class="dialog_ft">
+                <span><button type="button" class="confirm" data-index="0" ng-click="confirm()">确认</button></span>
+                <span><button type="button" class="cancel" data-index="1" ng-click="cancel()">取消</button></span>
+            </div>
+        </div>
+    </div>
+    <div class="copyBox" ng-if="copyStatus">
+        <img src="./static/images/loading.gif" />
+    </div>
+</div>

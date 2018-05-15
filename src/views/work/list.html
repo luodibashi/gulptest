@@ -1,0 +1,110 @@
+<script type="text/javascript" src="static/js/datePicker/WdatePicker.js"></script>
+<div ng-controller="worklist" class="main worklist">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/work/list" class="work-list-selected selected">作业列表</a>
+                    <a href="#/work/arrange" class="work-create">安排作业</a>
+                </div>
+                <div class="detail">
+                    <div class="class-list">
+                        <div class="class-list-handle">
+                            <img src="./static/images/checked.png" class="allcheck special" ng-show="isAllVisible" ng-click="allCheck()" />
+                            <img src="./static/images/uncheck.png" class="allcheck special" ng-hide="isAllVisible" ng-click="allCheck()" />
+                            <!-- <div pagination></div> -->
+                            <div class="input-group input-group-sm page">
+                                <div class="page-left" ng-click="prev()">
+                                    <button class="left-detail-button">◀</button>
+                                </div>
+                                <div class="page-num">
+                                    <span class="pagination-info">{{currentPage}}/{{num}}</span>
+                                </div>
+                                <div class="page-right" ng-click="next()">
+                                    <button class="right-detail-button">▶</button>
+                                </div>
+                            </div>
+                            <div class="search">
+                                <!-- 之后再加时间筛选 -->
+                                <div class="chooseMonth">
+                                    <div class="chooseTimeBox" ng-show="!showChooseTimeBox" ng-click="chooseTimeShow()">选择查询时间段</div>
+                                    <input type="text" class="startTime" placeholder="开始时间" ng-show="showChooseTimeBox" readonly onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+                                    <input type="text" class="endTime" placeholder="结束时间" ng-show="showChooseTimeBox" readonly onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+                                </div>
+                                <select class="chooseClass" id="selectCid" ng-click="chooseClassId()">
+                                    <option value="0" selected="selected">选择查询班级</option>
+                                    <!-- <option value="1">
+                                        {{classlist}}
+                                    </option> -->
+                                    <optgroup label="我的班级">  
+                                        <option value="{{ownclass.cid}}" ng-repeat="ownclass in classlistOwn">{{ownclass.className}}</option>
+                                    </optgroup>
+                                    <optgroup label="公有班级">
+                                        <option value="{{publicclass.cid}}" ng-repeat="publicclass in classlistPublic">{{publicclass.className}}</option>
+                                    </optgroup>
+                                </select>
+                                <div class="input-search">
+                                    <input type="text" class="form-control" placeholder='请输入作业名字' ng-model="paperName">
+                                </div>
+                                <button class="btn btn-success search-work" type="button" ng-click="search()">搜索</button>
+                            </div>
+                            <div id="handle" ng-mouseover="mouse.mouseover()" ng-mouseout="mouse.mouseout()">
+                                操作
+                                <ul class="handle-menu">
+                                    <li class="delete-exam" ng-click="delete()">删除作业</li>
+                                    <li class="revoke-exam disabled" ng-click="revoke()">撤销作业</li>
+                                    <li class="no-revoke-exam disabled" ng-click="noRevoke()">取消撤销作业</li>
+                                    <li style="color:#999;cursor:default;">输出成绩报告PDF</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <table class="class-list-table">
+                            <thead>
+                                <tr class="class-list-header">
+                                    <td style="width:80px;">序号</td>
+                                    <td>作业名</td>
+                                    <td>班级名</td>
+                                    <td style="width:130px;">取作业起止时间</td>
+                                    <!-- <td>取作业结束时间</td> -->
+                                    <td style="width:80px;">布置详情</td>
+                                    <td style="width:60px;">提交人数</td>
+                                    <td style="width:50px;">待批改</td>
+                                    <td style="width:91px;">作业状态</td>
+                                    <td style="width:170px;">批改主观题</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="work in worklist">
+                                    <td class="paper-list-number">
+                                        <img src="./static/images/checked.png" class="allcheck" ng-show="visible[work['workId']]" ng-click='oneCheck(work["workId"])' />
+                                        <img src="./static/images/uncheck.png" class="allcheck" ng-hide="visible[work['workId']]" ng-click='oneCheck(work["workId"])' />
+                                        <span>{{$index+1}}</span>
+                                    </td>
+                                    <td><a class="to-work-detail" ng-href="#/class/result/{{work.cid}}/{{work.workId}}">{{work.workName}}</a><span ng-show="work.paperPrice" class="work-price">{{work.paperPrice}}学豆</span></td>
+                                    <td>{{work.className}}</td>
+                                    <td><p class="beginTime">{{work.startTime}}</p><p class="endTime">{{work.endTime ? work.endTime : "不限时"}}</p></td>
+                                    <!-- <td>{{work.endTime ? work.endTime : "不限时"}}</td> -->
+                                    <td><a ng-href="#/work/detail/{{work.workId}}" ng-class="{'lookup':true,'special':work.finishWork}">{{(work.finishWork ?'查看作业':'修改作业')}}</a></td>
+                                    <td>{{work.submitNumber?work.submitNumber:0}}</td>
+                                    <td>{{work.noneCorrectNumber?work.noneCorrectNumber:0}}</td>
+                                    <td>
+                                        <a>{{workerStatus[work.workStatus]}}</a>
+                                    </td>
+                                    <td>
+                                        <a class="correctBtn" href="#/work/correct/{{work.workId}}">批改作业</a>
+                                        <a class="reportBtn" ng-href="#/class/result/{{work.cid}}/{{work.workId}}">查看报告</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="noneWorkTips" ng-if="count==0">未找到您要的作业哦</div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+</div>

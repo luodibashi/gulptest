@@ -1,0 +1,32 @@
+<div class="main" ng-controller="paperComplete">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/paper/list/0" class="paper-list">我的习题</a>
+                    <a href="#/paper/public" class="paper-list">公共习题库</a>
+                    <a href="#/paper/name" class="paper-create-selected selected">录入习题</a>
+                    <a href="#/paper/tag" class="paper-list">标签管理</a>
+                </div>
+                <div class="detail">
+                    <div class="create-paper">
+                        <div class="create-paper-step">
+                            <img class="create-step" src="./static/images/step3.png" />
+                            <div class="left"><i>卷名：</i>{{pname}}</div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="check-paper">
+                            <p>习题已编辑完成,可返回作业列表再次转为编辑！</p>
+                            <p class="paper-info">总分: <span>{{questionsScore}}</span>分&nbsp;&nbsp;&nbsp;&nbsp;共<span>{{questionsNum}}</span>道题</p>
+                            <a class="btn btn-success nextstep fix" href="#/paper/list/0">返回习题列表</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+</div>

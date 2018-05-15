@@ -1,0 +1,82 @@
+<div class="permissions main" ng-controller="permission">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/class/list" class="class-list-selected selected">我的班级</a>
+                    <!-- <a href="#/class/public" class="class-public">公共班级</a> -->
+                    <a href="#/class/create" class="class-create">创建班级</a>
+                    <a href="#/class/live" class="class-live">班级直播</a>
+                </div>
+                <div class="detail">
+                    <div class-info></div>
+                    <div class="sub-sidebar left">
+                        <div qrCode></div>
+                        <ul class="three-navigation">
+                            <li><a ng-href="#/class/members/{{cid}}">本班学员</a></li>
+                            <li><a ng-href="#/class/represent/{{cid}}">本班助教</a></li>
+                            <li><a ng-href="#/class/record/{{cid}}">作业记录</a></li>
+                            <li><a ng-href="#/class/permission/{{cid}}" class="selected">班级教师</a></li>
+                            <li><a ng-href="#/class/questionbank/{{cid}}">班级题库</a></li>
+                            <li><a ng-href="#/class/modify/{{cid}}">修改班级信息</a></li>
+                        </ul>
+                    </div>
+                    <div class="student-info left">
+                        <div class="module-left">
+                            <div class="search-area">
+                                <p class="tips">邀请其他老师加入班级管理组</p>
+                                <input type="text" id="search" ng-model="account">
+                                <button id="btn" ng-click="search()">搜索</button>
+                            </div>
+                            <div class="result">
+                                <span class="tName" ng-if="tname"><img src="./static/images/user_creat.png">{{tname}}</span>
+                                <!-- <span class="account">{{email}}</span> -->
+                                <button class="invite" ng-click="invite()" ng-if="tname">邀请老师</button>
+                            </div>
+                            <div class="defined">
+                                <span class="infomation">布置的作业仅自己可见</span>
+                                <input type="checkbox" id="checkbox" class="chk" ng-change="isChecked()" ng-model="check" />
+                                <label for="checkbox"></label>
+                            </div>
+                        </div>
+                        <div class="module-right">
+                            <div class="title">
+                                <p class="tips-title">班级组管理员</p>
+                                <p class="tips-info">备注:(点击转将会把班级管理权转给其他老师)</p>
+                            </div>
+                            <div class="teacher-list-box">
+                                <table class="teacher-list-table">
+                                    <tbody>
+                                        <tr class="create">
+                                            <td class="teacher-list-number">
+                                                1
+                                            </td>
+                                            <td class="flag">主</td>
+                                            <td class="email">{{create.email?create.email:(create.phone?create.phone:create.account)}}</td>
+                                            <td class="tname" colspan="3">{{create.teacherName}}</td>
+                                        </tr>
+                                        <tr ng-repeat="teacher in classTeacher" ng-class="{'refuse':teacher.isAgree==0,'teacher-list':true}">
+                                            <td class="teacher-list-number">
+                                                {{$index+2}}
+                                            </td>
+                                            <td class="flag">{{teacher.isAgree==1?"已加入":(teacher.isAgree==0?"未加入":"")}}</td>
+                                            <td class="email">{{teacher.email?teacher.email:(teacher.phone?teacher.phone:teacher.account)}}</td>
+                                            <td class="tname">{{teacher.teacherName}}</td>
+                                            <td ng-if="tid==create.tid&&teacher.isAgree==1" class="transfer" ng-mouseenter="changeCourse($event)" ng-click="transfer($event,teacher.tid)">转</td>
+                                            <td ng-if="tid==create.tid" class="delete"><img src="./static/images/delate_1.png" ng-mouseenter="changeCourse($event)" ng-click="delete($event,teacher.tid)"></td>
+                                            <td ng-if="tid!=create.tid" ng-class="{'spec':tid!==teacher.tid, 'transfer':true}" colspan="2" ng-mouseenter="changeCourse($event)" ng-click="leave(teacher.tid)">{{tid==teacher.tid?"退出":""}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+</div>

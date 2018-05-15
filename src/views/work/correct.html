@@ -1,0 +1,435 @@
+<link rel="stylesheet" href="static/css/correct.css">
+<div class="main" ng-controller="workcorrect">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/work/list" class="work-list-selected selected">作业列表</a>
+                    <a href="#/work/arrange" class="work-create">作业列表</a>
+                </div>
+                <div class="detail">
+                    <div class="paper_info">
+                        <div class="left">
+                            <h2>{{baseInfo.workName}}</h2>
+                            <div class="info_line">
+                                <span>
+                                  班级：{{baseInfo.className}}
+                              </span>
+                                <span ng-if="baseInfo.unlimited==0">
+                                    取作业时间:{{baseInfo.startTime}} - {{baseInfo.endTime}}
+                              </span>
+                                <span ng-if="baseInfo.unlimited==1">取作业时间：不限时</span>
+                                <span ng-if="baseInfo.unlimited==0">
+                                  本次作业时长：{{baseInfo.durationTime | hmdFormat }}
+                              </span>
+                                <span ng-if="baseInfo.unlimited==1"> 本次作业时长：不限时</span>
+                            </div>
+                            <div class="info_line">
+                                <span>已参与：<i class="num">{{baseInfo.getNumber}}</i>人</span>
+                                <span>已提交：<i class="num">{{baseInfo.submitNumber}}</i>人</span>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <a href="javascript:void(0);" ng-click="finishCorrect()">发布成绩排名通知</a>
+                            <span class="messageType" ng-click="changeMessageType()" title="当选中后会发送给所有的学生，如果未选中仅发给已批改未收过消息的学生">
+                                <img src="./static/images/radio_selected.png" ng-if="messageType==1" />
+                                <img src="./static/images/radio_select.png" ng-if="messageType==2" />
+                                通知所有学生
+                            </span>
+                        </div>
+                    </div>
+                    <div class="sort_list">
+                        <ul>
+                            <li ng-repeat='tixu in tixus' ng-click="selectQuestion(tixu,$event)" ng-class="{true:'selected',false:''}[$index==0]">
+                                {{tixu.tixu}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="correct_detail">
+                        <div class="item_detail">
+                            <div ng-show="isShowQuestionInfo == 1">
+                                <div ng-show="currentQuestion.parentId">
+                                    <div class="multi_title">
+                                        <div class="multi_sort">{{currentQuestion.parentTixu}}</div>
+                                        <div class="multi_type">复合题材料</div>
+                                        <div class="clear"></div>
+                                    </div>
+                                    <div class="sub-material clearfix" ng-bind-html="currentQuestion.parent.mContent | imgToTrusted">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="question_info" ng-show="isShowQuestionInfo == 1">
+                                <div class="title">
+                                    <div class="sort fl">{{currentQuestion.tixu}}.</div>
+                                    <div class="score fl">(本题<b>{{currentQuestion.qScore}}</b>分)</div>
+                                    <div class="stem fl" ng-bind-html="currentQuestion.qContent | to_trusted"> </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="choices">
+                                    <div class="obj_choice" ng-if="currentQuestion.qType == 1">
+                                        <ul class="choices_list fl">
+                                            <li ng-repeat="choice in currentQuestion.choices track by $index">
+                                                <div class="choice">
+                                                    <div class="right">
+                                                        <img src="static/images/mtk-02.png" ng-show="currentQuestion.qAnswer.indexOf($index) != -1" />
+                                                    </div>
+                                                    <div class="option">{{ $index | createChoice}}.</div>
+                                                    <div class="option_text" ng-bind-html="choice | to_trusted ">
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div>
+                                        <div class="sub_choice" ng-repeat="choice in  currentQuestion.choices[0] track by $index" ng-if="currentQuestion.qType == 2">
+                                            <h2 ng-show="choice==1">
+                                                  {{ $index+1 }}.({{currentQuestion.choices[1][$index]}}分)
+                                                  使用答题方式---填空题输入
+                                            </h2>
+                                            <h2 ng-show="choice==2">
+                                                  {{ $index+1 }}.({{currentQuestion.choices[1][$index]}}分)
+                                                  使用答题方式---文本输入
+                                            </h2>
+                                            <h2 ng-show="choice==3">
+                                                  {{ $index+1 }}.({{currentQuestion.choices[1][$index]}}分)
+                                                  使用答题方式---图片
+                                            </h2>
+                                            <h2 ng-show="choice==4">
+                                                  {{ $index+1 }}.({{currentQuestion.choices[1][$index]}}分)
+                                                  使用答题方式---录音
+                                            </h2>
+                                            <ul class="sub_choice_list">
+                                                <li ng-show="choice == 2">
+                                                    <img src="static/images/text.png" alt="">
+                                                </li>
+                                                <li ng-show="choice== 1">
+                                                    <div ng-hide="currentQuestion.qAnswer[$index]" style="width:60px;height:26px;background:#eaeaea; display:inline-block;color:#b3b3b3">
+                                                        ___________
+                                                    </div>
+                                                    <div ng-show="currentQuestion.qAnswer[$index]" style="padding:6px 15px;background:#eaeaea; display:inline-block;color:#888;text-decoration: underline;">
+                                                        {{currentQuestion.qAnswer[$index]}}
+                                                    </div>
+                                                </li>
+                                                <li ng-show="choice== 3">
+                                                    <img src="static/images/img.png" alt="">
+                                                </li>
+                                                <li ng-show="choice== 4">
+                                                    <img src="static/images/vedioone.png" alt="">
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="attrs_list">
+                                    <ul>
+                                        <li ng-repeat="(attrName,attrDetail) in currentQuestion.qResolve">
+                                            <div class="attr_name" ng-bind-html="attrName | to_trusted">
+                                            </div>
+                                            <div class="attr_detail" ng-bind-html="attrDetail | to_trusted">
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="answer_info" ng-show="startCorrect">
+                                <div class="handle">
+                                    学生答题情况
+                                    <a href="javascript:;" ng-click="toggleQuestionInfo()">收起展开</a>
+                                </div>
+                                <div class="correct_user" style="overflow:hidden" ng-show="currentStudent">
+                                    <img class="dealed-img-r" ng-src="./static/images/me_logo_03.png" ng-if="!currentStudent.photo" />
+                                    <img class="dealed-img-r" ng-src="{{currentStudent.photo}}" ng-if="currentStudent.photo" />
+                                    <img class="dealed-img" src="http://teacher.mstudy.me/admin/images/r_c.png" ng-if="currentStudent.type==1">
+                                    <h3> {{currentStudent.studentName}}</h3>
+                                </div>
+                                <div class="user_answer">
+                                    <div class="subject" ng-show="currentStudent.isSubmit==0">
+                                        <!-- 没有交卷时 -->
+                                        <h3 class="empty">未交卷</h3>
+                                    </div>
+                                    <div class="object" ng-show="currentStudent.isSubmit==1 && currentQuestion.qType==1 && currentStudent.isAnswer==1">
+                                        此题正确答案为:
+                                        <strong>{{currentQuestion.qAnswer| createChoice | arraySplit:','}}</strong> 此学生答案为：
+                                        <span>{{currentStudent.answer | createChoice | arraySplit:','}}</span>
+                                    </div>
+                                    <div class="subject">
+                                        <!-- 没有答题时 -->
+                                        <h3 class="empty" ng-if="currentStudent.isSubmit==1 && currentQuestion.qType==1 && currentStudent.isAnswer==0">学生没有作答此题</h3>
+                                        <div class="sub_choice" ng-if="currentStudent.isSubmit==1 && currentQuestion.qType==2 && currentStudent!=undefined" ng-repeat="choice in currentQuestion.choices[0] track by $index">
+                                            <div class="text clearfix" ng-if="choice==1">
+                                                <div class="header clearfix">
+                                                    <div class="tixu">{{ $index+1 }}.</div>
+                                                    <div class="score">({{ currentQuestion.choices[1][$index]}}分)</div>
+                                                    <div class="studentAnswer">
+                                                        <span>{{ currentStudent.answer[$index] }}</span>
+                                                        <span ng-if="currentStudent.answer[$index]==null" style="color:#976969">[学生未做答]</span>
+                                                    </div>
+                                                </div>
+                                                <div style="color:red;position:absolute;right:0;top:26px;display:none;" class="highScoreTip"> *提示:分数不可高于本空最高分
+                                                </div>
+                                                <div class="teacherAnswer" data-tindex="{{$index}}">
+                                                    <div class="uploadImages">
+                                                        <div class="uploadImages" ng-if="currentStudent.correct && currentStudent.correct[$index].correct && currentStudent.correct[$index].correct['picture']">
+                                                            <div class="t_pic">
+                                                                <img ng-src="{{currentStudent.correct[$index].correct['picture']}}" class="uploadImage" title="点击可以放大查看" ng-click="zoomImg($event)" width="66" height="66" />
+                                                                <img src="./static/images/delate.png" class="delate" ng-click="removeTextarea($event,2,$index)" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="t_textarea" data-textIndex="{{$index}}" ng-if="currentStudent.correct && currentStudent.correct[$index].correct && currentStudent.correct[$index].correct['textarea'] || textArr[$index]">
+                                                            <textarea class="teacherTextComment" ng-blur="submitText($event,$index)" placeholder="留评：" ng-model="currentStudent.correct[$index].correct['textarea']"></textarea>
+                                                            <img src="./static/images/delate.png" ng-click="removeTextarea($event,1,$index)" />
+                                                        </div>
+                                                        <div class="teacherAudio" ng-repeat="audio in currentStudent.correct[$index].correct['audio']">
+                                                            <img ng-src="./static/images/mp3one.png" ng-click="playAudio($event)" width="50" height="50" alt="" title="点击播放音频">
+                                                            <span class="currentTime"></span>
+                                                            <audio ng-src="{{ audio }}" class="audioAnswer" ng-show="0">
+                                                            </audio>
+                                                        </div>
+                                                    </div>
+                                                    <div class="toolBar">
+                                                        <div class="correctBtn" ng-mouseover="showMiddle($event)" ng-show="!currentStudent.correct[$index]['score']">
+                                                            批改
+                                                        </div>
+                                                        <div class="middle">
+                                                            <img src="./static/images/text2.png" ng-click="showTextarea($event,$index)" title="留评" />
+                                                            <img src="./static/images/pic.png" ng-click="uploadPic($event,$index)" title="上传图片批改" />
+                                                            <input type="text" class="scoreInput" placeholder="填写分数" ng-blur="submitScore($event,$index)" data-max="{{currentQuestion.choices[1][$index]}}" />
+                                                            <span class="confirm" ng-click="confirmScore($event,$index)">
+                                                                确认</span>
+                                                        </div>
+                                                        <div ng-class="{score:true,computerCorrect:currentStudent.isRight[$index]==1}" ng-show="currentStudent.correct[$index]['score']!=undefined" ng-mouseover="showMiddle($event)" data-sindex="{{$index}}" 　　　　　title="点击可重新给分">
+                                                            得分：<span>{{currentStudent.correct[$index]['score']}}</span>分
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text pos clearfix" ng-if="choice==2">
+                                                <div class="header clearfix">
+                                                    <div class="tixu">{{ $index+1 }}.</div>
+                                                    <div class="score">({{ currentQuestion.choices[1][$index]}}分)</div>
+                                                </div>
+                                                <div style="color:red;position:absolute;right:0;top:26px;display:none;" class="highScoreTip">
+                                                    *提示:分数不可高于本空最高分
+                                                </div>
+                                                <div class="studentAnswer">
+                                                    <span>{{ currentStudent.answer[$index] }}</span>
+                                                    <span ng-if="currentStudent.answer[$index]==null" style="color:#976969">[学生未做答]</span>
+                                                </div>
+                                                <div class="teacherAnswer" data-tindex="{{$index}}">
+                                                    <div class="uploadImages">
+                                                        <div class="uploadImages" ng-if="currentStudent.correct && currentStudent.correct[$index].correct && currentStudent.correct[$index].correct['picture']">
+                                                            <div class="t_pic">
+                                                                <img ng-src="{{currentStudent.correct[$index].correct['picture']}}" class="uploadImage" title="点击可以放大查看" ng-click="zoomImg($event)" width="66" height="66" />
+                                                                <img src="./static/images/delate.png" class="delate" ng-click="removeTextarea($event,2,$index)" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="t_textarea" data-textIndex="{{$index}}" ng-if="currentStudent.correct && currentStudent.correct[$index].correct && currentStudent.correct[$index].correct['textarea'] || textArr[$index]">
+                                                        <textarea class="teacherTextComment" ng-blur="submitText($event,$index)" placeholder="留评：" ng-model="currentStudent.correct[$index].correct['textarea']"></textarea>
+                                                        <img src="./static/images/delate.png" ng-click="removeTextarea($event,1,$index)" />
+                                                    </div>
+                                                    <div class="teacherAudio" ng-repeat="audio in currentStudent.correct[$index].correct['audio']">
+                                                        <img ng-src="./static/images/mp3one.png" style="cursor:pointer;" ng-click="playAudio($event)" width="50" height="50" alt="" title="点击播放音频">
+                                                        <span class="currentTime"></span>
+                                                        <audio ng-src="{{ audio }}" class="audioAnswer" ng-show="0">
+                                                        </audio>
+                                                    </div>
+                                                </div>
+                                                <div class="toolBar">
+                                                    <div class="correctBtn" ng-mouseover="showMiddle($event)" ng-show="currentStudent.correct[$index]['score']==undefined">
+                                                        批改
+                                                    </div>
+                                                    <div class="middle">
+                                                        <img src="./static/images/text2.png" ng-click="showTextarea($event,$index)" title="留评" />
+                                                        <img src="./static/images/pic.png" ng-click="uploadPic($event,$index)" title="上传图片批改" />
+                                                        <input type="text" class="scoreInput" placeholder="填写分数" ng-blur="submitScore($event,$index)" data-max="{{currentQuestion.choices[1][$index]}}" />
+                                                        <span class="confirm" ng-click="confirmScore($event,$index)">
+                                                                确认</span>
+                                                    </div>
+                                                    <div ng-class="{score:true,computerCorrect:currentStudent.isRight[$index]==1}" ng-show="currentStudent.correct[$index]['score']!=undefined" ng-mouseover="showMiddle($event)" data-sindex="{{$index}}" 　　　　　title="点击可重新给分"> 得分：<span>{{currentStudent.correct[$index]['score']}}</span>分
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text img clearfix" ng-if="choice==3">
+                                                <div class="header clearfix">
+                                                    <div class="tixu">{{ $index+1 }}.</div>
+                                                    <div class="score">({{ currentQuestion.choices[1][$index]}}分)</div>
+                                                </div>
+                                                <div style="color:red;position:absolute;right:0;top:26px;display:none;" class="highScoreTip">
+                                                    *提示:分数不可高于本空最高分
+                                                </div>
+                                                <div class="studentAnswer">
+                                                    <span ng-if="currentStudent.answer[$index]==null" style="color:#976969">[学生未做答]</span>
+                                                    <img ng-src="{{currentStudent.answer[$index]}}" width="66" title="点击可以放大查看" ng-if="currentStudent.answer[$index]" ng-click="zoomImg($event)" height="66" />
+                                                </div>
+                                                <div class="teacherAnswer" data-tindex="{{$index}}">
+                                                    <div class="uploadImages">
+                                                        <div class="uploadImages" ng-if="currentStudent.correct && currentStudent.correct[$index].correct && currentStudent.correct[$index].correct['picture']">
+                                                            <div class="t_pic">
+                                                                <img ng-src="{{currentStudent.correct[$index].correct['picture']}}" class="uploadImage" title="点击可以放大查看" ng-click="zoomImg($event)" width="66" height="66" />
+                                                                <img src="./static/images/delate.png" class="delate" ng-click="removeTextarea($event,2,$index)" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="t_textarea" data-textIndex="{{$index}}" ng-if="currentStudent.correct && currentStudent.correct[$index].correct && currentStudent.correct[$index].correct['textarea'] || textArr[$index]">
+                                                        <textarea class="teacherTextComment" ng-blur="submitText($event,$index)" placeholder="留评：" ng-model="currentStudent.correct[$index].correct['textarea']"></textarea>
+                                                        <img src="./static/images/delate.png" ng-click="removeTextarea($event,1,$index)" />
+                                                    </div>
+                                                    <div class="teacherAudio" ng-if="currentStudent.correct[$index].correct['audio']">
+                                                        <img ng-src="./static/images/mp3one.png" ng-click="playAudio($event)" width="50" height="50" alt="" class="decorator" title="点击播放音频">
+                                                        <img src="./static/images/delate.png" class="delate" ng-click="removeTextarea($event,3,$index)" />
+                                                        <span class="currentTime"></span>
+                                                        <audio ng-src="{{currentStudent.correct[$index].correct['audio']}}" class="audioAnswer" ng-show="0">
+                                                        </audio>
+                                                    </div>
+                                                </div>
+                                                <div class="toolBar">
+                                                    <div class="correctBtn" ng-mouseover="showMiddle($event)" ng-show="currentStudent.correct[$index]['score']==undefined">
+                                                        批改
+                                                    </div>
+                                                    <div class="middle">
+                                                        <img src="./static/images/text2.png" ng-click="showTextarea($event,$index)" title="留评" />
+                                                        <img src="./static/images/pic.png" ng-click="uploadPic($event,$index)" title="上传图片批改" />
+                                                        <input type="text" class="scoreInput" placeholder="填写分数" ng-blur="submitScore($event,$index)" data-max="{{currentQuestion.choices[1][$index]}}" />
+                                                        <span class="confirm" ng-click="confirmScore($event,$index)">确认</span>
+                                                    </div>
+                                                    <div ng-class="{score:true,computerCorrect:currentStudent.isRight[$index]==1}" ng-show="currentStudent.correct[$index]['score']!=undefined" ng-mouseover="showMiddle($event)" data-sindex="{{$index}}" title="点击可重新给分">
+                                                        得分：<span>{{currentStudent.correct[$index]['score']}}</span>分
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text audio clearfix" ng-if="choice==4">
+                                                <div class="header clearfix">
+                                                    <div class="tixu">{{ $index+1 }}.</div>
+                                                    <div class="score">({{ currentQuestion.choices[1][$index]}}分)</div>
+                                                </div>
+                                                <div style="color:red;position:absolute;right:0;top:26px;display:none;" class="highScoreTip">*提示:分数不可高于本空最高分</div>
+                                                <div class="studentAnswer">
+                                                    <span ng-if="currentStudent.answer[$index]==null" style="color:#976969">[学生未做答]</span>
+                                                    <img ng-src="./static/images/mp3one.png" ng-click="playAudio($event)" width="50" height="50" alt="" ng-if="currentStudent.answer[$index]" title="点击播放音频">
+                                                    <span class="currentTime"></span>
+                                                    <audio ng-src="{{currentStudent.answer[$index] }}" class="audioAnswer" ng-show="0"></audio>
+                                                </div>
+                                                <div class="teacherAnswer" data-tindex="{{$index}}">
+                                                    <div class="uploadImages">
+                                                        <div class="uploadImages" ng-if="currentStudent.correct && currentStudent.correct[$index].correct && currentStudent.correct[$index].correct['picture']">
+                                                            <div class="t_pic">
+                                                                <img ng-src="{{currentStudent.correct[$index].correct['picture']}}" class="uploadImage" title="点击可以放大查看" ng-click="zoomImg($event)" width="66" height="66" />
+                                                                <img src="./static/images/delate.png" class="delate" ng-click="removeTextarea($event,2,$index)" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="t_textarea" data-textIndex="{{$index}}" ng-if="currentStudent.correct && currentStudent.correct[$index].correct && currentStudent.correct[$index].correct['textarea'] || textArr[$index]">
+                                                        <textarea class="teacherTextComment" ng-blur="submitText($event,$index)" placeholder="留评：" ng-model="currentStudent.correct[$index].correct['textarea']"></textarea>
+                                                        <img src="./static/images/delate.png" ng-click="removeTextarea($event,1,$index)" />
+                                                    </div>
+                                                    <div class="teacherAudio" ng-repeat="audio in currentStudent.correct[$index].correct['audio']">
+                                                        <img ng-src="./static/images/mp3one.png" ng-click="playAudio($event)" width="50" height="50" alt="" title="点击播放音频">
+                                                        <span class="currentTime"></span>
+                                                        <audio ng-src="{{ audio }}" class="audioAnswer" ng-show="0">
+                                                        </audio>
+                                                    </div>
+                                                </div>
+                                                <div class="toolBar">
+                                                    <div class="correctBtn" ng-mouseover="showMiddle($event)" ng-show="currentStudent.correct[$index]['score']==undefined">
+                                                        批改
+                                                    </div>
+                                                    <div class="middle">
+                                                        <img src="./static/images/text2.png" ng-click="showTextarea($event,$index)" title="留评" />
+                                                        <img src="./static/images/pic.png" ng-click="uploadPic($event,$index)" title="上传图片批改" />
+                                                        <input type="text" class="scoreInput" placeholder="填写分数" ng-blur="submitScore($event,$index)" data-max="{{currentQuestion.choices[1][$index]}}" />
+                                                        <span class="confirm" ng-click="confirmScore($event,$index)">
+                                                                确认
+                                                           </span>
+                                                    </div>
+                                                    <div ng-class="{score:true,computerCorrect:currentStudent.isRight[$index]==1}" ng-show="currentStudent.correct[$index]['score']!=undefined" ng-mouseover="showMiddle($event)" data-sindex="{{$index}}" title="点击可重新给分">
+                                                        得分：<span>{{currentStudent.correct[$index]['score']}}</span>分
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 学生答题结束 -->
+                                <div class="correct_handle">
+                                    <!-- 批改操作按钮 -->
+                                    <div class="button_ctrl">
+                                        <div class="fl">
+                                            <div class="controller">
+                                                <a ng-click="prevSub()" class="prev">上一主观题</a>
+                                                <a ng-click="nextSub()" class="next">下一主观题</a>
+                                            </div>
+                                            <div class="controller">
+                                                <a ng-click="prevUser()" class="prev">上一人</a>
+                                                <a ng-click="nextUser()" class="next">下一人</a>
+                                            </div>
+                                        </div>
+                                        <div class="corrent_ctrl fr" ng-if="currentQuestion.qType==2">
+                                            <div id="finalScore">
+                                                本题最终得分：
+                                                <span id="totalScore">{{currentStudent.score}}</span>
+                                            </div>
+                                            <!-- <div class="computerAssist">计算机辅助批改得分：<span>5.0</span></div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--试题详情结束-->
+                        <div class="user_list">
+                            <ul class="student_list">
+                                <li ng-repeat="student in students" ng-class="{active:student.studentId == currentStudent.studentId,dealed:student.type==1,undeal:student.type==0}" ng-click="selectUser(student.studentId,$index)" data-studentId="{{student.studentId}}">
+                                    <div class="head_img">
+                                        <img ng-src="{{student.photo?student.photo:'./static/images/me_logo_03.png'}}" />
+                                        <img class="right" ng-if="student.type==1" src="./static/images/r_c.png" />
+                                    </div>
+                                    <div class="user_info">
+                                        <h3>{{student.studentName}}</h3>
+                                        <p ng-show="student.isSubmit==0">填写分数 : ?</p>
+                                        <p ng-show="student.isSubmit==1">得分：{{student.score?student.score:0}}分</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    (function($, w) {
+        var userList = $('.user_list');
+        userList.attr({
+            top: 83 + $('.sub-navigation')
+                .height() + $('.sort_list')
+                .height() + $('.paper_info')
+                .height(),
+            left: userList.offset().left
+        });
+        //用户名单浮动
+        $(window).off('scroll').on('scroll', function() {
+            var Ostop = $(this).scrollTop();
+            var offset = userList.offset();
+            var width = userList.width();
+
+            if ($(this).scrollTop() > userList.attr('top')) {
+                userList.css({
+                    position: 'fixed',
+                    top: '0px',
+                    left: userList.attr('left')
+                }).width(width);
+            } else {
+                userList.css({
+                    position: 'static'
+                });
+            }
+        })
+
+    })(jQuery, window);
+    </script>
+</div>

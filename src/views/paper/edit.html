@@ -1,0 +1,291 @@
+<link rel="stylesheet" href="./static/css/pinput.css">
+<link type="text/css" rel="stylesheet" href="./static/css/perfect-scrollbar.min.css">
+<div class="main" ng-controller="paperEdit">
+    <div class="loading-modal modal" ng-if="loading">
+        <div class="loading">
+            <img src="./static/images/vedio-played.png" alt="" /><span ng-bind="loading_text"></span>
+        </div>
+    </div>
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/paper/list/0" class="paper-list">我的习题</a>
+                    <a href="#/paper/public" class="paper-list">公共习题库</a>
+                    <a href="#/paper/name" class="paper-create-selected selected">录入习题</a>
+                    <a href="#/paper/tag" class="paper-list">标签管理</a>
+                </div>
+                <div class="mtk-all-operate">
+                    <!--左边导入区域1-->
+                    <div class="mtk-fun mtk-import fl">
+                        <div uploader></div>
+                        <div class="mtk-contenter">
+                            <div class="mtk-info">
+                                <div class="mtk-info-top">
+                                    <img src="static/images/me_code.jpg" alt="">
+                                    <p class="price">价格：￥2.00</p>
+                                    <span class="pay">已支付(扫码预览)</span>
+                                </div>
+                                <div class="mtk-info-bottom">
+                                    <p><i>客观题：</i><span>{{objnumber}}</span></p>
+                                    <p><i>主观题：</i><span>{{subnumber}}</span></p>
+                                    <p><i>卷&nbsp;&nbsp;&nbsp;面：</i><span>{{score}}分</span></p>
+                                    <p><i>来&nbsp;&nbsp;&nbsp;源：</i><span>麦学习</span></p>
+                                </div>
+                            </div>
+                            <div class="pinput left-input">
+                                <dl class="pinput-dl">
+                                    <!--选择题-->
+                                    <dt data-type="0">
+                                        <div class="pinput-item-slide">
+                                            <div class="pinput-item pinput-item-tit">
+                                                <span class="tit">1.</span>
+                                                <span class="info">选择题</span>
+                                            </div>
+                                            <div class="pinput-item pinput-item-opt">
+                                                <span>添加</span>
+                                            </div>
+                                        </div>
+                                        <!--题目主干-->
+                                    </dt>
+                                    <!--主观题-->
+                                    <dt data-type="1">
+                                        <div class="pinput-item-slide">
+                                            <div class="pinput-item pinput-item-tit">
+                                                <span class="tit">2.</span>
+                                                <span class="info">主观题</span>
+                                            </div>
+                                            <div class="pinput-item pinput-item-opt">
+                                                <span>添加</span>
+                                            </div>
+                                        </div>
+                                    </dt>
+                                    <!--复合题-->
+                                    <dt data-type="2">
+                                        <div class="pinput-item-slide">
+                                            <div class="pinput-item pinput-item-tit">
+                                                <span class="tit">3.</span>
+                                                <span class="info">复合题</span>
+                                            </div>
+                                            <div class="pinput-item pinput-item-opt">
+                                                <span>添加</span>
+                                            </div>
+                                        </div>
+                                        <div class="pinput-item-main">
+                                            <div class="pinput-item-content">
+                                                <!--材料-->
+                                                <div class="pinput-item-subject clearfix">
+                                                    <div class="fl add-media">
+                                                        <a class="vedio" href="javascript:;">视频</a>
+                                                        <a class="mp3" href="javascript:;">音频</a>
+                                                    </div>
+                                                    <div class="fl edit-div subject" data-attr="material" contenteditable="true"></div>
+                                                </div>
+                                                <!--子题-->
+                                                <div class="pinput-item-question">
+                                                    <!--子题1-->
+                                                    <div class="pinput-question">
+                                                        <div class="pinput-item-boder">
+                                                            <div class="pinput-problem">
+                                                                <div class="pinput-problem-info clearfix">
+                                                                    <div class="pinput-problem-ico fl"></div>
+                                                                    <div class="fl tit">3-1.</div>
+                                                                    <a href="javascript:;" class="del"></a>
+                                                                    <div class="score fr">
+                                                                        <input maxlength="4">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="title" contenteditable="true"></div>
+                                                            </div>
+                                                            <div class="pinput-answer">
+                                                                <ul>
+                                                                    <li class="answer-li clearfix">
+                                                                        <div class="choice correct fl"></div>
+                                                                        <div class="letter fl">A.</div>
+                                                                        <div class="answer fl" contenteditable="true"></div>
+                                                                        <a class="del" href="javascript:;"></a>
+                                                                    </li>
+                                                                    <li class="answer-li clearfix">
+                                                                        <div class="choice fl"></div>
+                                                                        <div class="letter fl">B.</div>
+                                                                        <div class="answer fl" contenteditable="true"></div>
+                                                                        <a class="del" href="javascript:;"></a>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="add-answer">
+                                                                    <span class="txt1">+</span>
+                                                                    <span class="txt2">新增一条选项</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pinput-item-analysis">
+                                                            <div class="tit">本题解析</div>
+                                                            <div class="analysis">
+                                                                <ul class="analysis-ul">
+                                                                    <li class="analysis-li clearfix">
+                                                                        <div class="analysis-li1">
+                                                                            <input type="text" maxlength="10">
+                                                                        </div>
+                                                                        <div class="analysis-li2">/</div>
+                                                                        <div class="analysis-li3" contenteditable="true"></div>
+                                                                        <a href="javascript:;" class="del"></a>
+                                                                    </li>
+                                                                    <li class="analysis-li clearfix">
+                                                                        <div class="analysis-li1">
+                                                                            <input type="text" maxlength="10">
+                                                                        </div>
+                                                                        <div class="analysis-li2">/</div>
+                                                                        <div class="analysis-li3" contenteditable="true"></div>
+                                                                        <a href="javascript:;" class="del"></a>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="add-analysis">
+                                                                    <span class="txt1">+</span>
+                                                                    <span class="txt2">新增一条解析</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--子题2-->
+                                                    <div class="pinput-question">
+                                                        <div class="pinput-item-boder">
+                                                            <div class="pinput-problem">
+                                                                <div class="pinput-problem-info clearfix">
+                                                                    <div class="pinput-problem-ico fl"></div>
+                                                                    <div class="fl tit">3-2.</div>
+                                                                    <a href="javascript:;" class="del"></a>
+                                                                    <div class="score fr">
+                                                                        <input maxlength="4">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="title" contenteditable="true"></div>
+                                                            </div>
+                                                            <div class="pinput-answer">
+                                                                <ul>
+                                                                    <li class="answer-li answer-subject">
+                                                                        <div class="letter">1.</div>
+                                                                        <div class="reply">[图片答题框]</div>
+                                                                        <div class="score">
+                                                                            <input maxlength="4">
+                                                                        </div>
+                                                                        <a href="javascript:;" class="del"></a>
+                                                                    </li>
+                                                                    <li class="answer-li answer-subject">
+                                                                        <div class="letter">2.</div>
+                                                                        <div class="reply">[音频答题框]</div>
+                                                                        <div class="score">
+                                                                            <input maxlength="4">
+                                                                        </div>
+                                                                        <a href="javascript:;" class="del"></a>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="add-options">
+                                                                    <li class="add-img bd" title="新增图片框">
+                                                                        <div class="add-text1"><span class="add-text1-sign">+</span>图片框</div>
+                                                                        <div class="add-text2">(拍照答题)</div>
+                                                                    </li>
+                                                                    <li class="add-vedio bd" title="新增录音框">
+                                                                        <div class="add-text1"><span class="add-text1-sign">+</span>录音框</div>
+                                                                        <div class="add-text2">(录音答题)</div>
+                                                                    </li>
+                                                                    <li class="add-text bd" title="新增文本框">
+                                                                        <div class="add-text1"><span class="add-text1-sign">+</span>文本框</div>
+                                                                        <div class="add-text2">(输入答题)</div>
+                                                                    </li>
+                                                                    <li class="add-position" title="新增填空项">
+                                                                        <div class="add-text1"><span class="add-text1-sign">+</span>填空项</div>
+                                                                        <div class="add-text2">(填空答题)</div>
+                                                                    </li>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pinput-item-analysis">
+                                                            <div class="tit">本题解析</div>
+                                                            <div class="analysis">
+                                                                <ul class="analysis-ul">
+                                                                    <li class="analysis-li clearfix">
+                                                                        <div class="analysis-li1">
+                                                                            <input type="text" maxlength="10">
+                                                                        </div>
+                                                                        <div class="analysis-li2">/</div>
+                                                                        <div class="analysis-li3" contenteditable="true"></div>
+                                                                        <a href="javascript:;" class="del"></a>
+                                                                    </li>
+                                                                    <li class="analysis-li clearfix">
+                                                                        <div class="analysis-li1">
+                                                                            <input type="text" maxlength="10">
+                                                                        </div>
+                                                                        <div class="analysis-li2">/</div>
+                                                                        <div class="analysis-li3" contenteditable="true"></div>
+                                                                        <a href="javascript:;" class="del"></a>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="add-analysis">
+                                                                    <span class="txt1">+</span>
+                                                                    <span class="txt2">新增一条解析</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--添加子题-->
+                                                <div class="add-question">
+                                                    <div class="add-simple choice">选择题</div>
+                                                    <div class="add-simple nochoice">非选择题</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </dt>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <!--右边编辑区域-->
+                    <div class="mtk-bd fr">
+                        <img class="create-step create-step-editor" src="./static/images/step2.png">
+                        <div class="mtk-paper-fun clearfix">
+                            <div class="fl mtk-paper-name"><i>卷名：</i> 435
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="mtk-item">
+                            <dl class="mtk-item-dl">
+                            </dl>
+                            <!--新增下一题 普通题 复合题-->
+                            <div class="mtk-add-new-common fl">
+                                新增选择题
+                            </div>
+                            <div class="mtk-add-new-short fl">
+                                新增主观题
+                            </div>
+                            <div class="mtk-add-new-composite fl">
+                                新增复合题
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+    <!--遮罩弹窗-->
+    <div dialog>
+    </div>
+    <script src="./static/js/jquery.js"></script>
+    <script src="./static/js/jquery.mousewheel.js"></script>
+    <script src="./static/js/perfect-scrollbar.min.js"></script>
+    <script src="./static/js/pinput.js"></script>
+    <script type="text/javascript" src="./static/js/plupload/plupload.full.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        $('.pinput-item-ver').perfectScrollbar();
+
+
+    });
+    </script>
+</div>

@@ -1,0 +1,170 @@
+<div class="main" ng-controller="paperPublic">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/paper/list/0" class="paper-list">我的习题</a>
+                    <a href="#/paper/public" class="paper-list-selected selected">公共习题库</a>
+                    <a href="#/paper/name" class="paper-create">录入习题</a>
+                    <a href="#/paper/tag" class="paper-list">标签管理</a>
+                </div>
+                <div class="detail">
+                    <div class="class-list">
+                        <ul class="class-list-type">
+                            <li class="fl">
+                                <span ng-class="{'type-selected':freeQuestion}" ng-click="changeFreeType()">免费题库</span>
+                                <span>|</span>
+                            </li>
+                            <li class="fl">
+                                <span ng-class="{'type-selected':payQuestion}" ng-click="changePayType()">有偿题库</span>
+                                <span>|</span>
+                            </li>
+                            <li class="fl">
+                                <span ng-class="{'type-selected':myShare}" ng-click="getMain()">我的分享</span>
+                            </li>
+                        </ul>
+                        <!-- 有偿题库标签 -->
+                        <div ng-if="payQuestion" class="stage-div">
+                            <div class="more-position" ng-if="!myShare&&payQuestion">
+                                <span ng-click="changePayShowType()" ng-if="payShowType">收起更多</span>
+                                <span ng-click="changePayShowType()" ng-if="!payShowType">显示更多</span>
+                            </div>
+                            <ul class="tag-list-type">
+                                <b class="fl">阶段:</b>
+                                <li class="fl" ng-repeat="stage in tags track by $index">
+                                    <span ng-class="{'tag-selected':stageId==stage.tagId}" ng-click="getStage(stage.tagId,payQuestion)">{{stage.tagName}}</span>
+                                </li>
+                            </ul>
+                            <ul class="tag-list-type" ng-show="payShowType">
+                                <b class="fl">年级:</b>
+                                <li class="fl" ng-click="chooseGrade(tag.tagId,payQuestion)" ng-repeat="tag in gradeList track by $index">
+                                    <span ng-class="{'tag-selected':selectedGrade.indexOf(tag.tagId)!=-1}">{{tag.tagName}}</span>
+                                </li>
+                            </ul>
+                            <ul class="course-list-type" ng-show="payShowType">
+                                <b class="fl">科目:</b>
+                                <li class="fl" ng-click="chooseCourse(course.tagId,payQuestion)" ng-repeat="course in courses track by $index">
+                                    <span ng-class="{'course-selected':selectedCourse.indexOf(course.tagId)!=-1}">{{course.tagName}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- 免费题库标签 -->
+                        <div ng-if="freeQuestion" class="stage-div">
+                            <div class="more-position" ng-if="!myShare&&freeQuestion">
+                                <span ng-click="changeFreeShowType()" ng-if="freeShowType">收起更多</span>
+                                <span ng-click="changeFreeShowType()" ng-if="!freeShowType">显示更多</span>
+                            </div>
+                            <ul class="tag-list-type">
+                                <b class="fl">阶段:</b>
+                                <li class="fl" ng-repeat="stage in tags track by $index">
+                                    <span ng-class="{'tag-selected':stageId==stage.tagId}" ng-click="getStage(stage.tagId,payQuestion)">{{stage.tagName}}</span>
+                                </li>
+                            </ul>
+                            <ul class="tag-list-type" ng-show="freeShowType">
+                                <b class="fl">年级:</b>
+                                <li class="fl" ng-click="chooseGrade(tag.tagId,payQuestion)" ng-repeat="tag in gradeList track by $index">
+                                    <span ng-class="{'tag-selected':selectedGrade.indexOf(tag.tagId)!=-1}">{{tag.tagName}}</span>
+                                </li>
+                            </ul>
+                            <ul class="course-list-type" ng-show="freeShowType">
+                                <b class="fl">科目:</b>
+                                <li class="fl" ng-click="chooseCourse(course.tagId,payQuestion)" ng-repeat="course in courses track by $index">
+                                    <span ng-class="{'course-selected':selectedCourse.indexOf(course.tagId)!=-1}">{{course.tagName}}</span>
+                                </li>
+                            </ul>
+                            <ul class="course-list-type" ng-show="freeShowType">
+                                <b class="fl">版本:</b>
+                                <li class="fl" ng-click="chooseVersion(version.tagId,payQuestion)" ng-repeat="version in versionList track by $index"><span ng-class="{'version-selected':selectedVersion.indexOf(version.tagId)!=-1}">{{version.tagName}}</span></li>
+                            </ul>
+                            <ul class="course-list-type" ng-show="freeShowType">
+                                <b class="fl">类型:</b>
+                                <li class="fl" ng-click="choosePaperType(type.tagId,payQuestion)" ng-repeat="type in typeList track by $index"><span ng-class="{'type-selected':selectedPaperType.indexOf(type.tagId)!=-1}">{{type.tagName}}</span></li>
+                            </ul>
+                        </div>
+                        <!-- 分页 -->
+                        <div class="class-list-handle">
+                            <div class="input-group input-group-sm page">
+                                <div class="page-left" ng-click="prev(payQuestion)">
+                                    <button class="left-detail-button">◀</button>
+                                </div>
+                                <div class="page-num">
+                                    <span class="pagination-info">{{currentPage}}/{{num}}</span>
+                                </div>
+                                <div class="page-right" ng-click="next(payQuestion)">
+                                    <button class="right-detail-button">▶</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 有偿题库和我的分享内容 -->
+                        <table class="class-list-table" ng-if="!freeQuestion">
+                            <thead>
+                                <tr class="class-list-header">
+                                    <td>序号</td>
+                                    <td>价格</td>
+                                    <td>商品名/习题名</td>
+                                    <td>期限</td>
+                                    <td ng-if="!stageId">状态</td>
+                                    <td ng-if="stageId">作者</td>
+                                    <td>操作</td>
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="good in goodslist track by $index">
+                                <tr ng-click="toggle(good.goodsId,$index)">
+                                    <td class="paper-list-number">
+                                        <span>{{$index+1}}</span>
+                                    </td>
+                                    <td><span class="work-price-goods">{{good.price?good.price+"学豆":"免费"}}</span></td>
+                                    <td>{{good.goodsName}}</td>
+                                    <td>{{good.validityEndTime}}到期</td>
+                                    <td ng-if="!stageId"><span ng-if="good.goodsStatus==4" class="mark" ng-mouseover="good.showDesc=true" ng-mouseout="good.showDesc=false">!<i ng-if="good.auditorDescribe&&good.showDesc">{{good.auditorDescribe}}</i></span>{{good.goodsStatus==1?'待审核':(good.goodsStatus==2?'已审核未上架':good.goodsStatus==3?'已审核已上架':good.goodsStatus==4?'被驳回':'已过期')}}</td>
+                                    <td ng-if="stageId">{{good.goodsCreatorName}}</td>
+                                    <td>
+                                        <a href="#/paper/publish/0/{{good.goodsId}}" class="lookup" ng-if="good.goodsStatus==1 || good.goodsStatus==4">重新发布</a>
+                                    </td>
+                                </tr>
+                                <tr ng-if="good.show" class="good-paper-tr" ng-repeat="paper in paperlist">
+                                    <td></td>
+                                    <td><span class="work-price-goods">{{paper.paperPrice?paper.paperPrice+"学豆":"免费"}}</span></td>
+                                    <td>{{paper.paperName}}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <a href="#/paper/goodspreview/{{paper.pid}}/{{good.goodsId}}" class="lookup">预览</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- 免费题库试卷列表 -->
+                        <table class="class-list-table" ng-if="freeQuestion">
+                            <thead>
+                                <tr class="class-list-header">
+                                    <td style="width:80px;">序号</td>
+                                    <td>习题名</td>
+                                    <td style="width:160px;">创建时间</td>
+                                    <td style="width:80px;">操作</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="paper in freeList track by $index">
+                                    <td class="paper-list-number">
+                                        <span>{{$index+1}}</span>
+                                    </td>
+                                    <td>{{paper.paperName}}</td>
+                                    <td>{{paper.createTime}}</td>
+                                    <td>
+                                        <a href="#/paper/wxpreview/{{paper.pid}}" class="lookup">预览</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p ng-if="paperDate" class="message-info">您搜索的试卷不存在</p>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+</div>

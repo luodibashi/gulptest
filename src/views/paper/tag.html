@@ -1,0 +1,69 @@
+<div class="main" ng-controller="paperTag">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/paper/list/0" class="paper-list">我的习题</a>
+                    <a href="#/paper/public" class="paper-list">公共习题库</a>
+                    <a href="#/paper/name" class="paper-create">录入习题</a>
+                    <a href="#/paper/tag" class="paper-list-selected selected">标签管理</a>
+                </div>
+                <div>
+                    <div class="ftag-list-type">
+                        <span ng-class="{'type-selected':tagType==1}" ng-click="checkTagType(1)">试卷标签</span><span>|</span><span ng-class="{'type-selected':tagType==0}" ng-click="checkTagType(0)">试题标签</span>
+                    </div>
+                    <div class="detail" ng-show="tagType==1">
+                        <div class="public-tag">
+                            <b>公有标签</b>
+                            <ul class="public-tag-list">
+                                <li class="fl" ng-repeat="tag in publicPaperTagList track by $index">
+                                    {{tag.tagName}}
+                                </li>
+                                <li class="fl more" ng-show="publicPaperMore" ng-click="morePaperPublic()">更多</li>
+                            </ul>
+                        </div>
+                        <div class="private-tag">
+                            <b>私有标签</b>
+                            <ul class="private-tag-list">
+                                <input ng-show="addPaperTag" class="fl add-tag" type="text" placeholder="请输入标签名" ng-model="addPaperTagName" ng-blur="newPaperTag()" />
+                                <li class="fl" ng-repeat="tag in privatePaperTagList track by $index">
+                                    <span>{{tag.tagName}}</span>
+                                    <i class="delete-tag" ng-click="deletePaperTag(tag.tagId)">删除</i>
+                                </li>
+                                <li class="fl more" ng-show="privatePaperMore" ng-click="morePaperPrivate()">更多</li>
+                                <b class="fl add" ng-click="addPaperTag=true">+</b>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="detail" ng-show="tagType==0">
+                        <div class="public-tag">
+                            <b>公有标签</b>
+                            <ul class="public-tag-list">
+                                <li class="fl" ng-repeat="tag in publicQuestionTagList track by $index">
+                                    {{tag.tagName}}
+                                </li>
+                                <li class="fl more" ng-show="publicQuestionMore" ng-click="moreQuestionPublic()">更多</li>
+                            </ul>
+                        </div>
+                        <div class="private-tag">
+                            <b>私有标签</b>
+                            <ul class="private-tag-list">
+                                <input ng-show="addQuestionTag" class="fl add-tag" type="text" placeholder="请输入标签名" ng-model="addQuestionTagName" ng-blur="newQuestionTag()" />
+                                <li class="fl" ng-repeat="tag in privateQuestionTagList track by $index">
+                                    <span>{{tag.tagName}}</span>
+                                    <i class="delete-tag" ng-click="deleteQuestionTag(tag.tagId)">删除</i>
+                                </li>
+                                <li class="fl more" ng-show="privateQuestionMore" ng-click="moreQuestionPrivate()">更多</li>
+                                <b class="fl add" ng-click="addQuestionTag=true">+</b>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+</div>

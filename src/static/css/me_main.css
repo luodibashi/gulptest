@@ -1,0 +1,936 @@
+@charset "utf-8";
+html {
+    font-family: "微软雅黑";
+    font-size: 62.5%;
+    /* 10÷16=62.5% */
+}
+
+body {
+    font-size: 1.4rem;
+    font-size: 14px;
+    background: #FCFBF9;
+}
+
+input[type=text],
+input[type=number],
+input[type=email],
+input[type=password],
+input[type=tel],
+select {
+    background-color: #ffffff;
+    border: 1px solid #009849;
+    width: 280px;
+    *width: 270px;
+    height: 40px;
+    *height: 37px;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    padding-left: 8px;
+    *padding-left: 8px !important;
+    font-size: 1em;
+    box-sizing: border-box;
+    font-family: "微软雅黑";
+}
+
+.account_type {
+    width: 280px;
+    *width: 270px;
+    height: 40px;
+    *height: 37px;
+    font-size: 1rem;
+    padding-left: 4px;
+    *padding-left: 4px !important;
+}
+
+.me_header {
+    width: 100%;
+}
+
+.me_header .container {
+    height: 56px;
+    padding: 60px 0 22px;
+    margin: 0 auto;
+}
+
+.me_header .container .me_list {
+    line-height: 28px;
+    margin: 13px 0 14px;
+}
+
+.me_header .container .me_list a {
+    display: inline-block;
+    margin: 0 10px;
+    font-size: 1.6rem;
+    color: #797979;
+}
+
+.me_header .container .me_list a:hover {
+    color: #72e1af;
+}
+
+.me_header .container .me_list .a_log {
+    color: #00a451;
+}
+
+.me_nav {
+    height: 100px;
+    background-color: #fff;
+}
+
+.me_header .fn {
+    padding-top: 22px;
+}
+
+.navbar-toggle {
+    position: relative;
+    float: right;
+    padding: 9px 10px;
+    margin-top: 8px;
+    margin-right: 15px;
+    margin-bottom: 8px;
+    background-color: transparent;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.navbar-toggle .icon-bar {
+    background-color: #B7B7B7;
+}
+
+.navbar-toggle .icon-bar {
+    display: block;
+    width: 28px;
+    height: 4px;
+}
+
+.navbar-logo {
+    height: 56px;
+    display: block;
+}
+
+.navbar-logo img {
+    max-width: 100%;
+}
+
+.navbar-toggle .icon-bar+.icon-bar {
+    margin-top: 4px;
+}
+
+.me_content {
+    background: url(../images/me_bg.png) no-repeat;
+    background-size: 100% 100%;
+    margin: 0 auto;
+    padding: 108px 0 50px;
+    overflow: hidden;
+}
+
+.me_content .me_form {
+    background: #fff;
+    width: 660px;
+    min-height: 500px;
+    z-index: 10;
+    position: relative;
+    filter: progid: DXImageTransform.Microsoft.Shadow(strength=10, direction=90, rgba(115, 98, 77, 0.4));
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(strength=10,direction=90,rgba(115, 98, 77, 0.4))";
+    box-shadow: 10px 0px 3px rgba(115, 98, 77, 0.4);
+}
+
+.me_content .me_form .me_data_inform {
+    padding: 0 70px;
+}
+
+.me_content .me_form .me_data_inform h4 {
+    margin-bottom: 0;
+}
+
+.me_content .me_form .me_data_inform p {
+    color: #565656;
+    line-height: 30px;
+    margin-bottom: 19px;
+}
+
+.me_content .me_form .me_data_inform p a {
+    display: inline-block;
+    color: #009245;
+    text-decoration: underline;
+}
+
+.me_content .me_form .me_data_inform p a:hover {
+    color: #72e1af;
+}
+
+.me_content .me_form .me_data_inform p span {
+    display: block;
+    color: #979797;
+}
+
+
+/*选择学校*/
+
+.me_content .me_form .school-list {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    min-height: 100px;
+    max-height: 160px;
+    overflow: auto;
+}
+
+.me_content .me_form .school-list label {
+    color: #009245;
+}
+
+.me_content .me_form .school-list .magic-radio {
+    position: absolute;
+    display: none;
+}
+
+.me_content .me_form .school-list .magic-radio + label {
+    position: relative;
+    display: block;
+    padding-left: 30px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.me_content .me_form .school-list .magic-radio + label:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    content: '';
+    border: 1px solid #ccc;
+}
+
+.me_content .me_form .school-list .magic-radio + label:after {
+    position: absolute;
+    display: none;
+    content: '';
+}
+
+.me_content .me_form .school-list .magic-radio:checked + label:before {
+    animation-name: none;
+}
+
+.me_content .me_form .school-list .magic-radio:checked + label:after {
+    display: block;
+}
+
+.me_content .me_form .school-list .magic-radio + label:before {
+    border-radius: 50%;
+}
+
+.me_content .me_form .school-list .magic-radio + label:after {
+    top: 7px;
+    left: 7px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #009245;
+}
+
+.me_content .me_form .school-list .magic-radio:checked + label:before {
+    border: 1px solid #009245;
+}
+
+.me_con_bg {
+    background: none;
+    padding: 80px 0 130px;
+    min-height: 230px;
+}
+
+.me_con_bg .me_reset {
+    width: 280px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.me_con_bg .me_reset h4 {
+    font-size: 1.8rem;
+    line-height: 30px;
+    color: #666666;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+.me_con_bg .me_reset p {
+    margin-bottom: 0;
+}
+
+.me_con_bg .me_reset .submit_btn {}
+
+.me_con_bg .container p {
+    text-align: center;
+    font-size: 1.4rem;
+    color: #909090;
+    font-weight: normal;
+    margin-bottom: 20px;
+    position: relative;
+    margin-top: 30px;
+}
+
+.me_con_bg .container .activate_btn {
+    width: 280px;
+    margin: 0 auto;
+}
+
+.me_con_bg .me_reset .submit_btn:hover,
+.me_con_bg .container .activate_btn:hover {
+    background: #72e1af;
+}
+
+.me_content .container {
+    margin: 0 auto;
+    position: relative;
+}
+
+.me_content .form_register {
+    min-height: 501px;
+    padding: 71px 0 64px;
+}
+
+.me_content .form_jigou {
+    min-height: 555px;
+}
+
+.me_content .form_login {
+    padding: 71px 0 64px;
+}
+
+.me_content .me_form .form1 {
+    width: 280px;
+    margin: 0 auto;
+}
+
+.me_content .me_form h4 {
+    font-size: 18px;
+    color: #000;
+    line-height: 36px;
+    margin-bottom: 5px;
+    font-weight: normal;
+}
+
+.me_content .me_form .form1 p,
+.me_content .me_reset p {
+    width: 280px;
+    height: 40px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.me_content .me_form .school-list p {
+    margin-bottom: 0;
+}
+
+.me_content .me_form .form1 p .inp_yzm,
+.me_content p .inp_yzm {
+    width: 140px;
+    position: absolute;
+    left: 0;
+}
+
+.me_content .me_form .form1 p .inp_code,
+.me_content p .inp_code {
+    cursor: pointer;
+    display: inline-block;
+    width: 128px;
+    height: 40px;
+    background: #E8E8E8;
+    border-radius: 4px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.me_content .me_form .form1 p .login_btn,
+.me_con_bg .me_reset .submit_btn,
+.me_con_bg .container .activate_btn {
+    display: block;
+    background: #009E4D;
+    line-height: 40px;
+    text-align: center;
+    color: #fff;
+    border-radius: 4px;
+    font-family: "微软雅黑";
+}
+
+.me_content .me_form .form1 p .login_btn:hover {
+    background: #72e1af;
+}
+
+.me_content .me_form .form1 .me_p {
+    margin-bottom: 10px;
+}
+
+.me_content .me_form .form1 p .continu {
+    color: #333333;
+    line-height: 18px;
+    margin-left: 20px;
+}
+
+.me_content .me_form .form1 p .other {
+    color: #333333;
+    line-height: 18px;
+    cursor: pointer;
+}
+
+.me_content .me_form .form1 .qrcode {
+    border: 1px solid #ddd;
+}
+
+.me_content .me_form .form1 #wxQrcode {
+    margin: 40px;
+}
+
+.me_content .me_form .form1 .wx-info {
+    display: block;
+    margin-top: 5px;
+    font-weight: normal;
+    text-align: center;
+}
+
+.me_content .me_form .form1 .back-normal {
+    display: block;
+    margin-top: 5px;
+    font-weight: normal;
+    text-align: center;
+    cursor: pointer;
+    color: #007338;
+    text-decoration: underline;
+}
+
+.me_content .me_form .form1 p input[type=checkbox] {
+    position: absolute;
+    top: 1px;
+    left: -3px;
+}
+
+.me_content .me_form .form1 p .me_look {
+    position: absolute;
+    right: 0px;
+    top: 0;
+    color: #007338;
+    text-decoration: underline;
+}
+
+.strMess,
+.reStrMess {
+    color: #ff0000;
+    position: absolute;
+    right: 0;
+    bottom: -17px;
+    font-size: 12px;
+    display: none;
+}
+
+
+/*.redBorder{ border: 1px solid #ff0000;}*/
+
+.me_content .me_info {
+    width: 411px;
+    min-height: 308px;
+    margin-left: -6px;
+    z-index: 1;
+    background-color: #42754F;
+    opacity: 0.8;
+    position: absolute;
+    top: 26px;
+    right: 0;
+    padding: 71px 68px 71px 77px;
+    color: #fff;
+}
+
+.me_content .jigou {
+    background-color: #445D6D;
+    opacity: 0.8;
+}
+
+.me_content .me_info p .me_more {
+    color: #009e4d;
+    text-decoration: underline;
+    display: inline-block;
+}
+
+.me_content .me_info p .me_more:hover {
+    color: #72e1af;
+}
+
+.me_content .heigh01 {
+    height: 498px;
+}
+
+.me_content .heigh {
+    height: 446px;
+}
+
+.me_content .me_info h4 {
+    font-size: 18px;
+    line-height: 36px;
+    font-weight: normal;
+    color: #ffffff;
+}
+
+.me_content .me_info p {
+    font-size: 14px;
+    line-height: 24px;
+    margin-bottom: 22px;
+}
+
+.me_content .me_info div {
+    width: auto;
+    margin-bottom: 22px;
+    overflow: hidden;
+}
+
+.me_content .me_info .me_regster {
+    float: left;
+    display: block;
+    width: 120px;
+    height: 40px;
+    color: #fff;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid #fff;
+}
+
+.me_content .me_info .me_download {
+    float: left;
+    margin-left: 20px;
+    display: block;
+    width: 120px;
+    height: 40px;
+    color: #fff;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid #fff;
+}
+
+.me_content .me_info .me_mess {
+    color: #bee6cc;
+}
+
+hr {
+    border: 1px solid #eee;
+    margin-bottom: 19px;
+}
+
+.container .close {
+    position: absolute;
+    right: 6%;
+    display: none;
+    font-size: 18px;
+    font-size: 1.8rem;
+    width: 77px;
+    height: 26px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    top: 30px;
+    top: 5%;
+    line-height: 27px;
+    vertical-align: middle;
+    z-index: 999;
+    background: url(../images/me_close.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.me_content .me_form .me_student {
+    margin: 70px auto 56px;
+    width: 280px;
+    height: 374px;
+}
+
+.me_content .me_form .me_student h4 {
+    line-height: 36px;
+    font-size: 1.8rem;
+    font-weight: normal;
+    margin-bottom: 5px;
+}
+
+.me_content .me_form .me_student .me_student_code {
+    width: 200px;
+    height: 200px;
+    border: 1px solid #ddd;
+    padding: 39px;
+    margin-bottom: 5px;
+}
+
+.me_content .me_form .me_student .me_student_code img {
+    max-width: 100%;
+}
+
+.me_content .me_form .me_student span,
+a {
+    display: block;
+    text-align: center;
+    color: #6d6d6d;
+    font-size: 1.4rem;
+    line-height: 24px;
+}
+
+.me_content .me_form .me_student a {
+    color: #007338;
+    text-decoration: underline;
+}
+
+.me_content .me_form .me_student a:hover {
+    color: #72e1af;
+}
+
+footer {
+    min-height: 228px;
+    padding: 3rem 2rem;
+    background: #666666;
+    font-size: 1.4rem;
+}
+
+footer .me_footer {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+footer .me_footer img {
+    max-width: 100%;
+}
+
+footer p {
+    text-align: center;
+    color: #cdcecd;
+    line-height: 20px;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+}
+
+footer p a {
+    color: #cce4cc;
+    padding: 0 9px;
+    display: inline-block;
+    font-size: 1.4rem;
+}
+
+footer p a:hover {
+    text-decoration: none;
+    color: #72e1af;
+}
+
+footer p span {
+    display: inline-block;
+    color: #cdcecd;
+    font-size: 1.4rem;
+}
+
+.footer p.me_p_0 {
+    color: #cce4cc;
+}
+
+.footer p.me_p_1 span {
+    color: #8a8a8a;
+    font-size: 1.4rem;
+    text-align: center;
+}
+
+.footer p.me_p_1 a {
+    padding: 0 5px;
+}
+
+.footer p.me_p1 span {
+    color: #8a8a8a;
+}
+
+@media (min-width: 540px) and (max-width: 708px) {
+    .me_content .container {
+        width: 70%;
+    }
+}
+
+@media (min-width: 708px) and (max-width: 992px) {
+    .me_content .container {
+        width: 50%;
+    }
+}
+
+@media (min-width: 993px) {
+    .container {
+        width: 950px;
+    }
+    .me_list {
+        display: block;
+    }
+    .navbar-toggle {
+        display: none;
+    }
+    .navbar-header {
+        float: left;
+    }
+}
+
+@media (max-width: 992px) {
+    .container {
+        padding: 2rem;
+    }
+    .me_header .container {}
+    .navbar-toggle {
+        display: block;
+        cursor: pointer;
+    }
+    .me_list {
+        display: none;
+    }
+    .navbar-logo {
+        width: 154px;
+        height: 42px;
+        padding: 0.5rem 0 0 2rem;
+    }
+    .navbar-collapse {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 6rem 0 11.6rem;
+        z-index: 999;
+        background: #000;
+        filter: alpha(opacity=90);
+        -moz-opacity: 0.9;
+        -khtml-opacity: 0.9;
+        opacity: 0.9;
+    }
+    .me_header .container .me_list {
+        width: 100%;
+        margin: 0;
+    }
+    .me_header .container .me_list a {
+        text-transform: uppercase;
+        font-weight: 400;
+        letter-spacing: 1px;
+        font-size: 2.4rem;
+        color: #d7d7d7;
+        width: 80%;
+        line-height: 81px;
+        border-bottom: 1px solid #485C50;
+        margin: 0 10%;
+        text-align: center;
+        float: none;
+        display: inline-block;
+    }
+    .navbar-nav {
+        margin: 0;
+    }
+    .me_content {
+        background: none;
+        padding: 0;
+        min-height: 1px;
+    }
+    .me_content .container {
+        min-height: 1px;
+    }
+    .me_content .me_form {
+        box-shadow: none;
+        width: auto;
+        background: none;
+        margin: 8px auto;
+        text-align: center;
+        float: none;
+        display: block;
+    }
+    .me_content .me_form .me_student {}
+    .me_content .me_form .me_student h4 {
+        font-size: 2.4rem;
+        line-height: 40px;
+        margin-bottom: 10px;
+    }
+    .me_content .me_form .me_student .me_student_code {
+        margin-bottom: 10px;
+    }
+    .me_content .me_form .me_student span,
+    a {
+        font-size: 1.8rem;
+        line-height: 30px;
+    }
+    .me_content .me_form .form1 {
+        width: auto;
+        padding: 0;
+        margin: 0 auto;
+    }
+    .me_content .me_form .form1 h4,
+    .me_content .me_info h4 {
+        line-height: 40px;
+        font-size: 2.4rem;
+        margin-bottom: 20px;
+        text-align: left;
+    }
+    .me_content .me_form .form1 p {
+        width: auto;
+        height: 60px;
+        margin-bottom: 30px;
+        font-size: 1.8rem;
+        line-height: 30px;
+    }
+    input[type=text],
+    input[type=number],
+    input[type=email],
+    input[type=password],
+    input[type=tel] {
+        width: 100%;
+        height: 60px;
+        font-size: 1.8rem;
+        padding-left: 20px;
+    }
+    .account_type {
+        width: 100%;
+        height: 60px;
+        font-size: 1.8rem;
+        padding-left: 15px;
+    }
+    .me_content .me_form .form1 p .inp_yzm {
+        width: 50%;
+        float: left;
+    }
+    .me_content .me_form .form1 p .inp_code {
+        width: 45%;
+        height: 60px;
+    }
+    .me_content .me_form .form1 p .login_btn {
+        line-height: 60px;
+        font-size: 2.4rem;
+    }
+    .strMess {
+        font-size: 1.8rem;
+        bottom: -26px;
+    }
+    .me_con_bg {
+        min-height: 440px;
+        padding-top: 80px;
+    }
+    .me_con_bg .me_reset {
+        width: auto;
+    }
+    .me_con_bg .me_reset h4 {
+        font-size: 2.4rem;
+    }
+    .me_con_bg .me_reset .submit_btn {
+        line-height: 60px;
+        font-size: 2.4rem;
+    }
+    .me_con_bg .container p {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+    }
+    .me_con_bg .container .activate_btn {
+        width: auto;
+    }
+    .me_content .me_form .form1 p input[type=checkbox] {
+        width: 18px;
+        height: 18px;
+    }
+    .me_content .me_form .form1 p .continu {
+        position: absolute;
+        top: 5px;
+        left: 10px;
+    }
+    .me_content .me_form .form_login {
+        min-height: 300px;
+    }
+    .me_content .me_form .form1 .me_p2 {
+        height: 28px;
+        margin-bottom: 0;
+    }
+    .me_content .me_info {
+        background: none;
+        float: none;
+        display: block;
+        position: static;
+        width: auto;
+        padding: 30px 0;
+        color: #000;
+    }
+    .me_content .heigh {
+        height: auto;
+    }
+    .me_content .me_info h4 {
+        color: #000;
+        margin-bottom: 0;
+    }
+    .me_content .me_info p {
+        font-size: 1.8rem;
+        line-height: 30px;
+    }
+    .me_content .me_info div {
+        width: auto;
+        height: 60px;
+    }
+    .me_content .me_info .me_regster {
+        width: 99%;
+        height: 95%;
+        border: 1px solid #009849;
+        border-radius: 4px;
+        color: #009e4d;
+        line-height: 60px;
+        font-size: 2.4rem;
+    }
+    .me_content .me_info .me_mess {
+        color: #919191;
+    }
+    /*选择学校*/
+    .me_content .me_form .school-list {
+        margin-top: 35px;
+        max-height: 180px;
+    }
+    .footer {
+        font-size: 1.8rem;
+    }
+    .footer p.me_p_1 {
+        display: none;
+        font-size: 1.8rem;
+    }
+    .footer p.me_p1 {
+        margin-top: 10px;
+    }
+    .footer p {
+        margin-bottom: 0;
+        line-height: 30px;
+        font-size: 1.8rem;
+    }
+    .footer p a {
+        font-size: 1.8rem;
+    }
+    .footer p span {
+        font-size: 1.8rem;
+    }
+    .footer .me_footer {
+        margin-bottom: 0;
+    }
+}
+
+@media (min-width: 993px) and (max-width: 1080px) {
+    .me_content .container {
+        width: 800px;
+    }
+    .me_content .me_form {
+        width: 400px;
+    }
+    .me_content .me_info {
+        width: 296px;
+    }
+}
+
+@media (min-width: 1080px) and (max-width: 1300px) {
+    .me_content .container {
+        width: 1000px;
+    }
+    .me_content .me_form {
+        width: 520px;
+    }
+    .me_content .me_info {
+        width: 356px;
+    }
+}
+
+@media (min-width: 1300px) {
+    .container {
+        width: 1200px;
+    }
+}

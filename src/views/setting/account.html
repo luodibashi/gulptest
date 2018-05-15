@@ -1,0 +1,51 @@
+<div ng-controller="account" class="main setting">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/setting" class="personal-center">个人中心</a>
+                    <a href="#/account" class="personal-center-selected selected">账户管理</a>
+                    <a href="#/password" class="personal-center">修改密码</a>
+                </div>
+                <div class="detail">
+                    <div class="account-top">
+                        <span class="rest">余额:<i>{{account.balance}}学豆</i></span>
+                        <button class="cash disable">提现</button>
+                        <!-- <span>(余额满100提现，每次申请以100整数倍，最高1000)</span> -->
+                        <b class="fr" style="margin-right: 60px;"><i class="deal"></i><span>交易说明</span></b>
+                        <b class="fr"><i class="contact"></i><span>联系客服</span></b>
+                    </div>
+                    <div class="account-content">
+                        <div class="account-info">
+                            <div class="info-left fl">
+                                <p class="goods-type">已上架我的习题卷商品</p>
+                                <p class="goods-number">{{account.ownerGoods.goodsNumber}}</p>
+                                <p>被其他老师获取布置作业次数:<span>{{account.ownerGoods.participatedNumber}}</span></p>
+                                <p>上架商品答卷支持总次数:<span>{{account.ownerGoods.paymentTimes}}</span></p>
+                                <p>获得收益:<span class="price">+{{account.ownerGoods.income}}</span></p>
+                            </div>
+                            <div class="info-right fl">
+                                <p class="goods-type">外部来源习题卷商品</p>
+                                <p class="goods-number">{{account.participatorGoods.goodsNumber}}</p>
+                                <p>布置作业使用次数:<span>{{account.participatorGoods.participatedNumber}}</span></p>
+                                <p>我的学生答卷支持次数:<span>{{account.participatorGoods.paymentTimes}}</span></p>
+                                <p>获得收益:<span class="price">+{{account.participatorGoods.income}}</span></p>
+                            </div>
+                            <hr>
+                            <div class="info-bottom">
+                                <p>说明：</p>
+                                <p>1.以一份上架习题卷10学豆为例，教师布置给学生，学生答卷交费10学豆，教师分得3学豆，版权费用5学豆，平台收取2学豆。</p>
+                                <p>2.总余额满1000学豆可提现，每次申请以1000学豆整数倍，最高10000学豆，提现方式以平台转账方式发放到指定账户。</p>
+                                <p>3.获得收益计算最小单位1学豆，总收益余额 = 已上架习题卷全部答卷次数收益 x 0.5 &nbsp;+ 外部来源习题卷总答卷支持次数收益 x 0.3。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+</div>

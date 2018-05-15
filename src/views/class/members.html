@@ -1,0 +1,74 @@
+<div class="main" ng-controller="members">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/class/list" class="class-list-selected selected">我的班级</a>
+                    <!-- <a href="#/class/public" class="class-public">公共班级</a> -->
+                    <a href="#/class/create" class="class-create">创建班级</a>
+                    <a href="#/class/live" class="class-live">班级直播</a>
+                </div>
+                <div class="detail">
+                    <div class-info></div>
+                    <div class="sub-sidebar left">
+                        <div qrCode></div>
+                        <ul class="three-navigation">
+                            <li><a ng-href="#/class/members/{{cid}}" class="selected">本班学员</a></li>
+                            <li><a ng-href="#/class/represent/{{cid}}">本班助教</a></li>
+                            <li><a ng-href="#/class/record/{{cid}}">作业记录</a></li>
+                            <li><a ng-href="#/class/permission/{{cid}}">班级教师</a></li>
+                            <li><a ng-href="#/class/questionbank/{{cid}}">班级题库</a></li>
+                            <li><a ng-href="#/class/modify/{{cid}}">修改班级信息</a></li>
+                        </ul>
+                    </div>
+                    <div class="right">
+                        <div class="student-list">
+                            <div class="student-list-header">
+                                <div pagination></div>
+                                <div class="search">
+                                    <div class="input-search">
+                                        <input type="text" placeholder='搜索学员' ng-model="username">
+                                    </div>
+                                    <button class="btn btn-success search-detail" type="button" ng-click="search()">搜索</button>
+                                </div>
+                                <a href="javascript:void(0);" class="black-user" ng-href="#/class/blacklist/{{cid}}">黑名单用户</a>
+                            </div>
+                            <ul class="student-list-body">
+                                <li ng-repeat="user in userlist">
+                                    <img class="student_img_icon" ng-src="{{user.photo ? user.photo : 'http://institu.mstudy.me/img/youtu.jpg'}}" width="36" height="36" />
+                                    <span>{{user.studentName}}<i ng-if="user.remarkName">({{user.remarkName}})</i></span>
+                                    <a class="btn blacklist" ng-click="remove(user['studentId'])">拉入黑名单</a>
+                                    <a class="btn quit" ng-click="delete(user['studentId'])">踢出班级</a>
+                                    <a class="btn remark js_msgSenderRemark" ng-click="alert(user['studentId'])">修改备注</a>
+                                    <a ng-href="#/class/personinfo/{{user.cid}}/{{user.studentId}}" class="show-score">查看统计成绩</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+    <!--遮罩弹窗-->
+    <div class="mask none"></div>
+    <div class="dialog_wrp simple label_block none">
+        <div class="dialog">
+            <div class="dialog_hd">
+                <h3>添加备注</h3>
+                <a href="javascript:void(0);" onclick="return false" class="icon16_opr closed pop_closed" ng-click="cancel()">关闭</a>
+            </div>
+            <div class="dialog_bd">
+                <input type="text" ng-model="nickname" placeholder="备注...">
+                <p>备注不能超过12字！</p>
+            </div>
+            <div class="dialog_ft">
+                <span><button type="button" class="confirm" data-index="0" ng-click="confirm()">确认</button></span>
+                <span><button type="button" class="cancel" data-index="1" ng-click="cancel()">取消</button></span>
+            </div>
+        </div>
+    </div>
+</div>

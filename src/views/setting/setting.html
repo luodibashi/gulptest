@@ -1,0 +1,131 @@
+<div ng-controller="setting" class="main setting">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/setting" class="personal-center-selected selected">个人中心</a>
+                    <a href="#/account" class="personal-center">账户管理</a>
+                    <a href="#/password" class="personal-center">修改密码</a>
+                </div>
+                <div class="detail">
+                    <div class="class-create-from">
+                        <form class="hide" id="uploadPicForm" enctype="multipart/form-data" role="form">
+                            <input type="file" id="file" class="hide" accept="image/*" name="resource" />
+                        </form>
+                        <form class="form-horizontal" role="form" name="myForm">
+                            <div class="photo-contain">
+                                <div class="photo-area">
+                                    <img class="photo" ng-src="{{teacher.photo?teacher.photo:'./static/images/user-default.png'}}">
+                                    <div class="photo-edit" ng-click="editPhoto()">
+                                        <img class="camera" src="./static/images/camera.png">
+                                        <span>修改头像</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>教师姓名</label>
+                                <input type="text" class="form-control" ng-model="teacher.teacherName" placeholder="姓名" ng-blur="editName()" />
+                            </div>
+                            <div class="editdiv">
+                                <label>联系电话</label>
+                                <input type="text" class="form-control" readonly="readonly" ng-model="teacher.phone" placeholder="电话" />
+                                <span class="mark" ng-click="editNumber(1)">修改</span>
+                            </div>
+                            <div class="editdiv">
+                                <label>邮箱</label>
+                                <input type="text" class="form-control" readonly="readonly" placeholder="邮箱" ng-model="teacher.email">
+                                <span class="mark" ng-click="editNumber(2)">修改</span>
+                            </div>
+                            <div class="editdiv">
+                                <label>用户名</label>
+                                <input type="text" class="form-control" readonly="readonly" placeholder="用户名" ng-model="teacher.account">
+                                <span class="mark" ng-click="editNumber(3)">修改</span>
+                            </div>
+                            <label>阶段年级</label>
+                            <ul>
+                                <li class="fl" ng-repeat="tag in teacherTags track by $index">
+                                    <span>{{tag.tagName}}</span>
+                                    <i class="delete-tag" ng-click="deleteTag(tag.id)">删除</i>
+                                </li>
+                                <b class="fl add" ng-click="modalGrade()">+</b>
+                            </ul>
+                            <label>科目</label>
+                            <ul>
+                                <li class="fl" ng-repeat="course in courseTags track by $index">
+                                    <span>{{course.tagName}}</span>
+                                    <i class="delete-tag" ng-click="deleteTag(course.id)">删除</i>
+                                </li>
+                                <b class="fl add" ng-click="modalCourse()">+</b>
+                            </ul>
+                            <!-- <button type="button" class="btn btn-success changepass" ng-click="submit()">确定修改</button> -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+    <div class="mask" ng-show="myModal"></div>
+    <!-- 标签修改摸态框 -->
+    <div class="dialog_wrp simple label_block" ng-show="tagModal">
+        <div class="dialog">
+            <div class="dialog_hd">
+                <h3>{{gradeModal?'阶段年级标签':'课程标签'}}</h3>
+                <a href="javascript:void(0);" onclick="return false" class="icon16_opr closed pop_closed" ng-click="hideModal()">关闭</a>
+            </div>
+            <div class="dialog_bd">
+                <div class="clear-fl" ng-repeat="stage in tags track by $index" ng-if="gradeModal">
+                    <b>{{stage.tagName}}</b>
+                    <i ng-repeat="grade in stage.gradeList track by $index" ng-class="{'fl':true,'choosen':chooseTagIds.indexOf(grade.tagId)!=-1,'selected':choosenTagIds.indexOf(grade.tagId)!=-1}" ng-click="chooseTag(grade.tagId,grade.parentTagId)">{{grade.tagName}}</i>
+                </div>
+                <div class="clear-fl" ng-if="!gradeModal">
+                    <i ng-repeat="course in courses track by $index" ng-class="{'fl':true,'choosen':chooseCourseIds.indexOf(course.tagId)!=-1,'selected':choosenCourseIds.indexOf(course.tagId)!=-1}" ng-click="chooseCourse(course.tagId)">{{course.tagName}}</i>
+                </div>
+            </div>
+            <div class="dialog_ft">
+                <span><button type="button" class="confirm" ng-click="confirm()">确认</button></span>
+                <span><button type="button" class="cancel" ng-click="hideModal()">取消</button></span>
+            </div>
+        </div>
+    </div>
+    <!-- 电话邮箱账号修改 -->
+    <div class="dialog_wrp simple label_block" ng-show="numberModal">
+        <div class="dialog">
+            <div class="dialog_hd">
+                <h3>{{validate?'验证密码':'修改账号'}}</h3>
+                <a href="javascript:void(0);" onclick="return false" class="icon16_opr closed pop_closed" ng-click="hideModal()">关闭</a>
+            </div>
+            <div class="dialog_bd">
+                <div ng-show="validate">
+                    <input class="import" type="password" placeholder="请输入账号密码" ng-model="password" />
+                </div>
+                <div ng-show="!validate&&editType==1">
+                    <input class="import" type="text" placeholder="请输入新的手机号" ng-model="newPhone" />
+                    <input class="import-small" type="text" placeholder="请输入图片验证码" ng-model="phoneCaptcha" />
+                    <img ng-click="getPicCaptcha()" class="import-btn import-captcha" ng-src="data:image/png;base64,{{image}}" />
+                    <input class="import-small" type="text" placeholder="请输入短信验证码" ng-model="phonePwd" />
+                    <button ng-click="getCaptcha()" class="import-btn" ng-show="!second">获取验证码</button>
+                    <button class="import-btn" ng-show="second">{{second}}s后重新发送</button>
+                </div>
+                <div ng-show="!validate&&editType==2">
+                    <input class="import" type="text" placeholder="请输入新的邮箱账号" ng-model="newMail" />
+                    <input class="import-small" type="text" placeholder="请输入邮箱验证码" ng-model="mailPwd" />
+                    <button ng-click="getCaptcha()" class="import-btn" ng-show="!second">获取验证码</button>
+                    <button class="import-btn" ng-show="second">{{second}}s后重新发送</button>
+                </div>
+                <div ng-show="!validate&&editType==3">
+                    <input class="import" type="text" placeholder="请输入用户名" ng-model="newAccount" />
+                    <p class="note">用户名必须是以字母开头,只允许包括字母与数字,限制50个字符</p>
+                </div>
+            </div>
+            <div class="dialog_ft">
+                <span ng-show="validate"><button type="button" class="confirm" ng-click="validatePwd()">验证</button></span>
+                <span ng-show="!validate"><button type="button" class="confirm" ng-click="confirmEdit()">确认</button></span>
+                <span><button type="button" class="cancel" ng-click="hideModal()">取消</button></span>
+            </div>
+        </div>
+    </div>
+</div>

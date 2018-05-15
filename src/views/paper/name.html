@@ -1,0 +1,85 @@
+<div class="main" ng-controller="paperName">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/paper/list/0" class="paper-list">我的习题</a>
+                    <a href="#/paper/public" class="paper-list">公共习题库</a>
+                    <a href="#/paper/name" class="paper-create-selected selected">录入习题</a>
+                    <a href="#/paper/tag" class="paper-list">标签管理</a>
+                </div>
+                <div class="detail">
+                    <div class="create-paper">
+                        <div class="create-paper-step">
+                            <img class="create-step" src="./static/images/step1.png" />
+                            <div class="create-paper-form">
+                                <form class="form-horizontal" role="form">
+                                    <input type="text" ng-model="pname" class="form-control" name="paper-name" placeholder="输入习题名" />
+                                    <div class="tag-area">
+                                        <ul>
+                                            <li class="fl" ng-hide="tagList.length" ng-click="openModal()">选择标签</li>
+                                            <li class="fl" ng-repeat="tag in tagList track by $index">
+                                                <span>{{tag.tagName}}</span>
+                                                <i class="delete-tag" ng-click="deleteTag($index)">删除</i>
+                                            </li>
+                                            <b class="fl add" ng-click="openModal()">+</b>
+                                        </ul>
+                                    </div>
+                                </form>
+                            </div>
+                            <a class="btn btn-success nextstep create-paper-button" href="javascript:void(0)" ng-click="nextstep()">下一步</a>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="create-paper-info">
+                            <h3>说明：</h3>
+                            <p>1. 输入试卷名称（如以后需要修改可在试卷预览页面点击“上一步”进行修改）</p>
+                            <p>2. 进入编辑导题页面后，选择左上的导题按钮，在打开的文件框中选中Word文档导入导系统中。</p>
+                            <p>3. Word文档导入成功后，会在试题编辑页面左边编辑区展示，教师可选择合适的题目拖到左边的习题框中生成习题试卷。</p>
+                            <p>4. 习题试卷拖动完成后，点击预览页面进行查看，如有问题可以返回编辑状态修改。确认无误后，在预览状态提交完成录入。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+    <div class="mask" ng-show="tagModal"></div>
+    <!-- 标签修改摸态框 -->
+    <div class="dialog_wrp simple label_block" ng-show="tagModal">
+        <div class="dialog">
+            <div class="dialog_hd">
+                <h3>选择标签</h3>
+                <a href="javascript:void(0);" onclick="return false" class="icon16_opr closed pop_closed" ng-click="hideModal()">关闭</a>
+            </div>
+            <div class="dialog_bd dialog-tag">
+                <div class="public-tag">
+                    <b>公有标签</b>
+                    <ul class="public-tag-list">
+                        <li ng-repeat="tag in publicTagList track by $index" ng-class="{'fl':true,'selected':selectedTagIds.indexOf(tag.tagId)!=-1}" ng-click="chooseTag(tag)">
+                            {{tag.tagName}}
+                        </li>
+                        <li class="fl more" ng-show="publicMore" ng-click="morePublic()">更多</li>
+                    </ul>
+                </div>
+                <div class="private-tag">
+                    <b>私有标签</b>
+                    <ul class="private-tag-list">
+                        <input ng-show="addTag" class="fl add-tag" type="text" placeholder="请输入标签名" ng-model="addTagName" ng-blur="newTag()" />
+                        <li ng-repeat="tag in privateTagList track by $index" ng-class="{'fl':true,'selected':selectedTagIds.indexOf(tag.tagId)!=-1}" ng-click="chooseTag(tag)">
+                            <span>{{tag.tagName}}</span>
+                        </li>
+                        <li class="fl more" ng-show="privateMore" ng-click="morePrivate()">更多</li>
+                        <!-- <b class="fl add" ng-click="addTag=true">+</b> -->
+                    </ul>
+                </div>
+            </div>
+            <div class="dialog_ft">
+                <span><button type="button" class="confirm" ng-click="confirm()">确认</button></span>
+                <span><button type="button" class="cancel" ng-click="hideModal()">取消</button></span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="main" ng-controller="record">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/class/list" class="class-list-selected selected">我的班级</a>
+                    <!-- <a href="#/class/public" class="class-public">公共班级</a> -->
+                    <a href="#/class/create" class="class-create">创建班级</a>
+                    <a href="#/class/live" class="class-live">班级直播</a>
+                </div>
+                <div class="detail">
+                    <div class-info></div>
+                    <div class="sub-sidebar left">
+                        <div qrCode></div>
+                        <ul class="three-navigation">
+                            <li><a ng-href="#/class/members/{{cid}}">本班学员</a></li>
+                            <li><a ng-href="#/class/represent/{{cid}}">本班助教</a></li>
+                            <li><a ng-href="#/class/record/{{cid}}" class="selected">作业记录</a></li>
+                            <li><a ng-href="#/class/permission/{{cid}}">班级教师</a></li>
+                            <li><a ng-href="#/class/questionbank/{{cid}}">班级题库</a></li>
+                            <li><a ng-href="#/class/modify/{{cid}}">修改班级信息</a></li>
+                        </ul>
+                    </div>
+                    <div class="right">
+                        <div class="student-list">
+                            <div class="student-list-header">
+                                <div pagination></div>
+                                <div class="search">
+                                    <div class="input-search">
+                                        <input type="text" class="form-control" placeholder='搜索作业' ng-model="searchName" />
+                                    </div>
+                                    <button class="btn btn-success search-class-work" ng-click="searchWork()">搜索</button>
+                                </div>
+                            </div>
+                            <ul class="student-list-body">
+                                <li ng-repeat="work in worklist">
+                                    <div class="student-list-body-text">
+                                        <ul>
+                                            <li class="wname">
+                                                <p>{{work.workName}}</p>
+                                            </li>
+                                            <li class="starttime">
+                                                <p>规定取作业时间</p>{{work.startTime}}</li>
+                                            <li class="duration">
+                                                <p>作业时长</p> {{work.durationTime==0?"不限时": (work.durationTime | hmdFormat)}}</li>
+                                            <li class="submitnumber">
+                                                <p>已提交</p>{{work.submitNumber}}</li>
+                                            <a href="#/class/result/{{work.cid}}/{{work.workId}}" class="show-score">查看统计成绩</a>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+</div>

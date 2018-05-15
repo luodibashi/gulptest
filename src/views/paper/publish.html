@@ -1,0 +1,69 @@
+<script type="text/javascript" src="static/js/datePicker/WdatePicker.js"></script>
+<div class="main" ng-controller="paperPublish">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/paper/list/0" class="paper-list-selected selected">我的习题</a>
+                    <a href="#/paper/public" class="paper-list">公共习题库</a>
+                    <a href="#/paper/name" class="paper-create">录入习题</a>
+                    <a href="#/paper/tag" class="paper-list">标签管理</a>
+                </div>
+                <div class="detail">
+                    <div class="paper-publish-top">
+                        <div class="left">发布分享到公共习题库</div>
+                        <div class="right">
+                            <a class="btn btn-success nextstep back-edit" ng-click="back()">返回列表</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="publish-content">
+                        <div class="good-name">
+                            <label>商品名称</label>
+                            <input class="form-control" type="text" placeholder="输入商品名称" ng-model="goodName" />
+                        </div>
+                        <div class="good-paper">
+                            <div class="total-price"><span class="fr">(注:10学豆=1元人民币) 总价:{{totalPrice?totalPrice:0}}学豆</span></div>
+                            <p ng-repeat="paper in paperList track by $index">
+                                <span class="paper-name">{{paper.paperName}}</span>
+                                <i class="fr" ng-click="deletePaper($index)">删除</i>
+                                <input class="fr" type="text" placeholder="评估价格" ng-model="paper.paperPrice" ng-blur="getPrice($index,$event)" />
+                            </p>
+                            <hr>
+                        </div>
+                        <div class="good-tag">
+                            <label>默认发布到</label>
+                            <div class="choose-stage">
+                                <select id="stage" ng-model="stageId" ng-change="chooseStage()" ng-options="tag.tagId as tag.tagName for tag in tags">
+                                    <option value="" disabled>选择阶段</option>
+                                </select>
+                                <b class="fr" ng-click="clearChoosen()">清空选择</b>
+                            </div>
+                            <div class="choose-class">
+                                年级:
+                                <ul>
+                                    <li ng-class="{'fl':true,'selected':selectedClass.indexOf(tag.tagId)!=-1}" ng-click="chooseClass(tag.tagId)" ng-repeat="tag in tagList track by $index">{{tag.tagName}}</li>
+                                </ul>
+                            </div>
+                            <div class="choose-course">
+                                科目:
+                                <ul>
+                                    <li ng-class="{'fl':true,'selected':selectedCourse.indexOf(course.tagId)!=-1}" ng-click="chooseCourse(course.tagId)" ng-repeat="course in courses track by $index">{{course.tagName}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="good-time">
+                            上架有效期至:
+                            <input type="text" class="Wdate end-date" placeholder="年/月/日" readonly onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00',minDate:'%y-%M-%d'})" value="{{endTime}}" />
+                        </div>
+                        <button class="confirm" ng-click="confirm()">确认发布</button>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+</div>

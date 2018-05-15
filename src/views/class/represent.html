@@ -1,0 +1,49 @@
+<div class="represent main" ng-controller="represent">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/class/list" class="class-list-selected selected">我的班级</a>
+                    <!-- <a href="#/class/public" class="class-public">公共班级</a> -->
+                    <a href="#/class/create" class="class-create">创建班级</a>
+                    <a href="#/class/live" class="class-live">班级直播</a>
+                </div>
+                <div class="detail">
+                    <div class-info></div>
+                    <div class="sub-sidebar left">
+                        <div qrCode></div>
+                        <ul class="three-navigation">
+                            <li><a ng-href="#/class/members/{{cid}}">本班学员</a></li>
+                            <li><a ng-href="#/class/represent/{{cid}}" class="selected">本班助教</a></li>
+                            <li><a ng-href="#/class/record/{{cid}}">作业记录</a></li>
+                            <li><a ng-href="#/class/permission/{{cid}}">班级教师</a></li>
+                            <li><a ng-href="#/class/questionbank/{{cid}}">班级题库</a></li>
+                            <li><a ng-href="#/class/modify/{{cid}}">修改班级信息</a></li>
+                        </ul>
+                    </div>
+                    <div class="class-rep left">
+                        <a class="make-qrcode" ng-click="monitorCode()">点击生成助教身份二维码</a>
+                        <p>* 微信扫一扫，即可绑定成为本班助教，</p>
+                        <p>成为本班助教可用在微信查看并管理本班学生，及批改作业等相关功能。</p>
+                        <div class="teacher-qrcode">
+                            <div class="teacher-qrcode-detail">
+                                <div class="monitor" ng-repeat="monitor in monitorlist track by $index">
+                                    <div class="imgcode"></div>
+                                    <p class="bind-status" ng-if="monitor.userName">{{monitor.userName}}</p>
+                                    <p class="unbind-status" ng-if="!monitor.userName">(未绑定助教信息)</p>
+                                    <a ng-if="monitor.userName" class="remove-bind" ng-click="unbindRepresent(monitor.tutorId,$index)">解除绑定</a>
+                                    <a ng-if="!monitor.userName" class="remove-bind" ng-click="deleteQrCode(monitor.tutorId,$index)">删除</a>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+</div>

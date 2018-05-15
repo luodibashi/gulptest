@@ -1,0 +1,816 @@
+.permissions .module-left {
+    float: left;
+    width: 260px;
+    min-height: 700px;
+    border-right: 1px dashed #ccc;
+}
+
+.permissions .module-left .search-area {
+    margin-top: 40px;
+    padding: 0 0 0 16px;
+    overflow: hidden;
+}
+
+.permissions .module-left .search-area .tips {
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: #a8a8a8;
+}
+
+.permissions .module-left .search-area #search {
+    width: 168px;
+    height: 33px;
+    text-indent: 10px;
+    // border: 1px solid #ccc;
+    float: left;
+    border-radius: 4px 0 0 4px;
+    border: none;
+}
+
+.permissions .module-left .search-area #btn {
+    width: 56px;
+    height: 33px;
+    border: 0;
+    box-sizing: border-box;
+    float: left;
+    border-radius: 0 4px 4px 0;
+}
+
+.permissions .module-left .result {
+    margin: 20px 16px;
+    font-size: 14px;
+    color: #333;
+}
+
+.permissions .module-left .result .account {
+    margin-left: 12px;
+}
+
+.permissions .module-left .result .tName img {
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+.permissions .module-left .result .invite {
+    height: 36px;
+    width: 98%;
+    display: block;
+    margin: 30px auto;
+    background-color: #fff;
+    color: #009245;
+    border: 1px solid #009245;
+    letter-spacing: 4px;
+}
+
+.permissions .module-left .defined {
+    margin-top: 60px;
+}
+
+.permissions .module-left .defined .infomation {
+    font-size: 16px;
+    color: #009245;
+    margin-left: 10px;
+}
+
+.permissions .module-left .openBox {
+    margin-top: 10px;
+    height: 44px;
+    border-bottom: 1px solid #cfcfcf;
+}
+
+.permissions .module-left .openBox .infomation {
+    font-size: 16px;
+    color: #616161;
+    margin-left: 10px;
+}
+
+.permissions .module-left .openBox .already-status {
+    font-size: 16px;
+    color: #009245;
+    // margin-left: 10px;
+}
+.permissions .module-left .openBox .none-status {
+    font-size: 16px;
+    color: #009245;
+    // margin-left: 10px;
+}
+
+.permissions .module-left .configBox {
+    margin-top: 10px;
+}
+.permissions .module-left .configBox .configBox-title{
+    font-size: 16px;
+    color: #616161;
+    margin-left: 10px;
+}
+.permissions .module-left .configBox .configBox-prefix{
+    font-size: 14px;
+    color: #929292;
+    margin-left: 10px;
+    padding-top: 10px;
+}
+.permissions .module-left .configBox .configBox-prefix-info{
+    font-size: 14px;
+    color: #616161;
+    margin-left: 10px;
+    padding-top: 2px;
+}
+.permissions .module-left .configBox .configBox-prefix-info .configBox-prefix-name{
+    font-size: 14px;
+    color: #009245;
+    background: #fff;
+    line-height: 30px;
+    margin-right: 10px;
+    text-indent: 10px;
+    border-radius: 4px;
+}
+.permissions .module-left .configBox .configBox-prefix-info .configBox-prefix-edit{
+    font-size: 14px;
+    // color: #009245;
+    margin: 0;
+    padding: 0;
+    height: 30px;
+    width: 95%;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    text-indent: 10px;
+}
+.permissions .module-left .configBox .configBox-total{
+    font-size: 14px;
+    color: #929292;
+    margin-left: 10px;
+    padding-top: 10px;
+}
+.permissions .module-left .configBox .configBox-total span{
+    font-size: 14px;
+    color: #009245;
+    display: block;
+    padding-top: 2px;
+    background: #fff;
+    line-height: 30px;
+    margin-right: 10px;
+    text-indent: 10px;
+    border-radius: 4px;
+}
+.permissions .module-left .configBox .configBox-conf{
+    font-size: 14px;
+    color: #929292;
+    margin-left: 10px;
+    padding-top: 10px;
+}
+.permissions .module-left .configBox .configBox-conf-info{
+    font-size: 14px;
+    color: #616161;
+    margin-left: 10px;
+    padding-top: 2px;
+}
+.permissions .module-left .configBox .configBox-conf-info .configBox-conf-name{
+    font-size: 14px;
+    color: #616161;
+    padding-right: 10px;
+    padding-top: 2px;
+    overflow: hidden;
+}
+.permissions .module-left .configBox .configBox-conf-info .configBox-conf-name .configBox-conf-title{
+    font-size: 14px;
+    color: #616161;
+    width: 60%;
+    float: left;
+    line-height: 30px;
+}
+.permissions .module-left .configBox .configBox-conf-info .configBox-conf-name .configBox-conf-edit{
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    height: 30px;
+    width: 35%;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    text-indent: 5px;
+    float: right;
+}
+.permissions .module-left .configBox .configBox-conf-info .configBox-conf-name .configBox-conf-show{
+    float: right;
+    width: 35%;
+    text-align: center;
+    font-size: 14px;
+    line-height: 30px;
+    color: #009245;
+    background: #fff;
+    line-height: 30px;
+    text-indent: 10px;
+    border-radius: 4px;
+}
+.permissions .module-left .configBox .configBox-duration{
+    font-size: 14px;
+    color: #929292;
+    margin-left: 10px;
+    padding-top: 10px;
+}
+.permissions .module-left .configBox .configBox-duration-info{
+    font-size: 14px;
+    color: #616161;
+    margin-left: 10px;
+    padding-top: 2px;
+    overflow: hidden;
+    margin-right: 10px;
+}
+.permissions .module-left .configBox .configBox-duration-info .configBox-duration-data{
+    color: #009245;
+    font-size: 14px;
+    line-height: 30px;
+    background: #fff;
+    // margin-right: 10px;
+    text-indent: 10px;
+    border-radius: 4px;
+}
+.permissions .module-left .configBox .configBox-duration-info .configBox-duration-name{
+    font-size: 14px;
+    color: #009245;
+}
+.permissions .module-left .configBox .configBox-duration-info .configBox-duration-hour{
+    width: 50%;
+    float: left;
+    position: relative;
+}
+.permissions .module-left .configBox .configBox-duration-info .configBox-duration-hour span{
+    position: absolute;
+    right: 10px;
+    top: 6px;
+}
+.permissions .module-left .configBox .configBox-duration-info .configBox-duration-hour .configBox-duration-hour-input{
+    font-size: 14px;
+    color: #009245;
+    margin: 0;
+    padding: 0;
+    height: 30px;
+    width: 95%;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    text-indent: 10px;
+    float: left;
+}
+.permissions .module-left .configBox .configBox-duration-info .configBox-duration-minute{
+    width: 50%;
+    float: right;
+    position: relative;
+}
+.permissions .module-left .configBox .configBox-duration-info .configBox-duration-minute span{
+    position: absolute;
+    right: 10px;
+    top: 6px;
+}
+.permissions .module-left .configBox .configBox-duration-info .configBox-duration-minute .configBox-duration-minute-input{
+    font-size: 14px;
+    color: #009245;
+    margin: 0;
+    padding: 0;
+    height: 30px;
+    width: 95%;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    text-indent: 10px;
+    float: right;
+}
+.permissions .module-left .configBox .configBox-score{
+    font-size: 14px;
+    color: #929292;
+    margin-left: 10px;
+    padding-top: 10px;
+}
+.permissions .module-left .configBox .configBox-score-info{
+    font-size: 14px;
+    color: #616161;
+    margin-left: 10px;
+    padding-top: 2px;
+}
+.permissions .module-left .configBox .configBox-score-info .configBox-score-data{
+    color: #009245;
+    font-size: 14px;
+    line-height: 30px;
+    background: #fff;
+    margin-right: 10px;
+    text-indent: 10px;
+    border-radius: 4px;
+}
+.permissions .module-left .configBox .configBox-score-info .configBox-score-name{
+    font-size: 14px;
+    color: #009245;
+}
+.permissions .module-left .configBox .configBox-score-info .configBox-score-edit{
+    font-size: 14px;
+    color: #009245;
+    margin: 0;
+    padding: 0;
+    height: 30px;
+    width: 95%;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    text-indent: 10px;
+}
+
+.permissions .module-left .configBox .sureBox{
+    margin-left: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+}
+.permissions .module-left .configBox .sureBox .sureBox-update{
+    font-size: 15px;
+    color: #929292;
+    margin-top: 10px;
+    width: 100%;
+    background: #009245;
+    height: 30px;
+    color: #fff;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.permissions .module-left .configBox .sureBox .sureBox-update div{
+    border-radius: 4px;
+}
+.permissions .module-left .configBox .sureBox .sureBox-update div:hover{
+    border-radius: 4px;
+    background: #00a54e;
+}
+.permissions .module-left .configBox .sureBox .sureBox-ok{
+    // font-size: 15px;
+    width: 100%;
+    overflow: hidden; 
+}
+.permissions .module-left .configBox .sureBox .sureBox-yes{
+    font-size: 15px;
+    width: 45%;
+    float: left;
+    background: #009245;
+    margin-top: 10px;
+    color: #fff;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.permissions .module-left .configBox .sureBox .sureBox-no{
+    font-size: 15px;
+    width: 45%;
+    float: right;
+    background: #adadad;
+    margin-top: 10px;
+    color: #fff;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.permissions .module-left .chk {
+    display: none;
+}
+
+.permissions .module-left .chk + label {
+    background-color: #fafbfa;
+    padding: 6px;
+    border-radius: 42px;
+    display: inline-block;
+    position: relative;
+    top: 8px;
+    margin-right: 30px;
+    transition: all 0.1s ease-in;
+    width: 36px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.permissions .module-left .chk + label:after {
+    content: ' ';
+    position: absolute;
+    top: 0;
+    transition: box-shadow 0.1s ease-in;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+    box-shadow: inset 0 0 0 0 #eee, 0 0 1px rgba(0, 0, 0, 0.4);
+}
+
+.permissions .module-left .chk + label:before {
+    content: ' ';
+    position: absolute;
+    background: white;
+    top: 0px;
+    left: 1px;
+    z-index: 999999;
+    width: 28px;
+    transition: all 0.1s ease-in;
+    height: 28px;
+    border-radius: 80px;
+    box-shadow: 0 3px 1px rgba(0, 0, 0, 0.05), 0 0px 1px rgba(0, 0, 0, 0.3);
+}
+
+.permissions .module-left .chk:active + label:after {
+    box-shadow: inset 0 0 0 20px #eee, 0 0 1px #eee;
+}
+
+.permissions .module-left .chk:active + label:before {
+    width: 32px;
+}
+
+.permissions .module-left .chk:checked:active + label:before {
+    width: 32px;
+    left: 20px;
+}
+
+.permissions .module-left .chk + label:active {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.permissions .module-left .chk:checked + label:before {
+    content: ' ';
+    position: absolute;
+    left: 26px;
+    border-radius: 100px;
+}
+
+.permissions .module-left .chk:checked + label:after {
+    content: ' ';
+    font-size: 1.5em;
+    position: absolute;
+    background: #009245;
+    box-shadow: 0 0 1px #009245;
+}
+
+.permissions .module-right {
+    float: left;
+    width: 525px;
+    // padding: 0 10px;
+}
+
+.permissions .module-right .title p {
+    margin: 16px 10px;
+}
+
+.permissions .module-right .title .tips-title {
+    color: #333;
+    font-size: 18px;
+    margin-top: 32px;
+}
+
+.permissions .module-right .title .tips-info {
+    font-size: 14px;
+    color: #999;
+}
+
+.permissions .module-right .teacher-list-box{
+    margin: 10px;
+    background-color: #fff;
+    // border-radius: 8px;
+    // padding: 8px;
+}
+
+.permissions .module-right .teacher-list-table {
+    width: 100%;
+    // margin-left: 3px;
+    // margin-top: 20px;
+}
+.permissions .module-right .teacher-list-table .create{
+    background: #efefef;
+    // border-radius: 8px;
+}
+
+.permissions .module-right .teacher-list-table tr td {
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    // border: 1px solid #ccc;
+    padding: 5px 0;
+    border-right: 1px solid #e8e8e8;
+    border-top: 1px solid #e8e8e8;
+}
+
+.permissions .module-right .teacher-list-table .refuse {
+    background-color: #eee;
+}
+
+.permissions .module-right .teacher-list-number {
+    width: 10%;
+}
+
+.permissions .module-right .flag {
+    width: 14%;
+}
+
+.permissions .module-right .email {
+    width: 28%;
+}
+
+.permissions .module-right .creator .tname {
+    width: 20%;
+}
+
+.permissions .module-right .teacher-list .tname {
+    width: 18%;
+}
+
+.permissions .module-right .teacher-list .transfer {
+    width: 12%;
+    background-color: #009245;
+    color: #fff;
+    cursor: pointer;
+}
+
+.permissions .module-right .teacher-list .spec {
+    background-color: #fff;
+}
+
+.permissions .module-right .teacher-list .delete {
+    width: 15%;
+    cursor: pointer;
+}
+
+.permissions .module-right .refuse .transfer {
+    background-color: #eee;
+    color: #333;
+}
+
+.permissions .module-right .paper-page {
+    margin-top: 10px;
+    height: 44px;
+    border-bottom: 1px solid #cfcfcf;
+    overflow: hidden;
+}
+
+.permissions .module-right .paper-page .paper-page-size {
+    float: left;
+    margin-left: 10px;
+}
+.permissions .module-right .paper-page .paper-class-add {
+    float: right;
+    margin-right: 10px;
+    line-height: 34px;
+    background: #009245;
+    padding: 0 15px;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+}
+.permissions .module-right .paper-page .paper-class-add:hover {
+    float: right;
+    margin-right: 10px;
+    line-height: 34px;
+    background: #00a54e;
+    padding: 0 15px;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+}
+.permissions .module-right .paper-list {
+    text-indent: 10px;
+}
+
+.permissions .module-right .paper-list ul{
+    
+}
+
+.permissions .module-right .paper-list ul .paper-title{
+    height: 30px;
+    background: #ededed;
+    color: #480000;
+    font-weight: 600;
+}
+.permissions .module-right .paper-list ul .paper-list-info{
+    height: 50px;
+}
+.permissions .module-right .paper-list ul .paper-list-info:hover{
+    background: #ddd;
+}
+.permissions .module-right .paper-list ul .paper-list-info .paper-list-none{
+    line-height: 50px;
+    text-align: center;
+}
+.permissions .module-right .paper-list ul li{
+    overflow: hidden;
+    font-size: 14px;
+    border-bottom: 1px solid #ddd;
+}
+
+.permissions .module-right .paper-list ul li .paper-name-title{
+    line-height: 30px;
+    float: left;
+    width: 80%;
+}
+
+.permissions .module-right .paper-list ul li .paper-do-title{
+    float: left;
+    width: 20%;
+    line-height: 30px;
+}
+
+.permissions .module-right .paper-list ul li .paper-name{
+    line-height: 50px;
+    float: left;
+    width: 80%;
+}
+
+.permissions .module-right .paper-list ul li .paper-do{
+    line-height: 50px;
+    float: left;
+    width: 20%;
+}
+// .add-class-paper .big-class-paper .paper-list ul .paper-list-info .paper-do a{
+//     background: #e7e7e7;
+//     padding: 2px 10px;
+//     border-radius: 4px;
+//     color: #009245;
+//     border: 1px solid #009245;
+// }  
+
+.add-class-paper{
+    background: #fff;
+    border-radius: 4px;
+    position: fixed;
+    top: 10%;
+    left: 20%;
+    right: 20%;
+    bottom: 10%;  
+    z-index: 99999999; 
+}
+.add-class-paper .big-class-paper{
+    position: relative;
+    height: 100%;
+}
+.add-class-paper .big-class-paper .class-paper-title{
+    height: 40px;
+    width: 100%;
+    border-bottom: 1px solid #f5f5f5;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+}
+.add-class-paper .big-class-paper .class-paper-title .class-paper-title-font{
+    line-height: 40px;
+    padding-left: 10px;
+    font-size: 14px;
+    float: left;
+}
+.add-class-paper .big-class-paper .class-paper-title .class-paper-close{
+    line-height: 40px;
+    padding-right: 10px;
+    font-size: 14px;
+    float: right;
+    cursor: pointer;
+}
+.add-class-paper .big-class-paper .class-paper-title .class-paper-close:hover{
+    line-height: 40px;
+    padding-right: 10px;
+    font-size: 14px;
+    float: right;
+    cursor: pointer;
+    color: #009245;
+}
+.add-class-paper .big-class-paper .paper-list-box{
+    /*width: 100%;*/
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 40px;
+    bottom: 50px;
+    /*padding: 0 0 10px 0;*/
+}
+.add-class-paper .big-class-paper .paper-list-box .paper-list{
+    float: left;
+    width: 50%;
+    height: 100%;
+    overflow-y: auto;
+    background: #fbfbfb;
+}
+.add-class-paper .big-class-paper .paper-list-box .paper-list .paper-list-title{
+    padding-left: 10px;
+    line-height: 30px;
+    font-size: 14px;
+    background: #f7f7f7;
+}
+.add-class-paper .big-class-paper .paper-list-box .paper-list ul .paper-header,
+.add-class-paper .big-class-paper .paper-list-box .choosed-box ul .choosed-header{
+    font-weight: 600;
+}
+.add-class-paper .big-class-paper .paper-list-box .paper-list ul .paper-header,
+.add-class-paper .big-class-paper .paper-list-box .paper-list ul .paper-main{
+    line-height: 30px;
+    font-size: 14px;
+    padding: 0 10px;
+    overflow: hidden;
+    border-bottom: 1px solid #f1f1f1;
+}
+.add-class-paper .big-class-paper .paper-list-box .paper-list ul .paper-main:hover{
+    background: #f7f7f8;
+}
+.add-class-paper .big-class-paper .paper-list-box .paper-list ul .paper-header .paper-name,
+.add-class-paper .big-class-paper .paper-list-box .paper-list ul .paper-main .paper-name{
+    float: left;
+    width: 80%;
+}
+.add-class-paper .big-class-paper .paper-list-box .paper-list ul .paper-header .paper-do,
+.add-class-paper .big-class-paper .paper-list-box .paper-list ul .paper-main .paper-do{
+    float: right;
+    width: 20%;
+} 
+.add-class-paper .big-class-paper .paper-list-box .choosed-box{
+    float: right;
+    width: 50%;
+    height: 100%;
+    overflow-y: auto;
+}
+.add-class-paper .big-class-paper .paper-list-box .choosed-box .choosed-box-title{
+    padding-left: 10px;
+    line-height: 30px;
+    font-size: 14px;
+    background: #fbfbfb;
+}
+.add-class-paper .big-class-paper .paper-list-box .choosed-box ul .choosed-header,
+.add-class-paper .big-class-paper .paper-list-box .choosed-box ul .choosed-main{
+    line-height: 30px;
+    font-size: 14px;
+    padding: 0 10px;
+    overflow: hidden;
+    border-bottom: 1px solid #f1f1f1;
+}
+.add-class-paper .big-class-paper .paper-list-box .choosed-box ul .choosed-main:hover{
+    background: #f7f7f8;
+}
+.add-class-paper .big-class-paper .paper-list-box .choosed-box ul .choosed-header .paper-name,
+.add-class-paper .big-class-paper .paper-list-box .choosed-box ul .choosed-main .paper-name{
+    float: left;
+    width: 80%;
+}
+.add-class-paper .big-class-paper .paper-list-box .choosed-box ul .choosed-header .paper-do,
+.add-class-paper .big-class-paper .paper-list-box .choosed-box ul .choosed-main .paper-do{
+    float: right;
+    width: 20%;
+}
+
+.add-class-paper .big-class-paper .sure-box{
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    overflow: hidden;
+    border-top: 1px solid #ddd;
+}
+.add-class-paper .big-class-paper .sure-box .sure-box-yes {
+    float: left;
+    width: 50%;
+    overflow: hidden;
+}
+.add-class-paper .big-class-paper .sure-box .sure-box-yes .sure-box-yes-btn{
+    float: right;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 5px;
+    padding: 0 10px;
+    background: #009245;
+    color: #fff;
+    border-radius: 4px;
+    margin-right: 10px;
+    width: 100px;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.add-class-paper .big-class-paper .sure-box .sure-box-no {
+    float: left;
+    width: 50%;
+    overflow: hidden;
+}
+.add-class-paper .big-class-paper .sure-box .sure-box-no .sure-box-no-btn{
+    float: left;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 5px;
+    padding: 0 10px;
+    background: #ddd;
+    /*color: #fff;*/
+    border-radius: 4px;
+    margin-right: 10px;
+    width: 100px;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.add-class-paper-bg{
+   background: #000;
+   opacity: 0.5;
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;  
+   z-index: 9999999;
+}

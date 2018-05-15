@@ -1,0 +1,168 @@
+<script type="text/javascript" src="static/js/datePicker/WdatePicker.js"></script>
+<div class="main workdetail" ng-controller="workdetail">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/work/list" class="work-list-selected selected">作业列表</a>
+                    <a href="#/work/arrange" class="work-create">安排作业</a>
+                </div>
+                <div class="detail">
+                    <div class="exam-plan-from">
+                        <div class="fl select-term">
+                            <p for="select-homework" class="select-homework"><img src="http://teacher.mstudy.me/admin/images/examplan_01.png" />&nbsp;&nbsp;1.已选作业（最后敲定的试卷）</p>
+                            <div class="select-paper-div">
+                                <div class="select-paper-name scroll-div">
+                                    <div class="paper-lists">
+                                        <p class="paper-lists-info">
+                                            <img src="./static/images/radio_selected.png" />
+                                            <span ng-if="workInfo.price">{{workInfo.price}}学豆</span> {{workInfo.workName}}
+                                            <span class="goods-name" ng-if="workInfo.goodsName">({{workInfo.goodsName}})</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="select-goods-type" ng-show="workInfo.workType!=1">
+                                作业类型:
+                                <div>
+                                    <img src="./static/images/radio_selected.png" ng-show="workInfo.workType==3" ng-click='workInfo.workType = 2' />
+                                    <img src="./static/images/radio_select.png" ng-hide="workInfo.workType==3" ng-click='workInfo.workType = 3' />
+                                    <span>普通商品作业</span>
+                                </div>
+                                <div>
+                                    <img src="./static/images/radio_selected.png" ng-show="workInfo.workType==2" ng-click='workInfo.workType = 3' />
+                                    <img src="./static/images/radio_select.png" ng-hide="workInfo.workType==2" ng-click='workInfo.workType = 2' />
+                                    <span>推荐商品作业</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fl select-term">
+                            <p for="select-class" class="select-homework"><img src="http://teacher.mstudy.me/admin/images/examplan_02.png" />&nbsp;&nbsp;2.已选班级</p>
+                            <div class="select-classes-div">
+                                <div class="select-classes-name scroll-div">
+                                    <div class="classes-lists">
+                                        <img class="classes-lists-img" src="./static/images/radio_selected.png" />
+                                        <span>{{classInfo.className}}</span>
+                                        <ul class="student-lists" id="index{{$index}}">
+                                            <li ng-repeat="user in classInfo.students" class="li-indent">
+                                                <!-- 选择 false-->
+                                                <img class="classes-lists-img" src="./static/images/radio_selected.png" ng-click='userCheck(user["studentId"])' ng-show="user.isMake==1" />
+                                                <!-- 不选择 -->
+                                                <img class="classes-lists-img" src="./static/images/radio_select.png" ng-click='userCheck(user["studentId"])' ng-show="user.isMake==0" /> {{user.studentName}}
+                                                <span ng-if="user.remarkName">({{user.remarkName}})</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group submit-work">
+                            <button type="button" id="setWork" class="btn btn-default disabled" ng-click="submit()">修改作业</button>
+                            <button type="button" id="setting" class="btn btn-default" ng-click="setting()">高级设置</button>
+                        </div>
+                        <div class="fl switch">
+                            <div>
+                                <div class="startend">
+                                    <p class="select-homework"><img src="http://teacher.mstudy.me/admin/images/examplan_03.png" />&nbsp;&nbsp;设置作业时间（超出规定区间的学生将不能获取作业）</p>
+                                    <input type="text" class="form-control startime Wdate" placeholder="起始时间" readonly="readonly" value="{{workInfo.startTime}}">
+                                    <input type="text" class="form-control endtime Wdate" placeholder="长期作业" readonly="readonly" value="{{workInfo.endTime==0 ? '' : workInfo.endTime}}">
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="notice">
+                                    <p class="select-homework"><img src="http://teacher.mstudy.me/admin/images/examplan_03.png" />&nbsp;&nbsp;作业何时通知</p>
+                                    <input type="text" class="form-control Wdate noticeTime" readonly="readonly" placeholder="默认当前时间" value="{{workInfo.displayTime}}" style="cursor: pointer;">
+                                </div>
+                            </div>
+                            <!--作业时长-->
+                            <div class="work-duration">
+                                <p class="select-homework"><img src="http://teacher.mstudy.me/admin/images/examplan_04.png" />&nbsp;&nbsp;作业时长（为0时作为不定时作业）</p>
+                                <div class="fl">
+                                    <input type="text" class="form-control hours" ng-model="hours" maxlength="2" placeholder="0">
+                                    <span>小时</span>
+                                </div>
+                                <div class="fl">
+                                    <input type="text" class="form-control minute" ng-model="minute" maxlength="2" placeholder="0">
+                                    <span>分钟</span>
+                                </div>
+                                <div class="fl">
+                                    <input type="text" class="form-control second" ng-model="second" maxlength="2" placeholder="0">
+                                    <span>秒</span>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="form-group check all">
+                                <img ng-src="./static/images/{{workInfo.isWholeWork==1 ? 'checked.png' : 'uncheck.png'}}" ng-click="isAll()"> 设置为全班作业&nbsp;&nbsp;(<span class="tips">提示：勾选该选项被布置后，对于新加入班级的学生可以收到作业</span>)
+                            </div>
+                            <div class="form-group check order">
+                                <img ng-src="./static/images/{{workInfo.isMixed==1 ? 'checked.png' : 'uncheck.png'}}"> 客观题选项打乱顺序
+                            </div>
+                            <div class="form-group check is_see">
+                                <img ng-src="./static/images/{{workInfo.showAnswerType==1?'checked.png':'uncheck.png'}}"> 学生作业提交后,答案解析直接公布
+                            </div>
+                            <div class="form-group check is_join">
+                                <img ng-src="./static/images/{{workInfo.isJoinStatistics==1?'checked.png':'uncheck.png'}}" ng-click="isJoin()"> 本次作业加入班级统计报告
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+</div>
+<script>
+$(function() {
+
+    var currentTime = new Date().getTime();
+
+    $('.Wdate').on("mouseover", function() {
+        var settingTime = new Date($(this).val()).getTime();
+
+        if (settingTime < currentTime) {
+            if ($(this).hasClass("startime")) {
+                $(".startime").css("cursor", "not-allowed");
+            }
+            if ($(this).hasClass("endtime")) {
+                $(".endtime").css("cursor", "not-allowed");
+            }
+            if ($(this).hasClass("noticeTime")) {
+                $(".noticeTime").css("cursor", "not-allowed");
+            }
+
+        }
+    });
+
+
+    $(".Wdate").click(function() {
+        //WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',minDate:'%y-%M-%d'});
+        console.log($(this).val());
+        //日期转成数字
+        var settingTime = new Date($(this).val()).getTime();
+
+        if (settingTime < currentTime) {
+            if ($(this).hasClass("startime")) {
+                alert("作业开始时间已过,不可以修改了")
+                return;
+            }
+            if ($(this).hasClass("endtime")) {
+                alert("作业已经结束,不可以修改了")
+                return;
+            }
+            if ($(this).hasClass("noticeTime")) {
+                alert("作业通知时间已过,不可以修改了")
+                return;
+            }
+
+        }
+
+        WdatePicker({
+            dateFmt: 'yyyy-MM-dd HH:mm:ss',
+            minDate: '%y-%M-%d'
+        });
+    })
+
+})
+</script>

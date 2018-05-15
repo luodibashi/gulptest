@@ -1,0 +1,50 @@
+<div class="main" ng-controller="modify">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/class/list" class="class-list-selected selected">我的班级</a>
+                    <!-- <a href="#/class/public" class="class-public">公共班级</a> -->
+                    <a href="#/class/create" class="class-create">创建班级</a>
+                    <a href="#/class/live" class="class-live">班级直播</a>
+                </div>
+                <div class="detail">
+                    <div class-info></div>
+                    <div class="sub-sidebar left">
+                        <div qrCode></div>
+                       <ul class="three-navigation">
+                            <li><a ng-href="#/class/members/{{cid}}">本班学员</a></li>
+                            <li><a ng-href="#/class/represent/{{cid}}">本班助教</a></li>
+                            <li><a ng-href="#/class/record/{{cid}}">作业记录</a></li>
+                            <li><a ng-href="#/class/permission/{{cid}}">班级教师</a></li>
+                            <li><a ng-href="#/class/questionbank/{{cid}}">班级题库</a></li>
+                            <li><a ng-href="#/class/modify/{{cid}}" class="selected">修改班级信息</a></li>
+                        </ul>
+                    </div>
+                    <div class="update-form left">
+                        <div class="class-update-from">
+                            <form class="form-horizontal" role="form" name="myForm">
+                                <p>修改班级名</p>
+                                <input type="text" name="className" class="form-control" ng-model="reName" placeholder="设定班级名" title="设定班级名" />
+                                <!-- {{reName}} -->
+                                <p>修改班级人数</p>
+                                <input type="text" name="classNum" class="form-control" ng-model="reNumber" placeholder="设定班级人数" title="设定班级人数" />
+                                <p>修改班级密码</p>
+                                <input type="password" name="classPass" class="form-control" ng-model="rePassword" placeholder="(6-8位数字)" title="设置进入班级的密码" />
+                                <p class="title">留言内容</p>
+                                <p class="tips">还剩<span style="font-size: 18px;">{{tips}}</span>字</p>
+                                <p class="error" style="color: #e43434;" >已超过<span style="font-size: 18px;">{{tips}}</span>字</p>
+                                <textarea class="form-control" placeholder="班级公告(140字以内 )" ng-model="classAnnounce" title="班级公告" ng-change="counter()"></textarea>
+                                <button type="button" class="btn btn-success class-modify" ng-click="modify()" ng-disabled="myForm.$invalid">确认修改</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+</div>

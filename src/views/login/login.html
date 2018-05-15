@@ -1,0 +1,124 @@
+<link rel="stylesheet" href="./static/css/reset.css">
+<link rel="stylesheet" href="./static/css/me_main.css">
+<div ng-controller="login" class="loginCtrl common">
+    <header class="me_header me_nav">
+        <div class="container fn">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-logo" href="#">
+                    <img alt="Brand" src="static/images/me_logo.png">
+                </a>
+            </div>
+            <div class="me_list collapse navbar-collapse fr" id="bs-example-navbar-collapse-1">
+                <a href="http://www.maixuexi.cn">首页</a>
+                <a href="http://www.maixuexi.cn/help.html" target="_blank">常见问题</a>
+                <a href="http://blog.maixuexi.cn/" target="_blank">互动讨论</a>
+                <a class="a_log" href="http://www.maixuexi.cn/school" target="_blank">学校版登录</a>
+                <a class="a_log" id="teacher-login" target="_blank">教师登录</a>
+                <a class="a_log" href="http://www.maixuexi.cn/student" target="_blank">学生登录</a>
+            </div>
+            <a href="#" class="close click_tracking" data-label="Close header menu" tabindex="1"></a>
+        </div>
+    </header>
+    <div class="me_content">
+        <div class="container">
+            <div class="me_form fl">
+                <form class="form1 form_login" ng-hide="schoolList || qrcode">
+                    <h4>教师登录</h4>
+                    <p>
+                        <input type="text" id="email" placeholder="邮 箱/手 机 号/账 号" ng-model="email">
+                    </p>
+                    <p>
+                        <input type="password" id="password" placeholder="密 码" ng-model="password">
+                    </p>
+                    <p>
+                        <input class="inp_yzm" type="text" id="captcha" placeholder="验证码" ng-model="captcha">
+                        <img class="inp_code" ng-src="data:image/png;base64,{{image}}" id="code" ng-click="refresh()" />
+                    </p>
+                    <p class="me_p"><a class="login_btn" ng-click="submit()">登&nbsp;&nbsp;&nbsp;录</a></p>
+                    <p class="me_p2">
+                        <!-- <input type="checkbox" ng-checked="{{isRemember}}" ng-click="remember()">
+                        <span class="continu">保持登录</span> -->
+                        <span class="other" ng-click="qrcode=true">其他登录方式</span>
+                        <a class="me_look" href="http://www.maixuexi.cn/forget.html?uerType=1">找回密码</a>
+                    </p>
+                </form>
+                <form class="form1 form_login" ng-show="schoolList">
+                    <h4>选择学校</h4>
+                    <div class="school-list">
+                        <p ng-repeat="school in schoolList track by $index">
+                            <input class="magic-radio" type="radio" name="radio" id="{{school.sid}}" />
+                            <label for="{{school.sid}}" ng-click="selected(school.sid)">{{school.schoolName}}</label>
+                        </p>
+                    </div>
+                    <p class="me_p"><a class="login_btn" ng-click="confirm()">确&nbsp;&nbsp;&nbsp;定</a></p>
+                </form>
+                <form class="form1 form_login" ng-show="qrcode">
+                    <h4>教师电脑版登录</h4>
+                    <div class="qrcode">
+                        <div id="wxQrcode"></div>
+                    </div>
+                    <b class="wx-info">使用微信扫描二维码</b>
+                    <b class="back-normal" ng-click="qrcode=false">使用账号密码登录</b>
+                </form>
+            </div>
+            <div class="me_info fr">
+                <h4>没有账号？</h4>
+                <p>老师免费试用，快来注册吧。</p>
+                <div>
+                    <a href="http://www.maixuexi.cn/register.html?userType=1" class="me_regster">注&nbsp;&nbsp;&nbsp;册</a>
+                    <a href="http://teacher.mstudy.me" class="me_download" target="_blank">登录旧版教师端</a>
+                </div>
+                <p class="me_mess">
+                    官方交流群：439294187
+                    <br> 不会操作？向客服提问，跟其他老师取经！想开通主观题更多功 能？快快来加群！
+                </p>
+            </div>
+        </div>
+    </div>
+    <footer class="footer foot">
+        <div class="me_footer"><img src="static/images/me_footer_logo.png"></div>
+        <p>
+            <a href="http://www.m-cookies.com/" target="_blank">关于我们</a></li>|
+            <a href="http://cn.mikecrm.com/JMOqv3L" target="_blank">问题反馈</a></li>
+        </p>
+        <!--<p class="me_p_1">
+            <span>友情链接：</span>
+            <a href="#">亲子早教</a>
+            <a href="#">试题库</a>
+        </p>-->
+        <p>市场合作：mstudy@m-cookies.com &nbsp;客服电话：027-87298233（工作时间09:00-18:00）&nbsp;公司地址：武汉市东湖西路114号景天楼2-11-2室</p>
+        <p class="me_p1"><span>©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</span></p>
+    </footer>
+</div>
+<script type="text/javascript">
+$(function() {
+    $(".navbar-toggle").bind('click', function() {
+        $(".me_list").fadeIn('200');
+        $(".click_tracking").show();
+    });
+
+    $(".click_tracking").bind('click', function() {
+        $(this).hide();
+        $(".me_list").fadeOut('200');
+    });
+
+    //判断终端
+    var isMobile = function() {
+        var u = navigator.userAgent;
+        return {
+            mobile: !!u.match(/AppleWebKit.*Mobile.*/) //是否为移动终端  
+        };
+    }()
+    var mobile = isMobile.mobile;
+    if (mobile) {
+        $("#teacher-login").attr('href', 'http://www.maixuexi.cn/phone');
+    } else {
+        $("#teacher-login").attr('href', 'http://www.maixuexi.cn/teacher');
+    }
+});
+</script>

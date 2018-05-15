@@ -1,0 +1,151 @@
+@color: #009245;
+.public,
+.privite {
+    .detail {
+        background-color: #ccc;
+        overflow: hidden;
+        .header {
+            background-color: #fff;
+            border-bottom: 1px solid #ccc;
+            box-shadow: 2px 0 1px #ccc;
+            .page {
+                float: left;
+                margin-left: 32px;
+                margin-top: 20px;
+                button {
+                    border: 1px solid @color;
+                }
+            }
+            .rank {
+                display: inline-block;
+                width: 120px;
+                height: 32px;
+                font-size: 16px;
+                border: 1px solid @color;
+                color: @color;
+                margin: 20px 30px;
+                line-height: 32px;
+                text-align: center;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            #search {
+                float: right;
+                margin-right: 30px;
+                height: 32px;
+                width: 210px;
+                border-radius: 4px;
+                border: 1px solid @color;
+                text-indent: 6px;
+                margin-top: 20px;
+                background: url("../images/search.png");
+                background-position: 96% 6px;
+                background-repeat: no-repeat;
+                padding-right: 4%;
+            }
+        }
+        .body {
+            background-color: #ececec;
+            min-height: 542px;
+            .tips {
+                margin-top: 60px;
+                font-size: 16px;
+                color: #333;
+                text-align: center;
+            }
+            .box {
+                width: 27%;
+                margin: 16px 3.1%;
+                float: left;
+                .above {
+                    border: 1px solid #a8a8a8;
+                    background-color: #fff;
+                    border-radius: 4px;
+                }
+                p {
+                    text-align: right;
+                    margin: 4px 8px;
+                    font-size: 14px;
+                }
+                .className {
+                    margin-top: 18px;
+                    color: #333;
+                }
+                .classNum,
+                .classLimit {
+                    color: @color;
+                }
+                .teacherInfo {
+                    margin: 6px 10px;
+                    img {
+                        cursor: pointer;
+                        margin-left: 3px;
+                    }
+                }
+                .classInfo {
+                    height: 40px;
+                    line-height: 40px;
+                    background-color: #222;
+                    color: #fff;
+                    margin-bottom: 6px;
+                    span {
+                        display: inline-block;
+                    }
+                    .classIndex {
+                        margin-left: 12px;
+                    }
+                    .pass {
+                        float: right;
+                        margin-right: 12px;
+                    }
+                }
+                .sub button {
+                    width: 40%;
+                    height: 32px;
+                    border-radius: 4px;
+                    border: 1px solid @color;
+                    font-size: 16px;
+                    margin: 10px 4.6% 0;
+                }
+                .reject {
+                    background-color: #fff;
+                    color: @color;
+                }
+            }
+        }
+        .footer {
+            clear: both;
+            .pagination {
+                display: inline-block;
+                margin: 20px 387px;
+                border-radius: 4px;
+            }
+            .pagination>li {
+                display: inline;
+            }
+            .pagination>li:first-child>a,
+            .pagination>li:first-child>span {
+                margin-left: 0;
+                border-top-left-radius: 4px;
+                border-bottom-left-radius: 4px;
+            }
+            .pagination>li>a,
+            .pagination>li>span {
+                position: relative;
+                float: left;
+                padding: 6px 12px;
+                margin-left: -1px;
+                line-height: 1.42857143;
+                color: #337ab7;
+                text-decoration: none;
+                background-color: #fff;
+                border: 1px solid #ccc;
+            }
+            .pagination>li:last-child>a,
+            .pagination>li:last-child>span {
+                border-top-right-radius: 4px;
+                border-bottom-right-radius: 4px;
+            }
+        }
+    }
+}

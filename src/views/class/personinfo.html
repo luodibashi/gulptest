@@ -1,0 +1,58 @@
+<div class="member main" ng-controller="personInfo">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/class/list" class="class-list-selected selected">我的班级</a>
+                    <!-- <a href="#/class/public" class="class-public">公共班级</a> -->
+                    <a href="#/class/create" class="class-create">创建班级</a>
+                    <a href="#/class/live" class="class-live">班级直播</a>
+                </div>
+                <div class="detail">
+                    <div class-info></div>
+                    <div class="sub-sidebar left">
+                        <div qrCode></div>
+                        <ul class="three-navigation">
+                            <li><a ng-href="#/class/members/{{cid}}" class="selected">本班学员</a></li>
+                            <li><a ng-href="#/class/represent/{{cid}}">本班助教</a></li>
+                            <li><a ng-href="#/class/record/{{cid}}">作业记录</a></li>
+                            <li><a ng-href="#/class/permission/{{cid}}">班级教师</a></li>
+                            <li><a ng-href="#/class/questionbank/{{cid}}">班级题库</a></li>
+                            <li><a ng-href="#/class/modify/{{cid}}">修改班级信息</a></li>
+                        </ul>
+                    </div>
+                    <div class="student-info left">
+                        <div class="student-info-header">
+                            <div class="userinfo">
+                                <div class="userinfo-div">
+                                    <img ng-src="{{user.photo ? user.photo:'http://www.maixuexi.cn/teacher/static/images/youtu.png'}}" width="72" height="72" />
+                                </div>
+                                <div class="userinfo-div">
+                                    <p class="userinfo-cname">{{user.studentName}}<i ng-if='user.remarkName'>({{user.remarkName}})</i>
+                                    </p>
+                                    <p class="userinfo-count">正常交作业<span class="green">&nbsp; {{user.mineWorkNumber}} &nbsp;</span>次&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;班级共发布作业<span class="green">&nbsp; {{user.totalWorkNumber }} &nbsp;</span>次</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="student-info-body">
+                            <div class="usedcount">
+                                <h3>总答题数/道题</h3>
+                                <div class="num">{{user.answerQuestionNumber}}</div>
+                            </div>
+                            <div class="usedcount rightcount">
+                                <h3>综合得分</h3>
+                                <div class="num"><span class="green">{{user.overallScore | number:2}}</span></div>
+                            </div>
+                            <div class="clear"></div>
+                            <div achive></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+</div>

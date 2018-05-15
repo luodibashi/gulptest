@@ -1,0 +1,253 @@
+<dl>
+    <dt ng-repeat="question in questions">
+        <div class="sub-question" ng-if="question.qid">
+            <div class="sub-title">
+                <div class="serial-number">{{$index+1}}</div>
+                <div class="qustion-score">(本题<b>{{question.qScore}}</b>分)</div>
+                <span class="question-share-btn" style="position: absolute;top: 0;right: 0;font-size: 16px;color: #fff;line-height: 24px;display: block;cursor: pointer;background: #096;padding: 3px 8px;border-radius: 4px;" ng-if="isFinish===1&&showShareQuestionBox" ng-click="shareQuestion(question.qid,0,$index+1,0)">分享试题</span>
+                <!-- 分享试题模态窗 -->
+                <div class="shareBox" style="position: absolute;top: 2rem;right: 0;font-size: 18px;color: #096;line-height: 24px;display: block;width: 500px;min-height: 200px;background: #fff;border: 2px #009245 solid;border-radius: 8px;padding: 1rem;z-index: 2;" ng-if="showShareBtn&&showShareBtnQid===question.qid">
+                    <!-- <p>您正在分享一道试题</p> -->
+                    <p class="resolve" ng-if="!goToShareList">您可以设置本题出解析时间</p>
+                    <form ng-if="!goToShareList">
+                        <input type="text" class="form-control Wdate noticeTime" placeholder="默认当前时间" readonly onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d'})">
+                    </form>
+                    <p ng-if="goToShareList" style="text-align: center">{{paper.paperName}}</p>
+                    <p ng-if="goToShareList" style="text-align: center">题目序号：{{index}}<span ng-if="childIndex">-{{childIndex}}</span></p>
+                    <div class="shareQrcode"></div>
+                    <div class="shareBtn">
+                        <div class="confirm" ng-if="shareModalBox">
+                            <span ng-click="confirmShare()">发布试题分享</span>
+                        </div>
+                        <div class="cancel" ng-if="shareModalBox">
+                            <span ng-click="cancelShare()">取消</span>
+                        </div>
+                        <!-- -->
+                        <div class="gotosharelist" ng-if="goToShareList">
+                            <span ng-click="yesSure()">确定</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="question_text" ng-bind-html="question.qContent | to_trusted"></div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="sub-chioce" ng-if="question.qType==1">
+                <ul>
+                    <li ng-repeat="choice in question.choices track by $index">
+                        <div class="qustion-choice">
+                            <div class="right_img">
+                                <img src="./static/images/mtk-02.png" ng-if="question.qAnswer.indexOf($index)!=-1" />
+                            </div>
+                            <div class="abcd">{{ans[$index]}}</div>
+                            <div class="answer_text" ng-bind-html="choice | to_trusted"></div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+                <div class="sub-attr" ng-if="question.qResolve">
+                    <ul>
+                        <li ng-repeat="(key,value) in question.qResolve">
+                            <div class="attr">{{key ? (key | to_trusted) : "本题解析"}}</div>
+                            <div class="attr-detail">
+                                <span ng-bind-html="value | to_trusted"></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="sub-chioce clearfix" ng-if="question.qType==2">
+                <div class="reply-chioce" ng-repeat="choice in question.choices[0] track by $index">
+                    <h2 ng-if="choice==3">{{$index+1}}&nbsp;&nbsp;({{question.choices[1][$index]}}分)&nbsp;&nbsp;使用答题方式---图片</h2>
+                    <ul class="reply-ul" ng-if="choice==3">
+                        <li class='reply-type'><img src='./static/images/img.png' /></img>
+                        </li>
+                    </ul>
+                    <h2 ng-if="choice==1">{{$index+1}}&nbsp;&nbsp;({{question.choices[1][$index]}}分)&nbsp;&nbsp;使用答题方式---填空题输入</h2>
+                    <ul class="reply-ul" ng-if="choice==1">
+                        <li class='pos' ng-style="question.qAnswer[$index]&&{'color':'#888'}">{{question.qAnswer[$index]?question.qAnswer[$index]:'__________'}}</li>
+                    </ul>
+                    <h2 ng-if="choice==2">{{$index+1}}&nbsp;&nbsp;({{question.choices[1][$index]}}分)&nbsp;&nbsp;使用答题方式---文本输入</h2>
+                    <ul class="reply-ul" ng-if="choice==2">
+                        <li class='reply-type'><img src='./static/images/text.png' /></img>
+                        </li>
+                    </ul>
+                    <h2 ng-if="choice==4">{{$index+1}}&nbsp;&nbsp;({{question.choices[1][$index]}}分)&nbsp;&nbsp;使用答题方式---录音</h2>
+                    <ul class="reply-ul" ng-if="choice==4">
+                        <li class='reply-type'><img src='./static/images/vedioone.png' /></img>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+                <div class="sub-attr" ng-if="question.qResolve">
+                    <ul>
+                        <li ng-repeat="(key,value) in question.qResolve track by $index">
+                            <div class="attr">{{key ? (key | to_trusted) : "本题解析"}}</div>
+                            <div class="attr-detail">
+                                <span ng-bind-html="value | to_trusted"></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="sub-question" ng-if="question.mDigest">
+            <div>
+                <div class="serial-number">{{$index+1}}</div>
+                <div class="yl_tixin">复合题材料</div>
+            </div>
+            <div class="clear"></div>
+            <!--音频视频-->
+            <div class="vedio-player" ng-if="question.vedio_url">
+                <h5>视频材料：</h5>
+                <iframe height=300 width=480 ng-src="{{question.vedio_url}}" frameborder=0 allowfullscreen></iframe>
+            </div>
+            <div class="mp3-player" ng-if="question.audio_url">
+                <h5>音频材料：</h5>
+                <video controls="" name="media">
+                    <source ng-src="{{question.audio_url}}" type="audio/mpeg">
+                </video>
+            </div>
+            <div class="sub-material" ng-if="question.mContent">
+                <h5>图文材料：</h5>
+                <div ng-bind-html="question.mContent | to_trusted"></div>
+            </div>
+            <!--子题 start-->
+            <div class="sub-question" ng-repeat="stem in stems[question.mid] track by $index">
+                <div ng-if="stem.qType==2" class="left-side">
+                    <div class="sub-title">
+                        <div class="qustion-score">{{$parent.$parent.$index+1}}-{{$index+1}}.</div>
+                        <div class="qustion-score">(本题<b>{{stem.qScore}}</b>分)</div>
+                        <!-- <span class="question-share" ng-if="isFinish===1" ng-click="shareQuestion(stem.qid,question.mid)">分享试题</span> -->
+                        <span class="question-share-btn" style="position: absolute;top: 0;right: 0;font-size: 16px;color: #fff;line-height: 24px;display: block;cursor: pointer;background: #096;padding: 3px 8px;border-radius: 4px;" ng-if="isFinish===1&&showShareQuestionBox" ng-click="shareQuestion(stem.qid,question.mid,$parent.$parent.$parent.$index+1,$index+1)">分享试题</span>
+                        <!-- 分享试题模态窗 -->
+                        <div class="shareBox" style="position: absolute;top: 2rem;right: 0;font-size: 18px;color: #096;line-height: 24px;display: block;width: 500px;min-height: 200px;background: #fff;border: 2px #009245 solid;border-radius: 8px;padding: 1rem;z-index: 2;" ng-if="showShareBtn&&showShareBtnQid===stem.qid">
+                            <!-- <p>您正在分享一道试题</p> -->
+                            <p class="resolve" ng-if="!goToShareList">您可以设置本题出解析时间</p>
+                            <form ng-if="!goToShareList">
+                                <input type="text" class="form-control Wdate noticeTime" placeholder="默认当前时间" readonly onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d'})">
+                            </form>
+                            <p ng-if="goToShareList" style="text-align: center">{{paper.paperName}}</p>
+                            <p ng-if="goToShareList" style="text-align: center">题目序号：{{index}}<span ng-if="childIndex">-{{childIndex}}</span></p>
+                            <div class="shareQrcode"></div>
+                            <div class="shareBtn">
+                                <div class="confirm" ng-if="shareModalBox">
+                                    <span ng-click="confirmShare()">发布试题分享</span>
+                                </div>
+                                <div class="cancel" ng-if="shareModalBox">
+                                    <span ng-click="cancelShare()">取消</span>
+                                </div>
+                                <!-- -->
+                                <div class="gotosharelist" ng-if="goToShareList">
+                                    <span ng-click="yesSure()">确定</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="question_text" ng-bind-html="stem.qContent | to_trusted"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="sub-chioce clearfix">
+                        <div ng-repeat="stemIndex in stem.choices[0] track by $index">
+                            <div class="reply-chioce" ng-if="stemIndex==3">
+                                <h2><span>{{$index+1}}、&nbsp;&nbsp;{{stem.choices[1][$index]}}分&nbsp;&nbsp;&nbsp;</span>使用答题方式---图片</h2>
+                                <ul class="reply-ul">
+                                    <li class='reply-type'><img src='./static/images/img.png' /></img>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="reply-chioce" ng-if="stemIndex==4">
+                                <h2><span>{{$index+1}}、&nbsp;&nbsp;{{stem.choices[1][$index]}}分&nbsp;&nbsp;&nbsp;</span>使用答题方式---录音</h2>
+                                <ul class="reply-ul">
+                                    <li class='reply-type'><img src='./static/images/vedioone.png' /></img>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="reply-chioce" ng-if="stemIndex==2">
+                                <h2><span>{{$index+1}}、&nbsp;&nbsp;{{stem.choices[1][$index]}}分&nbsp;&nbsp;&nbsp;</span>使用答题方式---文本输入</h2>
+                                <ul class="reply-ul">
+                                    <li class='reply-type'><img src='./static/images/text.png' /></img>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="reply-chioce" ng-if="stemIndex==1">
+                                <h2><span>{{$index+1}}、&nbsp;&nbsp;{{stem.choices[1][$index]}}分&nbsp;&nbsp;&nbsp;</span>使用答题方式---填空题输入</h2>
+                                <ul class="reply-ul">
+                                    <li class='pos' ng-style="stem.qAnswer[$index]&&{'color':'#888'}">{{stem.qAnswer[$index]?stem.qAnswer[$index]:'__________'}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="sub-attr" ng-if="stem.qResolve">
+                            <ul>
+                                <li ng-repeat="(key,value) in stem.qResolve track by $index">
+                                    <div class="attr">{{key ? (key | to_trusted) : "本题解析"}}</div>
+                                    <div class="attr-detail">
+                                        <span ng-bind-html="value | to_trusted"></span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="stem.qType==1" class="left-side">
+                    <div class="sub-title">
+                        <div class="qustion-score">{{$parent.$parent.$index+1}}-{{$index+1}}.</div>
+                        <div class="qustion-score">(本题<b>{{stem.qScore}}</b>分)</div>
+                        <!-- <span class="question-share" ng-if="isFinish===1" ng-click="shareQuestion(stem.qid,question.mid)">分享试题</span> -->
+                        <span class="question-share-btn" style="position: absolute;top: 0;right: 0;font-size: 16px;color: #fff;line-height: 24px;display: block;cursor: pointer;background: #096;padding: 3px 8px;border-radius: 4px;" ng-if="isFinish===1&&showShareQuestionBox" ng-click="shareQuestion(stem.qid,question.mid,$parent.$parent.$parent.$index+1,$index+1)">分享试题</span>
+                        <!-- 分享试题模态窗 -->
+                        <div class="shareBox" style="position: absolute;top: 2rem;right: 0;font-size: 18px;color: #096;line-height: 24px;display: block;width: 500px;min-height: 200px;background: #fff;border: 2px #009245 solid;border-radius: 8px;padding: 1rem;z-index: 2;" ng-if="showShareBtn&&showShareBtnQid===stem.qid">
+                            <!-- <p>您正在分享一道试题</p> -->
+                            <p class="resolve" ng-if="!goToShareList">您可以设置本题出解析时间</p>
+                            <form ng-if="!goToShareList">
+                                <input type="text" class="form-control Wdate noticeTime" placeholder="默认当前时间" readonly onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d'})">
+                            </form>
+                            <p ng-if="goToShareList" style="text-align: center">{{paper.paperName}}</p>
+                            <p ng-if="goToShareList" style="text-align: center">题目序号：{{index}}<span ng-if="childIndex">-{{childIndex}}</span></p>
+                            <div class="shareQrcode"></div>
+                            <div class="shareBtn">
+                                <div class="confirm" ng-if="shareModalBox">
+                                    <span ng-click="confirmShare()">发布试题分享</span>
+                                </div>
+                                <div class="cancel" ng-if="shareModalBox">
+                                    <span ng-click="cancelShare()">取消</span>
+                                </div>
+                                <!-- -->
+                                <div class="gotosharelist" ng-if="goToShareList">
+                                    <span ng-click="yesSure()">确定</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="question_text" ng-bind-html="stem.qContent | to_trusted"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="sub-chioce">
+                        <ul>
+                            <li ng-repeat="choice in stem.choices track by $index">
+                                <div class="qustion-choice">
+                                    <div class="right_img">
+                                        <img src="./static/images/mtk-02.png" ng-if="stem.qAnswer.indexOf($index)!=-1" />
+                                    </div>
+                                    <div class="abcd">{{ans[$index]}}</div>
+                                    <div class="answer_text" ng-bind-html="choice | to_trusted"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                        <div class="sub-attr" ng-if="stem.qResolve">
+                            <ul>
+                                <li ng-repeat="(key,value) in stem.qResolve track by $index">
+                                    <div class="attr">{{key ? (key | to_trusted) : "本题解析"}}</div>
+                                    <div class="attr-detail">
+                                        <span ng-bind-html="value | to_trusted"></span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </dt>
+</dl>

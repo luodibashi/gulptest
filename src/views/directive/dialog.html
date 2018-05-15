@@ -1,0 +1,31 @@
+<!--遮罩弹窗-->
+<div class="dialog_wrp simple label_block paper-modal none">
+    <div class="dialog">
+        <div class="dialog_hd">
+            <h3>选择已有试卷</h3>
+            <!-- <div class="input-search">
+                <input type="text" placeholder='习题搜索' ng-model="paperName" class="input-dialog" />
+            </div>
+            <div class="search">
+                <button class="btn btn-success search-class" ng-click="search()">搜索</button>
+            </div> -->
+        </div>
+        <div class="dialog_hd_input">
+            <ul class="choose-tag fl">
+                <li ng-class="{'tag-li':true,'select-li':selectedTagIds.indexOf(tag.tagId)!=-1}" ng-repeat="tag in tagList track by $index" ng-click="selectTag(tag.tagId)">{{tag.tagName}}({{tag.paperNumber}})</li>
+            </ul>
+            <div class="choose-work fl">
+                <p class="paper-tip" ng-show="tip">该标签下不存在试卷!</p>
+                <p class="paper" ng-repeat="paper in paperlist">
+                    <img src="./static/images/me-checked.png" class="allcheck" ng-show="checked[paper['pid']]" ng-click='oneCheck(paper["pid"])' />
+                    <img src="./static/images/me-uncheck.png" class="allcheck" ng-hide="checked[paper['pid']]" ng-click='oneCheck(paper["pid"])' />
+                    <span>{{$index+1}}&nbsp;{{paper.paperName}}</span>
+                </p>
+            </div>
+        </div>
+        <div class="dialog_ft">
+            <span><button type="button" class="confirm" data-index="0" ng-click="confirm()">确认</button></span>
+            <span><button type="button" class="cancel" data-index="1" ng-click="cancel()">取消</button></span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="main" ng-controller="paperExport" style="background: #f4f5f0;padding-top:20px;">
+    <div id="box" style="background: #f4f5f0; padding-bottom:20px;">
+        <div class="main common">
+            <div class="detail" style="background: #f4f5f0;padding-top:20px;">
+                <div class="create-paper preview-paper" style="width: 800px; margin: 0 auto;">
+                    <div style="background:#f2f2f2;height:166px;border-top:2px solid #096;border-left:1px solid #ccc;border-right:1px solid #ccc;position:relative;">
+                        <div style="float:left;margin-left:50px;margin:12px 0 10px 20px;">
+                            <div class="qrcode" style="width: 150px;height: 150px;"></div>
+                        </div>
+                        <div style="float:left;margin-left:30px;width:428px;margin:15px 0 22px 30px;">
+                            <h2 style="font-size:20px;word-break: break-all;margin:10px 0 0 0;;">
+                                    {{paper.paperName}}     
+                                </h2>
+                            <div style="float:left;margin-top:24px;font-size:14px;">
+                                创建时间:&nbsp;{{paper.createTime}} </div>
+                            <div style="float:left;margin-left:15px;margin-top:24px;font-size:14px;">
+                                来源:&nbsp;{{paper.teacherName}} </div>
+                            <div style="float:left;margin-left:15px;margin-top:24px;font-size:14px;">
+                                总分:&nbsp;{{paper.objScore+paper.subScore}}分 </div>
+                        </div>
+                        <a class="download" ng-click="download()"></a>
+                    </div>
+                    <!--预览内容-->
+                    <div class="paper-preview-main">
+                        <div class="paper-preview-main-box">
+                            <div class="paper-preview paper-preview-detail">
+                                <div paper-struct></div>
+                            </div>
+                            <div style="height:20px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="returnTop" title="返回顶部" style="right:200px;"></div>
+    <script type="text/javascript">
+    $(function() {
+        $(".returnTop").click(function() {
+            $("body").animate({
+                scrollTop: 0
+            });
+        })
+
+        $(window).scroll(function() {
+            var sHeight = $(document).scrollTop();
+            var vHeigtht = $(window).height();
+            if (sHeight > vHeigtht) {
+                $(".returnTop").css("display", "block")
+            } else {
+                $(".returnTop").css("display", "none")
+            }
+        })
+    })
+    </script>
+</div>

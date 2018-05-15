@@ -1,0 +1,78 @@
+<script type="text/javascript" src="static/js/datePicker/WdatePicker.js"></script>
+<div class="main privite" ng-controller="classlive">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/class/list" class="class-list">我的班级</a>
+                    <a href="#/class/create" class="class-create">创建班级</a>
+                    <a href="#/class/live" class="class-live-selected selected">班级直播</a>
+                </div>
+                <div class="detail">
+                    <div class="class-list">
+                        <div class="class-list-handle">
+                            <div pagination></div>
+                            <div class="search">
+                                <!-- 之后再加时间筛选 -->
+                                <div class="chooseMonth">
+                                    <input type="text" id="startTime" class="startTimeBox" placeholder="开始时间" readonly onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+                                    <input type="text" id="endTime" class="endTimeBox" placeholder="结束时间" readonly onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+                                </div>
+                                <button class="btn btn-success search-class" type="button" ng-click="search()">搜索</button>
+                            </div>
+                        </div>
+                        <table class="class-list-table">
+                            <thead>
+                                <tr class="class-list-header">
+                                    <td style="width:80px;">序号</td>
+                                    <td>直播名字</td>
+                                    <td>直播房间</td>
+                                    <td style="width:130px;">直播起止时间</td>
+                                    <td>班级名称</td>
+                                    <td style="width:80px;">配置</td>
+                                    <td style="width:80px;">直播状态</td>
+                                    <td style="width:100px;">操作</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="live in liveTimeList">
+                                    <td class="paper-list-number">
+                                        {{$index+1}}
+                                    </td>
+                                    <td>
+                                        {{live.timeName}}
+                                    </td>
+                                    <td>
+                                        {{live.name}}
+                                    </td>
+                                    <td>
+                                        {{live.startTime}} <br>
+                                        {{live.endTime}}
+                                    </td>
+                                    <td>
+                                        {{live.className}}
+                                    </td>
+                                    <td>
+                                        <span class="configResource" ng-click="configResource(live.timeId)">配置资源</span>
+                                    </td>
+                                    <td>
+                                        {{liveStatusName[live.liveStatus]}}
+                                    </td>
+                                    <td>
+                                        <span class="liveNow" ng-if="live.liveStatus==1" ng-click="goToLive(live.roomId,live.liveStatus)">进入直播</span>
+                                        <!-- <span class="liveOver" ng-if="live.liveStatus!=1">查看回播</span> -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="noneLiveTips" ng-if="count==0">您暂时还没有直播</div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,442 @@
+
+<link rel="stylesheet" href="static/css/correct.css">
+<link rel="stylesheet" href="static/js/ueditor/themes/default/css/ueditor.css">
+<link rel="stylesheet" href="static/js/colorbox/colorbox.css">
+ 
+
+  <div class="main">
+       <div id="box">
+            <div user-Top></div>
+            <div class="main common">
+                <div my-Tab></div>
+                <div class="content right">
+                      <div class="sub-navigation">
+                            <a href="#/work/list" class="work-list-selected selected">作业列表</a>
+                            <a class="work-create">安排作业</a>
+                      </div>
+                      <div class="detail">
+                         <div class="paper_info">
+                            <div class="left">
+                                <h2>英语练习</h2>
+                                <div class="info_line">
+                                    <span>
+                                        班级：武汉十二中
+                                    </span>
+                                    <span>取作业时间:2016/22/22 22:22 - 2016/22/22 22:22</span>
+                                    <span>
+                                        本次作业时长：1小时30分
+                                    </span>
+                                    <!-- <span>
+                                        出答案时间：2016/01/09 01:48
+                                    </span> -->
+                                </div>
+                                <div class="info_line">
+                                    <span>已参与：<i class="num">55</i>人</span>
+                                    <span>已提交：<i class="num">50</i>人</span>
+                                </div>
+                            </div>
+                            <div class="right">
+                                <a href="javascript:void(0);" ng-click="finishCorrect()">全部批改完成</a>
+                                <a ng-href="#/work/list">返回作业列表</a>
+                            </div>
+                         </div>
+
+
+                        　　　　<div class="sort_list">
+                                    <ul>
+                                        <li class="selected">1</li>
+                                        <li class="selected">2</li>
+                                        <li class="selected">3</li>
+                                        <li class="selected">4</li>
+                                        <li class="">５</li>
+                                        <li class="">６</li>
+                                    </ul>
+                        　　　　</div>
+
+
+                            <div class="correct_detail">
+
+                                 <div class="item_detail">
+
+                                        <div ng-show="false">
+                                            <!-- 材料 -->
+                                            <div class="multi_title">
+                                                <div class="multi_sort">4.</div>
+                                                <div class="multi_type">复合题材料</div>
+                                                <div class="clear"></div>
+                                            </div>
+                                            <!-- 图文材料 -->
+                                            <div class="sub-material clearfix">
+                                                <h5>图文材料：</h5>
+                                                <div>
+                                                <span style="color: rgb(0, 0, 0); font-family: sans-serif; font-size: 16px; line-height: normal;">图1、图2是两张形状、大小完全相同的方格纸，方格纸中的每个小正方形的边长均为1，点</span><img src="http://7xj7bj.com1.z0.glb.clouddn.com/754fe33798b1d249512a062457073eed/c458dc664a9125c30aaacc35a5187816.png" name="Image121" align="absmiddle" width="16" height="17" border="0" _src="http://7xj7bj.com1.z0.glb.clouddn.com/754fe33798b1d249512a062457073eed/c458dc664a9125c30aaacc35a5187816.png" style="color: rgb(0, 0, 0); font-family: sans-serif; font-size: 16px; line-height: normal;"><span style="color: rgb(0, 0, 0); font-family: sans-serif; font-size: 16px; line-height: normal;">和点</span><img src="http://7xj7bj.com1.z0.glb.clouddn.com/754fe33798b1d249512a062457073eed/d265080b91397e760eac635963e2fcd7.png" name="Image122" align="absmiddle" width="16" height="17" border="0" _src="http://7xj7bj.com1.z0.glb.clouddn.com/754fe33798b1d249512a062457073eed/d265080b91397e760eac635963e2fcd7.png" style="color: rgb(0, 0, 0); font-family: sans-serif; font-size: 16px; line-height: normal;"><span style="color: rgb(0, 0, 0); font-family: sans-serif; font-size: 16px; line-height: normal;">在小正方形的顶点上．</span><div><img src="http://7xj7bj.com1.z0.glb.clouddn.com/754fe33798b1d249512a062457073eed/6109c36a7bc47efead02358ae3ab53fd.png" align="left" hspace="12" _src="http://7xj7bj.com1.z0.glb.clouddn.com/754fe33798b1d249512a062457073eed/6109c36a7bc47efead02358ae3ab53fd.png"></div>
+                                                </div>
+                                            </div>
+                                            <div class="vedio-player">
+                                                <h5>视频材料：</h5>
+                                                <img src="http://teacher.mstudy.me/admin/images/vedio-play.png" _src="http://player.youku.com/embed/XMTM2NzY0MTEyMA==">
+                                            </div>
+                                            <div class="mp3-player">
+                                                <h5>音频材料：</h5>
+                                                <audio src="http://institu.mstudy.me/files/images/160108/1452247693309517.mp3" preload="auto" controls="controls"></audio>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                        <div class="question_info" ng-show="true">
+                                             <div class="title">
+                                                   <div class="sort fl">
+                                                         1. 
+                                                   </div>
+                                                   <div class="score fl">
+                                                         (本题<b>5</b>分)
+                                                   </div>
+                                                   <div class="stem fl">
+                                                        某原料供应商对购买其原料的顾客实行如下优惠措施：①一次购买金额不超过1万元，不予优惠；②一次购买金额超过1万元，但不超过3万元，给九折优惠；③一次购买金额超过3万元，其中3万元九折优惠，超过3万元部分八折优惠。某厂因库容原因，第一次在该供应商处购买原料付款7800元，第二次购买付款26100元，如果他一次购买同样数量的原料，可以少付__
+                                                   </div>
+                                              </div>
+                                              <div class="clearfix"></div>
+                                              <div class="choices">
+                                                    <div class="obj_choice">
+                                                        <!--客观题选项-->
+                                                        <ul class="choices_list fl">
+                                                            <li ng-repeat="(choice,content) in selectQdata.choices">
+                                                                <div class="choice">
+                                                                    <div class="right">
+                                                                        <img src="static/images/mtk-02.png" ng-if="selectQdata.answer.indexOf(choice) >=0"/>
+                                                                    </div>
+                                                                    <div class="option">{{choice | createChoice}}.</div>
+                                                                    <div class="option_text">
+                                                                        {{content|escape2Html}}
+                                                                    </div>
+                                                                </div>                  
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                     <!--客观题选项-->
+                                                     <div>
+                                                         <div class="sub_choice">
+                                                             <h2>使用答题方式---文本输入</h2>
+                                                             <ul class="sub_choice_list">
+                                                                 <li>
+                                                                    <img src="static/images/text.png"/>  
+                                                                 </li>
+                                                             </ul>
+                                                         </div>
+                                                         <div class="sub_choice">
+                                                             <h2>使用答题方式---录音</h2>
+                                                             <ul class="sub_choice_list">
+                                                                 <li>
+                                                                    <img src="static/images/vedio.png"/>  
+                                                                 </li>
+                                                             </ul>
+                                                         </div>
+                                                         <div class="sub_choice">
+                                                             <h2>使用答题方式---图片</h2>
+                                                             <ul class="sub_choice_list">
+                                                                 <li>
+                                                                    <img src="static/images/img.png"/>  
+                                                                 </li>
+                                                             </ul>
+                                                         </div>
+                                                         <div class="sub_choice">
+                                                             <h2>使用答题方式---填空题输入</h2>
+                                                             <ul class="sub_choice_list">
+                                                                 <li class="pos">
+                                                                    1.______
+                                                                 </li>
+                                                        </div>
+                                                    </div>
+                                               </div>
+
+
+                                        <div class="answer_info">
+                                                <!-- 隐藏或显示题目信息 -->
+                                                <div class="handle">
+                                                    学生答题情况
+                                                    <a href="javascript:;" ng-click="toggleQuestionInfo()">收起展开</a> 
+                                                </div>
+                                                <div class="correct_user" >
+                                                    <img class="dealed-img" src="http://teacher.mstudy.me/admin/images/r_c.png" ng-if="studentListType == 2">                                        
+                                                    <img class="dealed-img-r" ng-src="{{userInfo.headImg}}">
+                                                    <h3>steven</h3>
+                                                </div>
+                                           
+                                                <div class="user_answer">
+                                               
+                                                    <div class="object">
+                                                        此题正确答案为:<strong>A ,B,C,D</strong>
+                                                        此学生答案为：<span>A</span>
+                                                    </div>
+                                                    <!-- 客观题答题情况结束 -->
+                                                    <div class="subject" >
+                                                        <!-- 没有答题时 -->
+                                                        <h3 class="empty" >
+                                                            学生没有作答此题
+                                                        </h3>
+                                                        <!-- 填空题用户答题情况  -->
+                                                        <div class="pos"  ng-if="answerInfo !== ''">
+                                                            <h5>
+                                                                学生答题情况:
+                                                            </h5>
+                                                            <ul>
+                                                                <li>
+                                                                    <span class="answer">
+                                                                    <b>1.</b>默默
+                                                                    </span>
+                                                                    <span class="score">
+                                                                    评分:<b>0</b>
+                                                                    </span>
+                                                                    <a class="pos_correct correct_wrong selected" href="javascript:;" >
+                                                                        
+                                                                    </a>
+                                                                    <a class="pos_correct correct_right" href="javascript:void(0)">
+                                                                        
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <!-- 填空题用户答题结束 -->
+                                                        <!-- 图片答题开始 -->
+                                                        <div class="img">
+                                                            <h5>学生答题图片：</h5>
+                                                            <ul>
+                                                                <li>
+                                                                    <a class="answerImg" href="http://institu.mstudy.me/files/images/160108/1452225077964221.png">
+                                                                        <img src="http://institu.mstudy.me/files/images/160108/1452225077964221.png">
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="answerImg" href="http://institu.mstudy.me/files/images/160108/1452225041589758.png">
+                                                                        <img src="http://institu.mstudy.me/files/images/160108/1452225041589758.png">
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <!-- 图片答题结束 -->
+                                                        <!-- 音频答题开始 -->
+                                                        <div class="vedio"  ng-if="answerInfo !== ''">
+                                                            <h5>学生答题音频：</h5>
+                                                            <ul>
+                                                                <li>
+                                                                    <audio ng-src="http://institu.mstudy.me/files/images/160108/1452247693309517.mp3" preload="auto" controls="controls"></audio>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <!-- 音频答题结束 -->
+                                                        <!-- 文本输入答题开始 -->
+                                                        <div class="text"  ng-if="answerInfo !== ''">
+                                                            <h5>学生答题文本：</h5>
+                                                            <ul>
+                                                                <li>
+                                                                    sadasdasdasdasdadsda
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <!-- 文本输入答题结束-->
+                                                        <!-- 文本输入答题开始 -->
+                                                        <div class="correct_img" >
+                                                            <h5>教师批改图片：</h5>
+                                                            <ul>
+                                                                <li>
+                                                                    <a class="dealImg" href="http://institu.mstudy.me/files/images/160108/1452225077964221.png">
+                                                                        <img src="http://institu.mstudy.me/files/images/160108/1452225077964221.png">
+                                                                    </a>
+                                                                    <img class="del" src="http://teacher.mstudy.me/admin/images/remove2.png" ng-click="delCorrectImg(0)">
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <!-- 文本输入答题结束-->
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="correct_handle" >
+                                                        <!-- 批改操作按钮 -->
+                                                        <div class="button_ctrl">
+                                                            <div class="fl">
+                                                                <div class="controller">
+                                                                    <a ng-click="prevSub()" class="prev">上一主观题</a>
+                                                                    <a ng-click="nextSub()" class="next">下一主观题</a>
+                                                                </div>
+                                                                <div class="controller">
+                                                                    <a ng-click="prevUser()" class="prev">上一人</a>
+                                                                    <a ng-click="nextUser()" class="next">下一人</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="correct_ctrl fr">
+                                                             <!--    <a id = "uploadImg">上传本地批改图片</a>
+                                                                <a ng-click="correctSub()" ng-class="{dealed:studentListType == 2,undeal:studentListType == 1}">保存本题批改</a> -->
+                                                            　<input type="text">
+                                                            </div>
+                                                        </div>
+                                                        <div id="textarea_text"></div>
+                                                    </div>
+                                                </div>
+                                            </div＞
+                                                            
+                                                          
+                                                                
+                                                            
+
+
+                                              
+                    
+                    
+                    <div class="user_list fr">
+                        <div class="header clearfix">
+                            <a class="left" ng-class="{'selected': studentListType == 1}" ng-click="switchStudentType(1)">还未批改</a> |
+                            <a class="right" ng-class="{'selected': studentListType == 2}" ng-click="switchStudentType(2)">已经批改</a>
+                        </div>
+                        <!-- 未批改用户列表开始 -->
+                        <ul class="student_list undeal" ng-show="studentListType == 1">
+                            <li ng-class="{active:student.uid == selectedUser}" ng-repeat="student in studentList.undeal" ng-click="selectUser(student.uid)" data-uid="{{student.uid}}">
+                                <div class="head_img" ng-if="student.ulink !== '' && student.ulink !==undefined">
+                                    <img ng-src="{{student.ulink}}"/>
+                                </div>
+                                <div class="user_info">
+                                    <h3>{{student.uname}}</h3>
+                                    <p>本题得分 : ?</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- 未批改用户列表结束 -->
+
+                        <!-- 已批改用户列表开始 -->
+                        <ul class="student_list dealed" ng-show="studentListType == 2">
+                            <li ng-class="{active:student.uid == selectedUser}" ng-repeat="student in studentList.deal" ng-click="selectUser(student.uid)" data-uid="{{student.uid}}">
+                                <div class="head_img" ng-if="student.ulink !== '' && student.ulink !==undefined">
+                                    <img ng-src="{{student.ulink}}"/>
+                                    <img class="right" src="static/images/r_c.png"/>
+                                </div>
+                                <div class="user_info">
+                                    <h3>{{student.uname}}</h3>
+                                    <p>本题得分 :  {{student.score}}</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- 已批改用户列表结束 -->
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class="clear"></div>
+        <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+   </div>
+</div>
+<!--<div correct-footer></div>-->
+<script type="text/javascript" src="static/js/slideScore.js"></script>
+<script type="text/javascript" src="static/js/plupload/plupload.full.min.js"></script>
+<script type="text/javascript" src="static/js/colorbox/jquery.colorbox-min.js"></script>
+<script type="text/javascript" src="static/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="static/js/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript">
+    //     window.ue = UE.getEditor('textarea_text',{
+    //                     UEDITOR_HOME_URL:'static/js/ueditor/',
+    //                     //这里可以选择自己需要的工具按钮名称,此处仅选择如下五个  
+    //                     toolbars:[['FullScreen', 'Undo', 'Redo']],   
+    //                     //关闭elementPath  
+    //                     elementPathEnabled:false,  
+    //                     enableAutoSave : false,
+    //                     initialFrameHeight: 110,
+    //                     initialFrameWidth:788
+    //     });
+
+    //     $(".dealImg").colorbox({rel:'dealImg',maxWidth:'100%',maxHeight:'100%'});
+    //     $(".answerImg").colorbox({rel:'answerImg',maxWidth:'100%',maxHeight:'100%'});
+    // /*jquery代码  放置一些特效代码  不放在angular 控制器里*/
+    // /*(function ($,w) {*/
+    //     var userList = $('.user_list');
+    //     //userList.attr({top:userList.offset().top,left:userList.offset().left})
+    //     //因为angular的dom 初始化是混乱的,所以计算出的一些元素的样式并不准确,所以要在页面加载完再初始化特效
+    //     userList.attr({top:83+$('.sub-navigation').height()+$('.sort_list').height()+$('.paper_info').height(),left:userList.offset().left});
+    //     //点击加载视频
+    //     $('.item_detail').on('click','.vedio-player img',function () {
+    //         var _this = $(this),
+    //             src = _this.attr('_src');
+    //             _this.replaceWith('<embed src="'+src+'" width="200" height="200">');
+    //     })
+
+    //     //移上
+    //     $('.item_detail').on('mouseover','.vedio-player img',function () {
+    //         var _this = $(this),
+    //             src = _this.attr('src'),
+    //             url = src.split('/');
+    //             _this.attr('src',src.replace(url[url.length-1],'vedio-played.png'))
+    //     })
+
+    //     //移开
+    //     $('.item_detail').on('mouseleave','.vedio-player img',function () {
+    //         var _this = $(this),
+    //             src = _this.attr('src'),
+    //             url = src.split('/');
+    //             _this.attr('src',src.replace(url[url.length-1],'vedio-play.png'))
+    //     })
+
+        //用户名单浮动
+        $(window).off('scroll').on('scroll',function () {
+            var Ostop = $(this).scrollTop();
+            var offset = userList.offset();
+            var width = userList.width();
+
+            //如果有向下滚动,则让头部定位为fixed,并
+            if($(this).scrollTop()>userList.attr('top')){
+                userList.css({position:'fixed',top:'0px',left:userList.attr('left')}).width(width);
+            } else {
+                userList.css({position:'static'});
+            }
+        })
+        /*jquery代码*/
+        
+        // //实例化上传插件
+        // window.uploader = new plupload.Uploader({
+        //     browse_button:'uploadImg',//指定上传按钮id
+        //     file_data_name:'fileDataFileName',
+        //     url:'http://115.29.177.200/mstudy/upload',//上传url
+        //     filters:{
+        //         mime_types:[
+        //             {title:'Image file',extensions : "png,jpg,jpeg"}//定义文件后缀名
+        //         ],
+        //         prevent_duplicates :true,//不能上传重复文件
+        //     },
+        //     multipart:true //为true时候以multipart/form-data  否则以二进制上传
+        // });
+        // uploader.init();//初始化
+        
+        // //选择完文件触发
+        // uploader.bind('FilesAdded',function (uploader,files) {
+        //     uploader.start();//开始上传
+        // })
+        
+        // //监听上传进度
+        // uploader.bind('UploadProgress',function (uploader,file) {
+        //     console.log(file.percent);//打印进度百分比
+        // })
+        
+        // //上传出错时候触发
+        // uploader.bind('Error',function (uploader,error) {
+        //     console.log(error);//打印错误
+        // })
+    /*})(jQuery,window);*/
+</script>
+</div>
+                                        
+
+
+
+
+                                     
+                                            　
+                                        
+
+
+
+
+                        
+                                          
+                                            　　　　　
+                                           

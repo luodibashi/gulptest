@@ -1,0 +1,823 @@
+<link rel="stylesheet" href="./static/css/pinput.css?version=2017122001">
+<link rel="stylesheet" href="./static/css/perfect-scrollbar.min.css">
+<link rel="stylesheet" href="./static/js/themes/default/css/umeditor.min.css">
+<script type="text/javascript" src="./static/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="./static/js/pinput.js?version=2017122001"></script>
+<div class="main" ng-controller="paperInput">
+    <div id="redactor_modal_overlay" class="none" style="display: none;">
+        <a href="javascript:;" class="loading-info">{{progress}}</a>
+    </div>
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/paper/list/0" class="paper-list">我的习题</a>
+                    <a href="#/paper/public" class="paper-list">公共习题库</a>
+                    <a href="#/paper/name" class="paper-create-selected selected">录入习题</a>
+                    <a href="#/paper/tag" class="paper-list">标签管理</a>
+                </div>
+                <div class="mtk-all-operate">
+                    <!--左边导入区域1-->
+                    <div class="mtk-fun fl" style="position: relative;">
+                        <div class="mtk-import fl">
+                            <div uploader id="uploader"></div>
+                            <div id="self-editor" style="width:598px;height:600px;display: none; overflow: auto;"></div>
+                            <div class="mtk-import-info">
+                                <h3>说明</h3>
+                                <p>1. 点击上方 “+导入word文档”，导入你要布置的习题。</p>
+                                <p>2. 将左侧习题按 “题干”、“答案”、“解析” 分别复制到右侧相应位置。</p>
+                                <p>3. 设置选择题的正确答案可直接点对号勾选。</p>
+                                <p>4. 习题完成后点击左侧上方 “预览” 提交。</p>
+                                <p>5. 在习题列表中点击 “预览” 可以微信扫码看手机上的显示效果。</p>
+                                <img src="./static/images/import.gif" width="580" height="400" />
+                            </div>
+                            <div class="mtk-contenter none">
+                                <div class="mtk-info">
+                                    <div class="mtk-info-top">
+                                        <div class="qrcode" style="margin: 10px;"></div>
+                                        <!-- <p class="price">价格：￥2.00</p>
+                                        <span class="pay">已支付(扫码预览)</span> -->
+                                    </div>
+                                    <div class="mtk-info-bottom">
+                                        <p><i>客观题：</i><span>{{paperInfo.objNumber}}道</span></p>
+                                        <p><i>主观题：</i><span>{{paperInfo.subNumber}}道</span></p>
+                                        <p><i>卷&nbsp;&nbsp;&nbsp;面：</i><span>{{paperInfo.score}}分</span></p>
+                                        <p><i>来&nbsp;&nbsp;&nbsp;源：</i><span>麦学习</span></p>
+                                    </div>
+                                </div>
+                                <ul class="test-tag-list none">
+                                    <li ng-class="{'test-tag-li':true,'select-test-li':selectedTestTagIds.indexOf(tag.tagId)!=-1}" ng-repeat="tag in testTagList track by $index" ng-click="selectTestTag(tag.tagId)">{{tag.tagName}}({{tag.questionNumber}})</li>
+                                </ul>
+                                <div class="paperName left-input">
+                                    <p style="padding: 10px 0; font-size: 16px;font-weight: bold;font-family: Microsoft YaHei; float: left;">本地试卷名: &nbsp;&nbsp;&nbsp;<span style="color:#925000">{{localPaperName}}</span></p>
+                                    <span class="toggle">
+                                        收起
+                                    </span>
+                                </div>
+                                <div class="left-input" style="height: 600px; overflow-y: auto;">
+                                    <div class="test-tip" ng-show="testTip">请选择适当标签试题!</div>
+                                    <div ng-repeat="question in localPaper">
+                                        <!--选择题-->
+                                        <dt data-type="1" ng-attr-qid="{{question.qid}}" ng-if="question.qid && question.qType==1">
+                                            <div class="pinput-item-slide">
+                                                <div class="pinput-item pinput-item-tit">
+                                                    <span class="tit">{{$index+1}}.</span>
+                                                    <span class="info">选择题</span>
+                                                </div>
+                                                <div class="pinput-item pinput-item-opt">
+                                                    <span>添加</span>
+                                                </div>
+                                            </div>
+                                            <!--题目主干-->
+                                            <div class="pinput-item-main">
+                                                <!--主干-->
+                                                <div class="pinput-item-content">
+                                                    <ul class="pinput-item-ver"></ul>
+                                                    <!--题目信息-->
+                                                    <div class="pinput-item-boder">
+                                                        <div class="pinput-problem">
+                                                            <div class="pinput-problem-info clearfix">
+                                                                <div class="pinput-problem-ico fl"></div>
+                                                                <div class="score fr">
+                                                                    <input maxlength="4" ng-model="question.qScore" attr="score" type="text" value="{{question.qScore}}" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="title" contenteditable="true" attr="title" ng-bind-html="question.qContent | to_trusted"></div>
+                                                        </div>
+                                                        <div class="pinput-answer">
+                                                            <ul class="common-ul">
+                                                                <li class="answer-li clearfix" ng-repeat="choice in question.choices track by $index">
+                                                                    <div class="choice fl {{question.qAnswer&&question.qAnswer.indexOf($index)!=-1?'correct':''}}"></div>
+                                                                    <div class="letter fl">{{ans[$index]}}</div>
+                                                                    <div class="answer fl" contenteditable="true" attr="answer" ng-bind-html="choice | to_trusted"></div>
+                                                                    <a class="del" href="javascript:;"></a>
+                                                                </li>
+                                                            </ul>
+                                                            <div class="add-answer">
+                                                                <span class="txt1">+</span>
+                                                                <span class="txt2">新增一条选项</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--解析-->
+                                                    <div class="pinput-item-analysis">
+                                                        <div class="tit">本题解析</div>
+                                                        <div class="analysis">
+                                                            <ul class="analysis-ul">
+                                                                <li class="analysis-li qid-tag">
+                                                                    <div class="tag-title">试题标签&nbsp;/&nbsp;</div>
+                                                                    <p ng-repeat="tag in question.tagList track by $index" ng-attr-tagid="{{tag.tagId}}">
+                                                                        {{tag.tagName}}
+                                                                        <i class="delete-tag">删除</i>
+                                                                    </p>
+                                                                    <p class="fl add">+</p>
+                                                                </li>
+                                                                <li class="analysis-li clearfix" ng-repeat="(key,value) in question.qResolve track by $index">
+                                                                    <div class="analysis-li1">
+                                                                        <input type="text" maxlength="10" ng-model="key" attr="analysis" value="{{key}}">
+                                                                    </div>
+                                                                    <div class="analysis-li2">&nbsp;/&nbsp;</div>
+                                                                    <div class="analysis-li3" contenteditable="true" ng-bind-html="value | to_trusted" attr="analysis"></div>
+                                                                    <a href="javascript:;" class="del"></a>
+                                                                </li>
+                                                            </ul>
+                                                            <div class="add-analysis">
+                                                                <span class="txt1">+</span>
+                                                                <span class="txt2">新增一条解析</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </dt>
+                                        <!--主观题-->
+                                        <dt data-type="2" ng-attr-qid="{{question.qid}}" ng-if="question.qid && question.qType==2">
+                                            <div class="pinput-item-slide">
+                                                <div class="pinput-item pinput-item-tit">
+                                                    <span class="tit">{{$index+1}}.</span>
+                                                    <span class="info">主观题</span>
+                                                </div>
+                                                <div class="pinput-item pinput-item-opt">
+                                                    <!-- <a class="del" href="javascript:;"></a>
+                                                <a class="show" href="javascript:;"></a> -->
+                                                    <span>添加</span>
+                                                </div>
+                                            </div>
+                                            <!--题目主干-->
+                                            <div class="pinput-item-main">
+                                                <!--主干-->
+                                                <div class="pinput-item-content">
+                                                    <ul class="pinput-item-ver"></ul>
+                                                    <div class="pinput-item-boder">
+                                                        <div class="pinput-problem">
+                                                            <div class="pinput-problem-info clearfix">
+                                                                <div class="pinput-problem-ico fl"></div>
+                                                                <div class="score fr">
+                                                                    <input maxlength="4" ng-model="question.qScore" type="text" readonly value="{{question.qScore}}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="title" contenteditable="true" attr="title" ng-bind-html="question.qContent | to_trusted"></div>
+                                                        </div>
+                                                        <div class="pinput-answer">
+                                                            <ul class="short-ul">
+                                                                <li class="answer-li answer-subject" type="{{choice}}" ng-repeat="choice in question.choices[0] track by $index">
+                                                                    <div class="letter">{{$index+1}}.</div>
+                                                                    <div class="reply" item-type=3 ng-if="choice==3">[图片答题框]</div>
+                                                                    <div class="reply" item-type=2 ng-if="choice==2">[文本答题框]</div>
+                                                                    <div class="reply" item-type=4 ng-if="choice==4">[录音答题框]</div>
+                                                                    <div class="reply reply-position" item-type=1 ng-if="choice==1">
+                                                                        <input type="text" attr="position" placeholder="[填空答题框]" value="{{question.qAnswer[$index]}}" />
+                                                                    </div>
+                                                                    <div class="score">
+                                                                        <input maxlength="4" ng-model="question.choices[1][$index]" attr="sscore" value="{{question.choices[1][$index]}}">
+                                                                    </div>
+                                                                    <a href="javascript:;" class="del"></a>
+                                                                </li>
+                                                            </ul>
+                                                            <div class="add-options">
+                                                                <li class="add-img bd" title="新增图片框">
+                                                                    <div class="add-text1"><span class="add-text1-sign">+</span>图片框</div>
+                                                                    <div class="add-text2">(拍照答题)</div>
+                                                                </li>
+                                                                <li class="add-vedio bd" title="新增录音框">
+                                                                    <div class="add-text1"><span class="add-text1-sign">+</span>录音框</div>
+                                                                    <div class="add-text2">(录音答题)</div>
+                                                                </li>
+                                                                <li class="add-text bd" title="新增文本框">
+                                                                    <div class="add-text1"><span class="add-text1-sign">+</span>文本框</div>
+                                                                    <div class="add-text2">(输入答题)</div>
+                                                                </li>
+                                                                <li class="add-position" title="新增填空项">
+                                                                    <div class="add-text1"><span class="add-text1-sign">+</span>填空项</div>
+                                                                    <div class="add-text2">(填空答题)</div>
+                                                                </li>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--解析-->
+                                                    <div class="pinput-item-analysis">
+                                                        <div class="tit">本题解析</div>
+                                                        <div class="analysis">
+                                                            <ul class="analysis-ul">
+                                                                <li class="analysis-li qid-tag">
+                                                                    <div class="tag-title">试题标签&nbsp;/&nbsp;</div>
+                                                                    <p ng-repeat="tag in question.tagList track by $index" ng-attr-tagid="{{tag.tagId}}">
+                                                                        {{tag.tagName}}
+                                                                        <i class="delete-tag">删除</i>
+                                                                    </p>
+                                                                    <p class="fl add">+</p>
+                                                                </li>
+                                                                <li class="analysis-li clearfix" ng-repeat="(key,value) in question.qResolve track by $index">
+                                                                    <div class="analysis-li1">
+                                                                        <input type="text" maxlength="10" ng-model="key" attr="analysis" value="{{key}}">
+                                                                    </div>
+                                                                    <div class="analysis-li2">&nbsp;/&nbsp;</div>
+                                                                    <div class="analysis-li3" contenteditable="true" ng-bind-html="value | to_trusted" attr="analysis"></div>
+                                                                    <a href="javascript:;" class="del"></a>
+                                                                </li>
+                                                            </ul>
+                                                            <div class="add-analysis">
+                                                                <span class="txt1">+</span>
+                                                                <span class="txt2">新增一条解析</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </dt>
+                                        <!-- 复合题 -->
+                                        <dt data-type="3" ng-attr-mid="{{question.mid}}" ng-if="question.mDigest && question.mid">
+                                            <div class="pinput-item-slide">
+                                                <div class="pinput-item pinput-item-tit">
+                                                    <span class="tit">{{$index+1}}.</span>
+                                                    <span class="info">复合题</span>
+                                                </div>
+                                                <div class="pinput-item pinput-item-opt">
+                                                    <span>添加</span>
+                                                </div>
+                                            </div>
+                                            <div class="pinput-item-main">
+                                                <div class="pinput-item-content">
+                                                    <ul class="pinput-item-ver"></ul>
+                                                    <!--材料-->
+                                                    <div class="pinput-item-subject clearfix">
+                                                        <div class="fl add-media">
+                                                            <a class="vedio" href="javascript:;">视频</a>
+                                                            <a class="mp3" href="javascript:;">音频</a>
+                                                        </div>
+                                                        <div class="fl edit-div subject" attr="material" contenteditable="true" ng-bind-html="question.mContent | to_trusted"></div>
+                                                    </div>
+                                                    <!--子题-->
+                                                    <div class="pinput-item-question">
+                                                        <!--子题1-->
+                                                        <div class="pinput-question" ng-attr-qid="{{stem.qid}}" data-type="{{stem.qType}}" ng-repeat="stem in localStems[question.mid] track by $index">
+                                                            <ul class="pinput-item-ver"></ul>
+                                                            <div class="pinput-item-boder" ng-if="stem.qType==1">
+                                                                <div class="pinput-problem">
+                                                                    <div class="pinput-problem-info clearfix">
+                                                                        <div class="pinput-problem-ico fl"></div>
+                                                                        <div class="fl tit">{{$parent.$parent.$index+1}}-{{$index+1}}.</div>
+                                                                        <a href="javascript:;" class="del"></a>
+                                                                        <div class="score fr">
+                                                                            <input maxlength="4" attr="score" ng-model="stem.qScore" value="{{stem.qScore}}">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="title" contenteditable="true" attr="title" ng-bind-html="stem.qContent | to_trusted"></div>
+                                                                </div>
+                                                                <div class="pinput-answer">
+                                                                    <ul class="common-ul">
+                                                                        <li class="answer-li clearfix" attr="answer" ng-repeat="choice in stem.choices track by $index">
+                                                                            <div class="choice {{stem.qAnswer&&stem.qAnswer.indexOf($index)!=-1?'correct':''}} fl"></div>
+                                                                            <div class="letter fl">{{ans[$index]}}</div>
+                                                                            <div class="answer fl" contenteditable="true" attr="answer" ng-bind-html="choice | to_trusted"></div>
+                                                                            <a class="del" href="javascript:;"></a>
+                                                                        </li>
+                                                                    </ul>
+                                                                    <div class="add-answer">
+                                                                        <span class="txt1">+</span>
+                                                                        <span class="txt2">新增一条选项</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="pinput-item-boder" ng-if="stem.qType==2">
+                                                                <div class="pinput-problem">
+                                                                    <div class="pinput-problem-info clearfix">
+                                                                        <div class="pinput-problem-ico fl"></div>
+                                                                        <div class="fl tit">{{$parent.$parent.$index+1}}-{{$index+1}}.</div>
+                                                                        <a href="javascript:;" class="del"></a>
+                                                                        <div class="score fr">
+                                                                            <input maxlength="4" readonly value="{{stem.qScore}}" ng-model="stem.qScore">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="title" contenteditable="true" attr="title" ng-bind-html="stem.qContent | to_trusted"></div>
+                                                                </div>
+                                                                <div class="pinput-answer">
+                                                                    <ul class="short-ul">
+                                                                        <li class="answer-li answer-subject" type="{{choice}}" ng-repeat="choice in stem.choices[0] track by $index">
+                                                                            <div class="letter">{{$index+1}}.</div>
+                                                                            <div class="reply" item-type=3 ng-if="choice==3">[图片答题框]</div>
+                                                                            <div class="reply" item-type=2 ng-if="choice==2">[文本答题框]</div>
+                                                                            <div class="reply" item-type=4 ng-if="choice==4">[录音答题框]</div>
+                                                                            <div class="reply reply-position" item-type=1 ng-if="choice==1">
+                                                                                <input type="text" attr="position" placeholder="[填空答题框]" value="{{stem.qAnswer[$index]}}" />
+                                                                            </div>
+                                                                            <div class="score">
+                                                                                <input maxlength="4" ng-model="stem.choices[1][$index]" attr="sscore" value="{{stem.choices[1][$index]}}">
+                                                                            </div>
+                                                                            <a href="javascript:;" class="del"></a>
+                                                                        </li>
+                                                                    </ul>
+                                                                    <div class="add-options">
+                                                                        <li class="add-img bd" title="新增图片框">
+                                                                            <div class="add-text1"><span class="add-text1-sign">+</span>图片框</div>
+                                                                            <div class="add-text2">(拍照答题)</div>
+                                                                        </li>
+                                                                        <li class="add-vedio bd" title="新增录音框">
+                                                                            <div class="add-text1"><span class="add-text1-sign">+</span>录音框</div>
+                                                                            <div class="add-text2">(录音答题)</div>
+                                                                        </li>
+                                                                        <li class="add-text bd" title="新增文本框">
+                                                                            <div class="add-text1"><span class="add-text1-sign">+</span>文本框</div>
+                                                                            <div class="add-text2">(输入答题)</div>
+                                                                        </li>
+                                                                        <li class="add-position" title="新增填空项">
+                                                                            <div class="add-text1"><span class="add-text1-sign">+</span>填空项</div>
+                                                                            <div class="add-text2">(填空答题)</div>
+                                                                        </li>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="pinput-item-analysis">
+                                                                <div class="tit">本题解析</div>
+                                                                <div class="analysis">
+                                                                    <ul class="analysis-ul">
+                                                                        <li class="analysis-li qid-tag">
+                                                                            <div class="tag-title">试题标签&nbsp;/&nbsp;</div>
+                                                                            <p ng-repeat="tag in stem.tagList track by $index" ng-attr-tagid="{{tag.tagId}}">
+                                                                                {{tag.tagName}}
+                                                                                <i class="delete-tag">删除</i>
+                                                                            </p>
+                                                                            <p class="fl add">+</p>
+                                                                        </li>
+                                                                        <li class="analysis-li clearfix" ng-repeat="(key,value) in stem.qResolve track by $index">
+                                                                            <div class="analysis-li1">
+                                                                                <input type="text" maxlength="10" ng-model="key" attr="analysis" value="{{key}}">
+                                                                            </div>
+                                                                            <div class="analysis-li2">&nbsp;/&nbsp;</div>
+                                                                            <div class="analysis-li3" contenteditable="true" ng-bind-html="value | to_trusted" attr="analysis"></div>
+                                                                            <a href="javascript:;" class="del"></a>
+                                                                        </li>
+                                                                    </ul>
+                                                                    <div class="add-analysis">
+                                                                        <span class="txt1">+</span>
+                                                                        <span class="txt2">新增一条解析</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--添加子题-->
+                                                    <div class="add-question">
+                                                        <div class="add-simple choice">选择题</div>
+                                                        <div class="add-simple nochoice">非选择题</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </dt>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <!--右边编辑区域-->
+                    <div class="mtk-bd fr">
+                        <img class="create-step create-step-editor" src="./static/images/step2.png">
+                        <div class="mtk-paper-fun clearfix">
+                            <div class="fl mtk-paper-name">
+                                <i>卷名：</i> {{pname}}
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div id="test">
+                            <dl class="pinput-dl">
+                                <div ng-repeat="question in questions">
+                                    <!--选择题-->
+                                    <dt data-type="1" ng-attr-qid="{{question.qid}}" ng-if="question.qid && question.qType==1">
+                                        <div class="pinput-item-slide">
+                                            <div class="pinput-item pinput-item-tit">
+                                                <span class="tit">{{$index+1}}.</span>
+                                                <span class="info">选择题</span>
+                                            </div>
+                                            <div class="pinput-item pinput-item-opt">
+                                                <a class="del" href="javascript:;"></a>
+                                                <a class="show" href="javascript:;"></a>
+                                            </div>
+                                        </div>
+                                        <!--题目主干-->
+                                        <div class="pinput-item-main">
+                                            <!--主干-->
+                                            <div class="pinput-item-content">
+                                                <ul class="pinput-item-ver"></ul>
+                                                <!--题目信息-->
+                                                <div class="pinput-item-boder">
+                                                    <div class="pinput-problem">
+                                                        <div class="pinput-problem-info clearfix">
+                                                            <div class="pinput-problem-ico fl"></div>
+                                                            <div class="score fr">
+                                                                <input maxlength="4" ng-model="question.qScore" attr="score">
+                                                            </div>
+                                                        </div>
+                                                        <div class="title" contenteditable="true" attr="title" ng-bind-html="question.qContent | to_trusted"></div>
+                                                    </div>
+                                                    <div class="pinput-answer">
+                                                        <ul class="common-ul">
+                                                            <li class="answer-li clearfix" ng-repeat="choice in question.choices track by $index">
+                                                                <div class="choice fl {{question.qAnswer&&question.qAnswer.indexOf($index)!=-1?'correct':''}}"></div>
+                                                                <div class="letter fl">{{ans[$index]}}</div>
+                                                                <div class="answer fl" contenteditable="true" attr="answer" ng-bind-html="choice | to_trusted"></div>
+                                                                <a class="del" href="javascript:;"></a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="add-answer">
+                                                            <span class="txt1">+</span>
+                                                            <span class="txt2">新增一条选项</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--解析-->
+                                                <div class="pinput-item-analysis">
+                                                    <div class="tit">本题解析</div>
+                                                    <div class="analysis">
+                                                        <ul class="analysis-ul">
+                                                            <li class="analysis-li qid-tag">
+                                                                <div class="tag-title">试题标签&nbsp;/&nbsp;</div>
+                                                                <p ng-repeat="tag in question.tagList track by $index" ng-attr-tagid="{{tag.tagId}}">
+                                                                    {{tag.tagName}}
+                                                                    <!-- <i class="delete-tag" ng-click="deleteTag(tag.tagId,question.qid,question.mid,$index)">删除</i> -->
+                                                                    <i class="delete-tag">删除</i>
+                                                                </p>
+                                                                <!-- <p class="fl add" ng-click="openModal(question.qid,question.mid)">+</p> -->
+                                                                <p class="fl add">+</p>
+                                                            </li>
+                                                            <li class="analysis-li clearfix" ng-repeat="(key,value) in question.qResolve track by $index">
+                                                                <div class="analysis-li1">
+                                                                    <input type="text" maxlength="10" ng-model="key" attr="analysis">
+                                                                </div>
+                                                                <div class="analysis-li2">&nbsp;/&nbsp;</div>
+                                                                <div class="analysis-li3" contenteditable="true" ng-bind-html="value | to_trusted" attr="analysis"></div>
+                                                                <a href="javascript:;" class="del"></a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="add-analysis">
+                                                            <span class="txt1">+</span>
+                                                            <span class="txt2">新增一条解析</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </dt>
+                                    <!--主观题-->
+                                    <dt data-type="2" ng-attr-qid="{{question.qid}}" ng-if="question.qid && question.qType==2">
+                                        <div class="pinput-item-slide">
+                                            <div class="pinput-item pinput-item-tit">
+                                                <span class="tit">{{$index+1}}.</span>
+                                                <span class="info">主观题</span>
+                                            </div>
+                                            <div class="pinput-item pinput-item-opt">
+                                                <a class="del" href="javascript:;"></a>
+                                                <a class="show" href="javascript:;"></a>
+                                            </div>
+                                        </div>
+                                        <!--题目主干-->
+                                        <div class="pinput-item-main">
+                                            <!--主干-->
+                                            <div class="pinput-item-content">
+                                                <ul class="pinput-item-ver"></ul>
+                                                <div class="pinput-item-boder">
+                                                    <div class="pinput-problem">
+                                                        <div class="pinput-problem-info clearfix">
+                                                            <div class="pinput-problem-ico fl"></div>
+                                                            <div class="score fr">
+                                                                <input maxlength="4" ng-model="question.qScore" readonly>
+                                                            </div>
+                                                        </div>
+                                                        <div class="title" contenteditable="true" attr="title" ng-bind-html="question.qContent | to_trusted"></div>
+                                                    </div>
+                                                    <div class="pinput-answer">
+                                                        <ul class="short-ul">
+                                                            <li class="answer-li answer-subject" type="{{choice}}" ng-repeat="choice in question.choices[0] track by $index">
+                                                                <div class="letter">{{$index+1}}.</div>
+                                                                <div class="reply" ng-if="choice==3">[图片答题框]</div>
+                                                                <div class="reply" ng-if="choice==2">[文本答题框]</div>
+                                                                <div class="reply" ng-if="choice==4">[录音答题框]</div>
+                                                                <!-- <div ng-class="{'reply':true,'score':question.qAnswer[$index]}" ng-if="choice==1"> -->
+                                                                <div class="reply reply-position" ng-if="choice==1">
+                                                                    <!-- <span ng-if="!question.qAnswer[$index]">[填空答题框]</span> -->
+                                                                    <input type="text" attr="position" placeholder="[填空答题框]" value="{{question.qAnswer[$index]}}" />
+                                                                </div>
+                                                                <div class="score">
+                                                                    <input maxlength="4" ng-model="question.choices[1][$index]" attr="sscore">
+                                                                </div>
+                                                                <a href="javascript:;" class="del"></a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="add-options">
+                                                            <li class="add-img bd" title="新增图片框">
+                                                                <div class="add-text1"><span class="add-text1-sign">+</span>图片框</div>
+                                                                <div class="add-text2">(拍照答题)</div>
+                                                            </li>
+                                                            <li class="add-vedio bd" title="新增录音框">
+                                                                <div class="add-text1"><span class="add-text1-sign">+</span>录音框</div>
+                                                                <div class="add-text2">(录音答题)</div>
+                                                            </li>
+                                                            <li class="add-text bd" title="新增文本框">
+                                                                <div class="add-text1"><span class="add-text1-sign">+</span>文本框</div>
+                                                                <div class="add-text2">(输入答题)</div>
+                                                            </li>
+                                                            <li class="add-position" title="新增填空项">
+                                                                <div class="add-text1"><span class="add-text1-sign">+</span>填空项</div>
+                                                                <div class="add-text2">(填空答题)</div>
+                                                            </li>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--解析-->
+                                                <div class="pinput-item-analysis">
+                                                    <div class="tit">本题解析</div>
+                                                    <div class="analysis">
+                                                        <ul class="analysis-ul">
+                                                            <li class="analysis-li qid-tag">
+                                                                <div class="tag-title">试题标签&nbsp;/&nbsp;</div>
+                                                                <p ng-repeat="tag in question.tagList track by $index" ng-attr-tagid="{{tag.tagId}}">
+                                                                    {{tag.tagName}}
+                                                                    <i class="delete-tag">删除</i>
+                                                                </p>
+                                                                <p class="fl add">+</p>
+                                                            </li>
+                                                            <li class="analysis-li clearfix" ng-repeat="(key,value) in question.qResolve track by $index">
+                                                                <div class="analysis-li1">
+                                                                    <input type="text" maxlength="10" ng-model="key" attr="analysis">
+                                                                </div>
+                                                                <div class="analysis-li2">&nbsp;/&nbsp;</div>
+                                                                <div class="analysis-li3" contenteditable="true" ng-bind-html="value | to_trusted" attr="analysis"></div>
+                                                                <a href="javascript:;" class="del"></a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="add-analysis">
+                                                            <span class="txt1">+</span>
+                                                            <span class="txt2">新增一条解析</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </dt>
+                                    <!-- 复合题 -->
+                                    <dt data-type="3" ng-attr-mid="{{question.mid}}" ng-if="question.mid">
+                                        <div class="pinput-item-slide">
+                                            <div class="pinput-item pinput-item-tit">
+                                                <span class="tit">{{$index+1}}.</span>
+                                                <span class="info">复合题</span>
+                                            </div>
+                                            <div class="pinput-item pinput-item-opt">
+                                                <a class="del" href="javascript:;"></a>
+                                                <a class="show" href="javascript:;"></a>
+                                            </div>
+                                        </div>
+                                        <div class="pinput-item-main">
+                                            <div class="pinput-item-content">
+                                                <ul class="pinput-item-ver"></ul>
+                                                <!--材料-->
+                                                <div class="pinput-item-subject clearfix">
+                                                    <div class="fl add-media">
+                                                        <a class="vedio" href="javascript:;">视频</a>
+                                                        <a class="mp3" href="javascript:;">音频</a>
+                                                    </div>
+                                                    <div class="fl edit-div subject" attr="material" contenteditable="true" ng-bind-html="question.mContent | to_trusted"></div>
+                                                </div>
+                                                <!--子题-->
+                                                <div class="pinput-item-question">
+                                                    <!--子题1-->
+                                                    <div class="pinput-question" ng-attr-qid="{{stem.qid}}" data-type="{{stem.qType}}" ng-repeat="stem in stems[question.mid] track by $index">
+                                                        <ul class="pinput-item-ver"></ul>
+                                                        <div class="pinput-item-boder" ng-if="stem.qType==1">
+                                                            <div class="pinput-problem">
+                                                                <div class="pinput-problem-info clearfix">
+                                                                    <div class="pinput-problem-ico fl"></div>
+                                                                    <div class="fl tit">{{$parent.$parent.$index+1}}-{{$index+1}}.</div>
+                                                                    <a href="javascript:;" class="del"></a>
+                                                                    <div class="score fr">
+                                                                        <input maxlength="4" attr="score" ng-model="stem.qScore">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="title" contenteditable="true" attr="title" ng-bind-html="stem.qContent | to_trusted"></div>
+                                                            </div>
+                                                            <div class="pinput-answer">
+                                                                <ul class="common-ul">
+                                                                    <li class="answer-li clearfix" attr="answer" ng-repeat="choice in stem.choices track by $index">
+                                                                        <div class="choice {{stem.qAnswer&&stem.qAnswer.indexOf($index)!=-1?'correct':''}} fl"></div>
+                                                                        <div class="letter fl">{{ans[$index]}}</div>
+                                                                        <div class="answer fl" contenteditable="true" attr="answer" ng-bind-html="choice | to_trusted"></div>
+                                                                        <a class="del" href="javascript:;"></a>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="add-answer">
+                                                                    <span class="txt1">+</span>
+                                                                    <span class="txt2">新增一条选项</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pinput-item-boder" ng-if="stem.qType==2">
+                                                            <div class="pinput-problem">
+                                                                <div class="pinput-problem-info clearfix">
+                                                                    <div class="pinput-problem-ico fl"></div>
+                                                                    <div class="fl tit">{{$parent.$parent.$index+1}}-{{$index+1}}.</div>
+                                                                    <a href="javascript:;" class="del"></a>
+                                                                    <div class="score fr">
+                                                                        <input maxlength="4" ng-model="stem.qScore" readonly>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="title" contenteditable="true" attr="title" ng-bind-html="stem.qContent | to_trusted"></div>
+                                                            </div>
+                                                            <div class="pinput-answer">
+                                                                <ul class="short-ul">
+                                                                    <li class="answer-li answer-subject" type="{{choice}}" ng-repeat="choice in stem.choices[0] track by $index">
+                                                                        <div class="letter">{{$index+1}}.</div>
+                                                                        <div class="reply" ng-if="choice==3">[图片答题框]</div>
+                                                                        <div class="reply" ng-if="choice==2">[文本答题框]</div>
+                                                                        <div class="reply" ng-if="choice==4">[录音答题框]</div>
+                                                                        <div class="reply reply-position" ng-if="choice==1">
+                                                                            <input type="text" attr="position" placeholder="[填空答题框]" value="{{stem.qAnswer[$index]}}" />
+                                                                        </div>
+                                                                        <div class="score">
+                                                                            <input maxlength="4" ng-model="stem.choices[1][$index]" attr="sscore">
+                                                                        </div>
+                                                                        <a href="javascript:;" class="del"></a>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="add-options">
+                                                                    <li class="add-img bd" title="新增图片框">
+                                                                        <div class="add-text1"><span class="add-text1-sign">+</span>图片框</div>
+                                                                        <div class="add-text2">(拍照答题)</div>
+                                                                    </li>
+                                                                    <li class="add-vedio bd" title="新增录音框">
+                                                                        <div class="add-text1"><span class="add-text1-sign">+</span>录音框</div>
+                                                                        <div class="add-text2">(录音答题)</div>
+                                                                    </li>
+                                                                    <li class="add-text bd" title="新增文本框">
+                                                                        <div class="add-text1"><span class="add-text1-sign">+</span>文本框</div>
+                                                                        <div class="add-text2">(输入答题)</div>
+                                                                    </li>
+                                                                    <li class="add-position" title="新增填空项">
+                                                                        <div class="add-text1"><span class="add-text1-sign">+</span>填空项</div>
+                                                                        <div class="add-text2">(填空答题)</div>
+                                                                    </li>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pinput-item-analysis">
+                                                            <div class="tit">本题解析</div>
+                                                            <div class="analysis">
+                                                                <ul class="analysis-ul">
+                                                                    <li class="analysis-li qid-tag">
+                                                                        <div class="tag-title">试题标签&nbsp;/&nbsp;</div>
+                                                                        <p ng-repeat="tag in stem.tagList track by $index" ng-attr-tagid="{{tag.tagId}}">
+                                                                            {{tag.tagName}}
+                                                                            <i class="delete-tag">删除</i>
+                                                                        </p>
+                                                                        <p class="fl add">+</p>
+                                                                    </li>
+                                                                    <li class="analysis-li clearfix" ng-repeat="(key,value) in stem.qResolve track by $index">
+                                                                        <div class="analysis-li1">
+                                                                            <input type="text" maxlength="10" ng-model="key" attr="analysis">
+                                                                        </div>
+                                                                        <div class="analysis-li2">&nbsp;/&nbsp;</div>
+                                                                        <div class="analysis-li3" contenteditable="true" ng-bind-html="value | to_trusted" attr="analysis"></div>
+                                                                        <a href="javascript:;" class="del"></a>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="add-analysis">
+                                                                    <span class="txt1">+</span>
+                                                                    <span class="txt2">新增一条解析</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--添加子题-->
+                                                <div class="add-question">
+                                                    <div class="add-simple choice">选择题</div>
+                                                    <div class="add-simple nochoice">非选择题</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </dt>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+    <div class="t-stat">
+        <div class="t-box">
+            <div class="t-stat-score-total clearfix">
+                <h2>总分统计/分</h2>
+                <p>{{totalScore}}分</p>
+            </div>
+            <div class="t-stat-score-detail">
+                <h2>全部收起</h2>
+                <ul class="scroll">
+                    <li class="t-stat-li" tit="{{tit.list}}" ng-repeat="tit in titList">
+                        <span class="t-stat-tit fl">{{tit.list}}.</span>
+                        <span class="t-stat-score fl"><i>{{tit.qScore}}</i>分</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="go-top" ng-click="toTop()"><strong>^</strong>置顶</div>
+            <div class="help-enter"></div>
+        </div>
+        <div class="toggle-stat">一</div>
+    </div>
+    <div class="assist">
+        <button ng-click="assist()">申请协助录题</button>
+    </div>
+    <!--遮罩弹窗-->
+    <div class="mask none"></div>
+    <div dialog></div>
+    <!-- 标签修改摸态框 -->
+    <div class="dialog_wrp simple tag-modal label_block none">
+        <div class="dialog">
+            <div class="dialog_hd">
+                <h3>选择标签</h3>
+                <a href="javascript:void(0);" class="icon16_opr closed pop_closed">关闭</a>
+            </div>
+            <div class="dialog_bd dialog-tag">
+                <div class="public-tag">
+                    <b>公有标签</b>
+                    <ul class="public-tag-list">
+                        <li ng-repeat="tag in publicTagList track by $index" class="fl" ng-attr-tagid="{{tag.tagId}}">
+                            <!-- <li ng-repeat="tag in publicTagList track by $index" ng-class="{'fl':true,'selected':testSelectedTagIds.indexOf(tag.tagId)!=-1}" ng-click="chooseTag(tag)"> -->
+                            {{tag.tagName}}
+                        </li>
+                        <!-- <li class="fl more" ng-click="morePublic()" ng-show="publicMore">更多</li> -->
+                    </ul>
+                </div>
+                <div class="private-tag">
+                    <b>私有标签</b>
+                    <ul class="private-tag-list">
+                        <!-- <input ng-show="addTag" class="fl add-tag" type="text" placeholder="请输入标签名" ng-model="addTagName" ng-blur="newTag()" /> -->
+                        <li ng-repeat="tag in privateTagList track by $index" class="fl" ng-attr-tagid="{{tag.tagId}}">
+                            <!-- <li ng-repeat="tag in privateTagList track by $index" ng-class="{'fl':true,'selected':testSelectedTagIds.indexOf(tag.tagId)!=-1}" ng-click="chooseTag(tag)"> -->
+                            <span>{{tag.tagName}}</span>
+                        </li>
+                        <!-- <li class="fl more" ng-click="morePrivate()" ng-show="privateMore">更多</li> -->
+                        <!-- <b class="fl add" ng-click="addTag=true">+</b> -->
+                    </ul>
+                </div>
+            </div>
+            <!-- <div class="dialog_ft">
+                <span><button type="button" class="confirm" ng-click="confirmTag()">确认</button></span>
+                <span><button type="button" class="cancel" ng-click="hideModal()">取消</button></span>
+            </div> -->
+        </div>
+    </div>
+    <!-- 协助录题摸态框 -->
+    <div class="mask" ng-show="assistModal"></div>
+    <div class="dialog_wrp simple label_block" ng-show="assistModal">
+        <div class="dialog">
+            <div class="dialog_hd">
+                <h3>申请协助录题</h3>
+                <a href="javascript:void(0);" class="icon16_opr pop_closed" ng-click="assistModal=false">关闭</a>
+            </div>
+            <div class="dialog_bd">
+                <input type="text" placeholder="请输入录入要求" ng-model="require" />
+                <div class="word-upload">
+                    <img src="./static/images/assist_input.png" ng-click="wordUpload()" />
+                    <span ng-click="wordUpload()">{{tip}}</span>
+                    <span class="warn">(目前仅支持word格式)</span>
+                </div>
+                <form id="uploadPicForm" enctype="multipart/form-data" style="display: none;">
+                    <input type="file" id="file" name="resource" />
+                </form>
+            </div>
+            <div class="dialog_ft">
+                <span><button type="button" class="confirm" ng-click="confirmAssist()">确认</button></span>
+                <span><button type="button" class="cancel" ng-click="assistModal=false">取消</button></span>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="./static/js/localWork.js"></script>
+<script src="./static/js/umeditor.min.js"></script>
+<script type="text/javascript">
+$(function() {
+    setTimeout(function() {
+        $('.pinput-item-ver').perfectScrollbar();
+    }, 1500);
+
+    $('#test').pinput();
+    //监听鼠标滚动事件
+    $(window).scroll(function() {
+        var Top = $(window).scrollTop();
+        if (Top > 172) {
+            $(".mtk-import.fl").css({
+                'position': "fixed",
+                'top': 0
+            })
+        } else {
+            $(".mtk-import.fl").css({
+                'position': "static"
+            })
+        }
+    });
+});
+</script>

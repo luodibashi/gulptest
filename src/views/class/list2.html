@@ -1,0 +1,40 @@
+<div class="main privite" ng-controller="classlist">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/class/list" class="class-list-selected selected">我的班级</a>
+                    <a href="#/class/public" class="class-public">公共班级</a>
+                    <a href="#/class/create" class="class-create">创建班级</a>
+                </div>
+                <div class="detail">
+                    <div class="header">
+                        <div pagination></div>
+                        <!-- <span class="rank" ng-click="rank()">创建时间排序</span> -->
+                        <input type="text" id="search" placeholder="搜索班级" ng-model="className" ng-keyup="search($event)">
+                    </div>
+                    <div class="body">
+                        <div class="box" ng-repeat="priviteClass in priviteClasses" style="cursor: pointer;">
+                            <div class="above" ng-click="linkToClass(priviteClass['cid'])">
+                                <p class="className">{{priviteClass.className}}</p>
+                                <p class="classNum">已参与：{{priviteClass.userNumber?priviteClass.userNumber:0}}人</p>
+                                <p class="classLimit">班级人数：{{priviteClass.maxNumber?priviteClass.maxNumber:0}}人</p>
+                                <div class="teacherInfo">
+                                    <img ng-src="./static/images/{{teacher.isOwner==1? 'user_creat.png': 'user_join.png'}}" title="{{teacher.teacherName}}" ng-repeat="teacher in priviteClass.teacherList" />
+                                </div>
+                                <div class="classInfo">
+                                    <sapn class="classIndex">班号: {{priviteClass.cid}}</sapn>
+                                    <span class="pass">班级密码: {{priviteClass.password?priviteClass.password:'无'}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+<div class="main" ng-controller="goodsPreview">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/paper/list/0" class="paper-list">我的习题</a>
+                    <a href="#/paper/public" class="paper-list">公共习题库</a>
+                    <a href="#/paper/name" class="paper-create-selected selected">录入习题</a>
+                    <a href="#/paper/tag" class="paper-list">标签管理</a>
+                </div>
+                <div class="detail">
+                    <div class="create-paper preview-paper">
+                        <div class="create-paper-step">
+                            <div class="right" style="position: relative; margin-right:10px;">
+                                <a class="btn btn-success nextstep back-edit" ng-href="{{backUrl}}" style="height:40px;line-height: 40px;margin:5px 0;">返回列表</a>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        <!-- 商品信息 -->
+                        <div class="goods-info fl">
+                            <p class="goods-title">试卷名称：{{goods.paperName}}</p>
+                            <div class="wxQrcode"></div>
+                            <p class="price">试卷估价：{{goods.paperPrice}}学豆</p>
+                            <button ng-click="doSomething()" ng-class="{'not-click':disable}">{{handle}}</button>
+                            <p>客观题：{{paper.objNumber}}道</p>
+                            <p>主观题：{{paper.subNumber}}道</p>
+                            <p>卷面分：{{paper.objScore+paper.subScore}}分</p>
+                            <p>来源：{{goods.goodsCreatorName}}</p>
+                            <p>商品名字：{{goods.goodsName}}</p>
+                            <p>商品编号：{{goods.goodsId}}</p>
+                            <p>有效期：{{goods.validityEndTime}}</p>
+                            <ul>
+                                <li class="fl">描述：</li>
+                                <li class="fl tag-li" ng-repeat="tag in tagList">{{tag.tagName}}</li>
+                            </ul>
+                            <p>答卷支持总次数：{{goods.paymentTimes}}次</p>
+                            <p>获取总次数：{{goods.sharingTimes}}次</p>
+                            <p>我的答卷支持总次数：{{goods.minePaymentTimes}}次</p>
+                            <!-- <p class="info-bottom">客观题：<span>{{paper.objNumber}}道</span></p>
+                            <p class="info-bottom">主观题：<span>{{paper.subNumber}}道</span></p>
+                            <p class="info-bottom">卷面：<span>{{paper.objScore+paper.subScore}}分</span></p>
+                            <p class="info-bottom">来源：<span>{{goods.goodsCreatorName}}</span></p> -->
+                            <!-- <p class="info-bottom">截止期：<span>{{goods.validityEndTime}}</span></p>
+                            <p class="info-bottom">编号：<span>{{goods.goodsId}}</span></p> -->
+                            <div class="clearfix"></div>
+                        </div>
+                        <!--预览内容-->
+                        <div class="paper-preview-main goods-preview fl">
+                            <div class="paper-preview-serial">
+                                <ul>
+                                    <li ng-repeat="qStruct in paper.paperStructJson" ng-click="goto($index)">{{$index+1}}</li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <!-- 预览题目内容 -->
+                            <div class="paper-preview-main-box" style="padding: 10px;">
+                                <div class="paper-preview-detail" style="height: 600px;overflow-y: auto;overflow-x: hidden;">
+                                    <div paper-struct></div>
+                                </div>
+                                <div style="height:20px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+</div>

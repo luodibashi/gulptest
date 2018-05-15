@@ -1,0 +1,991 @@
+/* CSS Document */
+
+
+/**作业基础信息开始**/
+
+.paper_info {
+    width: 100%;
+    border-bottom: 1px solid #dedede;
+    height: 90px;
+}
+
+.paper_info h2 {
+    font-size: 21px;
+    color: #292930;
+    font-weight: normal;
+}
+
+.paper_info .info_line {
+    display: block;
+    float: left;
+    width: 100%;
+    margin-top: 2px;
+}
+
+.paper_info .info_line span {
+    color: #6B6B6B;
+    padding-right: 20px;
+    font-size: 14px;
+}
+
+.paper_info .info_line i.num {
+    color: #009245;
+}
+
+.paper_info .left {
+    padding-top: 10px;
+    margin-left: 20px;
+    width: 800px;
+}
+
+.paper_info .right a {
+    width: 152px;
+    height: 44px;
+    line-height: 40px;
+    font-size: 16px;
+    background-color: #009245;
+    margin-right: 12px;
+    display: block;
+    // float: right;
+    padding: 0;
+    margin: 10px 10px 0 0;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.paper_info .right .messageType{
+    width: 152px;
+    height: 30px;
+    line-height: 30px;
+    display: block;
+    margin-top: 2px;
+    background: #d6d8dd;
+    text-align: center;
+    border-radius: 4px;
+}
+
+
+/**作业基础信息结束**/
+
+
+/**序号列表开始**/
+
+.sort_list {
+    width: 830px;
+    padding-right: 5px;
+    border-bottom: 1px solid #dedede;
+    float: left;
+}
+
+.sort_list ul {
+    padding: 0 4px;
+    display: block;
+}
+
+.sort_list ul li {
+    width: 36px;
+    height: 36px;
+    /*background: #096;*/
+    background-color: gray;
+    border: 1px solid #dbdbdb;
+    line-height: 34px;
+    text-align: center;
+    float: left;
+    cursor: pointer;
+    color: #FFF;
+    border-radius: 3px;
+}
+
+.sort_list ul li.selected {
+    background-color: orange;
+}
+
+.sort_list ul li.active {
+    background: #DD8600;
+}
+
+
+/**序号列表结束**/
+
+.correct_detail {
+    width: 100%;
+    float: left;
+}
+
+.correct_detail .item_detail {
+    float: left;
+    width: 834px;
+    border-right: 1px solid #d1d1d1;
+    background: #fff;
+}
+
+
+/**学生列表开始**/
+
+.correct_detail .user_list {
+    width: 165px;
+    background-color: #E5E5E5;
+    margin-left: 835px;
+}
+
+.correct_detail .user_list .header {
+    line-height: 41px;
+    width: 100%;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.correct_detail .user_list .header a {
+    width: 80px;
+    height: 39px;
+    text-align: center;
+    color: #009966;
+}
+
+.correct_detail .user_list .header a.selected {
+    color: #666;
+    border-bottom: 2px solid #ADADAD;
+}
+
+.correct_detail .user_list .student_list {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 442px;
+}
+
+.correct_detail .user_list .student_list li {
+    cursor: pointer;
+    padding: 10px 0 0 6px;
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid #d1d1d1;
+    vertical-align: middle;
+    position: relative;
+}
+
+.correct_detail .user_list .student_list li.active {
+    background: #D6D8DD;
+}
+
+.correct_detail .user_list .student_list li .head_img {
+    width: 36px;
+    height: 36px;
+    float: left;
+}
+
+.correct_detail .user_list .student_list li .head_img img {
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #FFF;
+}
+
+.correct_detail .user_list .student_list li .head_img img {
+    width: 36px;
+    height: 36px;
+    float: left;
+}
+
+.correct_detail .user_list .student_list li .head_img .right {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    left: 29px;
+    top: 33px;
+    border: none;
+}
+
+.correct_detail .user_list .student_list li .user_info {
+    float: right;
+    width: 100px;
+    line-height: 20px;
+}
+
+.correct_detail .user_list .student_list li .user_info h3 {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.correct_detail .user_list .undeal .user_info p {
+    color: #838383;
+}
+
+.correct_detail .user_list .dealed .user_info p {
+    color: #d88400;
+}
+
+
+/**学生列表结束**/
+
+
+/**题目信息**/
+
+.correct_detail .item_detail .question_info {
+    padding: 20px 0 30px 20px;
+}
+
+.correct_detail .item_detail .multi_title {
+    padding: 20px 0 0 20px;
+}
+
+.correct_detail .item_detail .question_info .title {
+    margin-bottom: 5px;
+    line-height: 18px;
+    float: left;
+}
+
+.correct_detail .item_detail .question_info .sort {
+    font-size: 36px;
+    color: #096;
+}
+
+.correct_detail .item_detail .question_info .children_sort {
+    float: left;
+    font-size: 18px;
+    color: #096;
+    line-height: 24px;
+}
+
+.correct_detail .item_detail .question_info .score {
+    font-size: 18px;
+    color: #096;
+    line-height: 24px;
+}
+
+.correct_detail .item_detail .question_info .stem {
+    float: left;
+    line-height: 24px;
+    margin: 3px 0 0 5px;
+    letter-spacing: 2px;
+    width: 670px;
+    display: inline-block!important;
+}
+
+.correct_detail .item_detail .question_info .choices_list {
+    margin: 15px 0 0 30px;
+}
+
+.correct_detail .item_detail .question_info .choices_list li {
+    width: 670px;
+    float: left;
+    margin-left: 75px;
+}
+
+.correct_detail .item_detail .question_info .choices_list li .choice {
+    font-size: 14px;
+    line-height: 30px;
+    width: 670px;
+}
+
+.correct_detail .item_detail .question_info .choices_list li .right {
+    float: left;
+    margin-bottom: 1px;
+    display: inline-block;
+    height: 35px;
+    width: 32px;
+    /* position: relative;
+    bottom: 4px;
+    right: 5px; */
+}
+
+.correct_detail .item_detail .question_info .choices_list li .option {
+    float: left;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.correct_detail .item_detail .question_info .choices_list li .option_text {
+    float: left;
+    line-height: 30px;
+    margin: 3px 0 0 5px;
+    letter-spacing: 2px;
+    display: inline-block!important;
+    font-size: 14px;
+    width: 610px;
+}
+
+.correct_detail .item_detail .question_info .obj_choice {}
+
+.correct_detail .item_detail .question_info .sub_choice {
+    padding: 10px 0 0 110px;
+}
+
+.correct_detail .item_detail .question_info .sub_choice h2 {
+    font-size: 14px;
+    color: #b3b3b3
+}
+
+.correct_detail .item_detail .question_info .sub_choice .sub_choice_list li {
+    display: inline-block;
+    line-height: 24px;
+    margin-top: 3px;
+}
+
+.correct_detail .item_detail .question_info .sub_choice .sub_choice_list li.pos {
+    width: 110px;
+    height: 30px;
+    background-color: #ececec;
+    line-height: 30px;
+    color: #c2c2c2;
+    text-indent: 12px;
+}
+
+
+/*题目解析*/
+
+.correct_detail .item_detail .attrs_list {
+    font-size: 14px;
+    border-top: 1px #CCC solid;
+    margin-top: 20px;
+}
+
+.correct_detail .item_detail .attrs_list li {
+    padding: 10px;
+    padding-left: 75px;
+    line-height: 24px;
+    margin-top: 3px;
+}
+
+.correct_detail .item_detail .attrs_list .attr_name {
+    width: 100px;
+    text-align: center;
+    background: #eaeaea;
+    border-radius: 3px;
+    line-height: 2em;
+    margin: 0 0 15px 32px;
+    font-size: 12px;
+}
+
+.correct_detail .item_detail .attrs_list .attr_detail {
+    font-size: 14px;
+    padding-left: 32px;
+    letter-spacing: 2px;
+}
+
+
+/*用户答题情况*/
+
+.correct_detail .item_detail .handle {
+    background: #e7e7e7;
+    height: 42px;
+    line-height: 42px;
+    font-size: 14px;
+    position: relative;
+    padding-left: 22px;
+}
+
+.correct_detail .item_detail .answer_info .handle a {
+    width: 66px;
+    height: 26px;
+    line-height: 24px;
+    color: #009245;
+    border: 1px solid #009245;
+    border-radius: 3px;
+    position: absolute;
+    top: 8px;
+    right: 14px;
+    text-align: center;
+}
+
+
+/*复合题独有*/
+
+.multi_title .multi_sort {
+    padding-left: 10px;
+    float: left;
+    font-size: 36px;
+    color: #096;
+}
+
+.multi_title .multi_type {
+    float: left;
+    display: block;
+    position: relative;
+    top: 12px;
+    font-size: 21px;
+    line-height: 24px;
+    padding: 2px 5px 2px 5px;
+    border: 1px solid #95bdb3;
+    border-radius: 5px;
+    color: #88c0a7;
+    margin: 0 10px 0 10px;
+    box-shadow: 0 0 1px #acccc0;
+}
+
+.multi_title .vedio {
+    width: 200px;
+    padding: 0 0 10px 62px;
+    color: #b3b3b3;
+}
+
+.multi_title .mp3 {
+    margin: 10px 0 0 62px;
+}
+
+.answer_info .correct_user {
+    position: relative;
+}
+
+.answer_info .correct_user .dealed-img {
+    position: relative;
+    left: 60px;
+    top: -5px;
+    z-index: 1;
+}
+
+.answer_info .correct_user .dealed-img-r {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px solid #E5E5E5;
+    position: relative;
+    top: 10px;
+    left: 20px;
+    display: flex;
+}
+
+.answer_info .correct_user h3 {
+    position: relative;
+    left: 95px;
+    top: -35px;
+    font-size: 18px;
+}
+
+.answer_info .user_answer {
+    padding: 16px 23px;
+    min-height: 325px;
+    font-size: 14px;
+}
+
+.answer_info .user_answer .object {
+    background: #EEF1F4;
+    color: #8895A9;
+    padding: 30px;
+    font-size: 20px;
+    border-radius: 3px;
+}
+
+.answer_info .user_answer .object span {
+    color: #093;
+    margin-right: 50px;
+}
+
+.answer_info .user_answer .object strong {
+    font-weight: normal;
+    margin-right: 50px;
+}
+
+.answer_info .user_answer .subject h3 {
+    background: #EFF3F7;
+    text-align: center;
+    line-height: 120px;
+    border-radius: 5px;
+    font-size: 21px;
+    font-weight: normal;
+    color: #A4ABB8;
+}
+
+.answer_info .user_answer .subject h5 {
+    font-size: 16px;
+    color: #9196BB;
+    border-left: 8px solid #C4C6D5;
+    padding-left: 10px;
+    clear: both;
+    font-weight: normal;
+}
+
+.answer_info .user_answer .subject ul {
+    padding: 6px 0 6px 20px;
+    word-wrap: break-word;
+    letter-spacing: 1px;
+}
+
+.answer_info .user_answer .subject .pos ul li {
+    line-height: 21px;
+    margin: 6px 0 14px 0;
+    padding: 3px;
+    border-bottom: 2px solid #E6E7F2;
+}
+
+.answer_info .user_answer .subject .pos ul li .answer {
+    width: 570px;
+    display: inline-block;
+}
+
+.answer_info .user_answer .subject .pos ul li .score {
+    width: 86px;
+    padding-left: 6px;
+    display: inline-block;
+    color: #C4C6D5;
+    line-height: 28px;
+}
+
+.answer_info .user_answer .subject .pos ul li .answer b {
+    background: #C4C6D5;
+    height: 20px;
+    display: inline-block;
+    text-align: center;
+    line-height: 20px;
+    border-radius: 3px;
+    color: #FFF;
+    padding: 0 3px;
+    margin-right: 6px;
+}
+
+.answer_info .user_answer .subject .pos ul li .score b {
+    color: #DD8600;
+    font-size: 22px;
+    width: 80px;
+    height: 32px;
+    display: inline-block;
+    position: relative;
+    bottom: 7px;
+}
+
+.answer_info .user_answer .subject .pos ul li .pos_correct {
+    width: 32px;
+    height: 32px;
+    margin: 0px 3px;
+    display: inline-block;
+}
+
+.answer_info .user_answer .subject .pos ul li .correct_wrong.selected {
+    background: url(../images/pos-wrong-select.png) no-repeat;
+}
+
+.answer_info .user_answer .subject .pos ul li .correct_wrong {
+    background: url(../images/pos-wrong.png) no-repeat;
+}
+
+.answer_info .user_answer .subject .pos ul li .correct_right {
+    background: url(../images/pos-right.png) no-repeat;
+}
+
+.answer_info .user_answer .subject .pos ul li .correct_right.selected {
+    background: url(../images/pos-right-select.png) no-repeat;
+}
+
+.answer_info .user_answer .subject .img ul li {
+    margin: 10px 10px 10px 0px;
+    float: left;
+    /*border: 2px solid #e0e0e0;*/
+    border-radius: 3px;
+}
+
+.answer_info .user_answer .subject .correct_img ul li {
+    border: 2px solid #F29C00!important;
+    position: relative;
+    margin: 10px 10px 10px 0px;
+    float: left;
+    border-radius: 3px;
+}
+
+.answer_info .user_answer .subject .text ul li {
+    border-radius: 3px;
+    background: #F7F7F9;
+    padding: 5px 10px;
+    margin-bottom: 3px;
+    overflow: hidden;
+}
+
+.answer_info .user_answer .img ul li {
+    /*border:1px solid red;*/
+}
+
+.answer_info .user_answer .img ul li .right {
+    /*border:1px solid red;*/
+}
+
+.answer_info .user_answer .img ul li .right img {
+    margin-top: 1px;
+}
+
+.answer_info .user_answer .subject .correct_img ul li .del {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    cursor: pointer;
+}
+
+.answer_info .correct_handle {
+    padding: 10px 23px;
+    clear: both;
+    border-top: 1px solid #d1d1d1;
+    margin-bottom: 30px;
+}
+
+.answer_info .correct_handle .button_ctrl {
+    height: 40px;
+    width: 100%;
+}
+
+.answer_info .correct_handle .button_ctrl .controller {
+    float: left;
+    width: 200px;
+    text-align: center;
+    margin-right: 20px;
+}
+
+.answer_info .correct_handle .button_ctrl .controller a {
+    width: 80px;
+    color: #fff;
+    line-height: 36px;
+    height: 36px;
+    background: #009245;
+    float: left;
+    display: block;
+    text-align: center;
+}
+
+.answer_info .correct_handle .button_ctrl .controller a:hover {
+    background: #00AD52;
+    border-radius: 3px 0 0 3px;
+    color: #fff;
+}
+
+.answer_info .correct_handle .button_ctrl .controller .prev {
+    border-right: 1px solid #69bb96;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.answer_info .correct_handle .button_ctrl .controller .next {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.answer_info .correct_handle .button_ctrl .correct_ctrl a {
+    border-radius: 3px;
+    width: 108px;
+    height: 30px;
+    text-align: center;
+    color: #FFF;
+    font-size: 12px;
+    display: inline-block;
+    line-height: 32px;
+    background: #DD8600;
+}
+
+.answer_info .correct_handle .button_ctrl .correct_ctrl a.dealed {
+    background: #009245;
+}
+
+.answer_info .correct_handle .button_ctrl .correct_ctrl a.undeal {
+    background: #DD8600;
+}
+
+.answer_info .correct_handle .correct_score {
+    padding: 15px 0 12px 0;
+    line-height: 50px;
+}
+
+.answer_info .correct_handle .correct_score strong {
+    font-size: 30px;
+    color: #F29C00;
+}
+
+.answer_info .correct_handle .correct_score .score {
+    width: 264px;
+    height: 4px;
+    background: #e5e5e5;
+    border-radius: 2px;
+    position: relative
+}
+
+.answer_info .correct_handle .correct_score .score span {
+    width: 22px;
+    height: 22px;
+    float: left;
+    border: 1px solid #ec8704;
+    background: #FFF;
+    border-radius: 50%;
+    position: absolute;
+    top: -10px;
+    left: 0;
+    cursor: pointer;
+}
+
+.answer_info .correct_handle .correct_score .score {
+    width: 264px;
+    height: 4px;
+    background: #e5e5e5;
+    border-radius: 2px;
+    position: relative;
+}
+
+.answer_info .correct_handle #textarea_text {
+    width: 788px;
+    min-height: 164px;
+}
+
+
+/* 2016/02/26 */
+
+.answer_info .correct_handle .button_ctrl .corrent_ctrl .final_score {
+    height: 34px;
+    border: 1px solid orange;
+    border-radius: 5px 0 0 5px;
+    display: inline-block;
+    font-size: 16px;
+    width: 120px;
+    color: #505050;
+    text-indent: 10px;
+    position: absolute;
+    right: 100px;
+}
+
+.answer_info .correct_handle .button_ctrl .corrent_ctrl .final_score_btn {
+    display: inline-block;
+    height: 36px;
+    width: 100px;
+    padding-right: 12px;
+    padding-left: 12px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    background-color: orange;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    margin-left: -5px;
+    position: absolute;
+    right: 0;
+}
+
+#particular {
+    border: 2px solid red;
+}
+
+
+/*=======3/15*/
+
+.answer_info .user_answer .subject .text {
+    /*border:1px solid red;*/
+    position: relative;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 2px;
+}
+
+.answer_info .user_answer .subject .pos .studentAnswer {
+    padding: 5px 10px;
+    background: #f7f7f9;
+    width: 768px;
+    line-height: 20px;
+}
+
+.answer_info .user_answer .subject .img .studentAnswer img {
+    border-radius: 5px;
+    border: 1px solid #fff;
+    cursor: pointer;
+}
+
+.answer_info .user_answer .subject .img .studentAnswer img:hover {
+    border: 1px solid #EF5F00;
+}
+
+.answer_info .user_answer .subject .img .studentAnswer .noAnswer {
+    color: #976969;
+}
+
+.answer_info .user_answer .subject .audio .studentAnswer .currentTime {
+    font-size: 18px;
+    color: #969696;
+}
+
+.answer_info .user_answer .subject .audio .studentAnswer img {
+    cursor: pointer;
+}
+
+.answer_info .user_answer .subject .text .header {
+    /*border:1px solid red;*/
+    margin-bottom: 3px;
+    height: 30px;
+}
+
+.answer_info .user_answer .subject .text .header div {
+    float: left;
+}
+
+.answer_info .user_answer .subject .text .header .tixu {
+    font-size: 18px;
+}
+
+.answer_info .user_answer .subject .text .header .score {
+    float: left;
+    width: 60px;
+    color: #969696;
+    font-size: 16px;
+}
+
+.answer_info .user_answer .subject .text .header .studentAnswer {
+    border-bottom: 1px solid #969696;
+    max-width: 600px;
+}
+
+.answer_info .user_answer .subject .text .toolBar {
+    width: 250px;
+    height: 28px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.answer_info .user_answer .subject .text .teacherAnswer {
+    width: 100%;
+    margin-top: 14px;
+    /*border:1px solid red;*/
+}
+
+.answer_info .user_answer .subject .text .teacherAnswer .teacherAudio {
+    margin-top: 12px;
+    position: relative;
+    width: 50px;
+}
+
+.answer_info .user_answer .subject .text .teacherAnswer .teacherAudio .delate {
+    position: absolute;
+    top: -11px;
+    right: -11px;
+    cursor: pointer;
+}
+
+.answer_info .user_answer .subject .text .teacherAnswer .t_pic {
+    margin-bottom: 8px;
+    margin-top: 5px;
+    position: relative;
+    width: 66px;
+    display: inline-block;
+    margin-right: 18px;
+}
+
+.answer_info .user_answer .subject .text .teacherAnswer .t_pic .delate {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    cursor: pointer;
+}
+
+.answer_info .user_answer .subject .text .teacherAnswer .t_textarea {
+    position: relative;
+    width: 550px;
+}
+
+.answer_info .user_answer .subject .text .teacherAnswer .t_textarea img {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    cursor: pointer;
+}
+
+.answer_info .user_answer .subject .text .teacherAnswer .t_textarea .teacherTextComment {
+    width: 550px;
+    border: 1px solid #FE8000;
+    height: 70px;
+    display: block;
+    border-radius: 3px;
+}
+
+.answer_info .user_answer .subject .text .toolBar .correctBtn {
+    width: 85px;
+    height: 25px;
+    border: 1px solid #FE8000;
+    background-color: #FFF;
+    text-align: center;
+    line-height: 25px;
+    border-radius: 3px;
+    cursor: pointer;
+    color: #FE8000;
+    position: absolute;
+    right: 0;
+}
+
+.answer_info .user_answer .subject .text .toolBar .correctBtn:hover {
+    background-color: #FE8000;
+    color: #fff;
+}
+
+.answer_info .user_answer .subject .text .toolBar .score {
+    width: 108px;
+    height: 25px;
+    background-color: #FFF;
+    text-align: center;
+    line-height: 25px;
+    border-radius: 3px;
+    cursor: pointer;
+    color: #FE8000;
+    position: absolute;
+    right: 0;
+    border: 1px solid #FE8000;
+}
+
+.answer_info .user_answer .subject .text .toolBar .computerCorrect {
+    color: #777;
+    border: 1px solid #777;
+}
+
+.answer_info .user_answer .subject .text .toolBar .score:hover {
+    background-color: #FE8000;
+    color: #fff;
+}
+
+.answer_info .user_answer .subject .text .toolBar .middle {
+    width: 210px;
+    height: 26px;
+    display: none;
+    position: relative;
+    float: right;
+}
+
+.answer_info .user_answer .subject .text .toolBar .middle img {
+    width: 26px;
+    height: 26px;
+    border: 1px solid #FE8000;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.answer_info .user_answer .subject .text .toolBar .middle .scoreInput {
+    width: 72px;
+    height: 26px;
+    border: 1px solid #FE8000;
+    position: absolute;
+    right: 72px;
+    border-radius: 3px 0 0 3px;
+    text-indent: 5px;
+}
+
+.answer_info .user_answer .subject .text .toolBar .middle .confirm {
+    color: #fff;
+    background: #FE8000;
+    padding: 5px 22px;
+    cursor: pointer;
+    border-radius: 0 3px 3px 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.student_list .selected {
+    background-color: ＃009245;
+    color: #fff;
+}
+
+.answer_info .correct_handle .button_ctrl .corrent_ctrl .computerAssist {
+    font-size: 16px;
+    position: absolute;
+    top: 45px;
+    right: 0;
+    color: #777;
+}
+
+#finalScore {
+    font-size: 16px;
+    color: #777;
+    margin-left: 630px;
+}
+
+#totalScore {
+    font-size: 25px;
+    color: #FE8000;
+}

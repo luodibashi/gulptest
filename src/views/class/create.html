@@ -1,0 +1,32 @@
+<div class="main" ng-controller="createClass">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a ng-href="#/class/list" class="class-list">我的班级</a>
+                    <!-- <a href="#/class/public" class="class-public">公共班级</a> -->
+                    <a ng-href="#/class/create" class="class-create-selected selected">创建班级</a>
+                    <a href="#/class/live" class="class-live">班级直播</a>
+                </div>
+                <div class="detail">
+                    <div class="class-create-from">
+                        <form class="form-horizontal" role="form" name="form" novalidate >
+                            <input type="text" class="form-control" name="className" placeholder="设定班级名(*必填)" ng-model="className" required />
+                            <input type="text" class="form-control classNum" name="classNum" placeholder="设定班级最大人数(*必填)" ng-model="classNumber" ng-blur="validateOne()" required />
+                            <div>
+                                <input type="text" class="form-control password" name="password" style="width:520px; float:left;" ng-model="password" name="classPass" ng-blur="validateTwo()" placeholder="设定班级密码（限定6-8位数字）" />
+                                <button type="button" class="create-password">随机生成</button>
+                            </div>
+                            <textarea class="form-control" name="classAnnounce" placeholder="此处填写班级任课老师通告(140字以内)" ng-model="classAnnounce"></textarea>
+                            <button type="button" class="btn btn-success creataSubmit" ng-click="submit()" ng-disabled="form.$invalid">确定提交</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+</div>

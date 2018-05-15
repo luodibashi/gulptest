@@ -1,0 +1,9 @@
+<div class="teacher-qrcode-detail">
+    <div class="monitor" ng-repeat="monitor in monitorlist track by $index">
+        <div class="imgcode"></div>
+        <p class="bind-status" ng-if="monitor.userName">{{monitor.userName}}</p>
+        <p class="unbind-status" ng-if="!monitor.userName">(未绑定助教信息)</p>
+        <a ng-if="monitor.userName" class="remove-bind" ng-click="unbindRepresent(monitor.tutorId)">解除绑定</a>
+        <a ng-if="!monitor.userName" class="remove-bind" ng-click="deleteQrCode(monitor.tutorId)">删除</a>
+    </div>
+</div>

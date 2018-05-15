@@ -1,0 +1,218 @@
+<div class="permissions main" ng-controller="questionbank">
+  <div id="box">
+    <div user-Top></div>
+    <div class="main common">
+      <div my-Tab></div>
+      <div class="content right">
+        <div class="sub-navigation">
+          <a href="#/class/list" class="class-list-selected selected">我的班级</a>
+          <a href="#/class/create" class="class-create">创建班级</a>
+          <a href="#/class/live" class="class-live">班级直播</a>
+        </div>
+        <div class="detail">
+          <div class-info></div>
+          <div class="sub-sidebar left">
+            <div qrCode></div>
+            <ul class="three-navigation">
+              <li><a ng-href="#/class/members/{{cid}}">本班学员</a></li>
+              <li><a ng-href="#/class/represent/{{cid}}">本班助教</a></li>
+              <li><a ng-href="#/class/record/{{cid}}">作业记录</a></li>
+              <li><a ng-href="#/class/permission/{{cid}}">班级教师</a></li>
+              <li><a ng-href="#/class/questionbank/{{cid}}" class="selected">班级题库</a></li>
+              <li><a ng-href="#/class/modify/{{cid}}">修改班级信息</a></li>
+            </ul>
+          </div>
+          <div class="student-info left">
+            <div class="module-left">
+              <div class="openBox">
+                <span class="infomation">班级题库状态</span>
+                <span class="already-status" ng-if="check">(已开通)</span>
+                <span class="none-status" ng-if="!check">(未开通)</span>
+                <input type="checkbox" id="checkbox" class="chk" ng-change="isChecked()" ng-model="check" />
+                <label for="checkbox"></label>
+              </div>
+              <div class="configBox">
+                <p class="configBox-title">班级智能题库配置</p>
+                <p class="configBox-prefix">智能题库组卷前缀命名(最长10个字符)</p>
+                <div class="configBox-prefix-info">
+                  <div class="configBox-prefix-name" ng-if="!isShowEdit">{{paperNamePrefix?paperNamePrefix:'请开通题库后设定'}}</div>
+                  <div ng-if="isShowEdit">
+                    <form>
+                      <input class="configBox-prefix-edit" type="text" name="paperNamePrefixEdit" placeholder="请输入前缀名字" ng-model="$parent.paperNamePrefix" ng-blur="validatePrefix()">
+                    </form>
+                  </div>
+                </div>
+                <p class="configBox-total">每次组卷总题量
+                  <span ng-if="!isShowEdit">{{totalAmount?totalAmount:0}}道</span>
+                  <span ng-if="isShowEdit">{{numberTotal}}道</span>
+                </p>
+                <p class="configBox-conf">组卷数量及题型配置</p>
+                <div class="configBox-conf-info">
+                  <div class="configBox-conf-name">
+                    <div class="configBox-conf-title">单选题(共{{amountInfo[1][0]?amountInfo[1][0]:'0'}}道)：</div>
+                    <div class="configBox-conf-show" ng-if="!isShowEdit">{{amountConf[1][0]?amountConf[1][0]:'0'}}道</div>
+                    <div ng-if="isShowEdit">
+                      <form>
+                        <input class="configBox-conf-edit" type="text" name="singleselect" placeholder="请输入题量" ng-model="$parent.singleselect" ng-blur="validateSingle()">
+                      </form>
+                    </div>
+                  </div>
+                  <div class="configBox-conf-name">
+                    <div class="configBox-conf-title">多选题(共{{amountInfo[1][0]?amountInfo[1][1]:'0'}}道)：</div>
+                    <div class="configBox-conf-show" ng-if="!isShowEdit">{{amountConf[1][0]?amountConf[1][1]:'0'}}道</div>
+                    <div ng-if="isShowEdit">
+                      <form>
+                        <input class="configBox-conf-edit" type="text" name="multiselect" placeholder="请输入题量" ng-model="$parent.multiselect" ng-blur="validateMultiselect()">
+                      </form>
+                    </div>
+                  </div>
+                  <div class="configBox-conf-name">
+                    <div class="configBox-conf-title">判断题(共{{amountInfo[1][0]?amountInfo[1][2]:'0'}}道)：</div>
+                    <div class="configBox-conf-show" ng-if="!isShowEdit">{{amountConf[1][0]?amountConf[1][2]:'0'}}道</div>
+                    <div ng-if="isShowEdit">
+                      <form>
+                        <input class="configBox-conf-edit" type="text" name="judge" placeholder="请输入题量" ng-model="$parent.judge" ng-blur="validateJudge()">
+                      </form>
+                    </div>
+                  </div>
+                  <div class="configBox-conf-name">
+                    <div class="configBox-conf-title">主观题(共{{amountInfo[1][0]?amountInfo[1][3]:'0'}}道)：</div>
+                    <div class="configBox-conf-show" ng-if="!isShowEdit">{{amountConf[1][0]?amountConf[1][3]:'0'}}道</div>
+                    <div ng-if="isShowEdit">
+                      <form>
+                        <input class="configBox-conf-edit" type="text" name="subjective" placeholder="请输入题量" ng-model="$parent.subjective" ng-blur="validateSubjective()">
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <p class="configBox-duration">总答题时长设定</p>
+                <div class="configBox-duration-info">
+                  <div class="configBox-duration-data" ng-if="!isShowEdit">{{durationTime?durationTime:'您还未设定时长'}}</div>
+                  <div ng-if="isShowEdit">
+                    <form>
+                      <div class="configBox-duration-hour">
+                        <input class="configBox-duration-hour-input" type="text" name="timeHour" placeholder="小时" ng-model="$parent.timeHour" ng-blur="validateHour()">
+                        <span>小时</span>
+                      </div>
+                      <div class="configBox-duration-minute">
+                        <input class="configBox-duration-minute-input" type="text" name="timeMinute" placeholder="分" ng-model="$parent.timeMinute" ng-blur="validateMinute()">
+                        <span>分钟</span>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <p class="configBox-score">总分设定</p>
+                <div class="configBox-score-info">
+                  <div class="configBox-score-data" ng-if="!isShowEdit">{{totalScore?totalScore:'您还未设定总分'}}</div>
+                  <div ng-if="isShowEdit">
+                    <form>
+                      <input class="configBox-score-edit" type="text" name="totalScore" placeholder="请输入总分" ng-model="$parent.totalScore" ng-blur="validateScore()">
+                    </form>
+                  </div>
+                </div>
+                <div class="sureBox">
+                  <div class="sureBox-update" ng-if="!isShowEdit&&check">
+                    <div ng-click="updateQuestionbankConfig()">配置题库</div>
+                  </div>
+                  <div class="sureBox-ok" ng-if="isShowEdit&&check">
+                    <div class="sureBox-yes" ng-click="preservationConfig()">保存</div>
+                    <div class="sureBox-no" ng-click="cancelConfig()">取消</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="module-right">
+              <div class="paper-page">
+                <div class="paper-page-size">
+                  <div pagination></div>
+                </div>
+                <div class="paper-class-add" ng-if="check">
+                  <div ng-click="showBoxOfAddPaper()">添加班级试卷</div>
+                </div>
+              </div>
+              <div class="paper-list">
+                <ul ng-if="count>0">
+                  <li class="paper-title">
+                    <div class="paper-name-title">试卷名字</div>
+                    <div class="paper-do-title">操作</div>
+                  </li>
+                  <li class="paper-list-info" ng-repeat="paper in paperList">
+                    <div class="paper-name">{{paper.paperName}}</div>
+                    <div class="paper-do">
+                      <a ng-click="removeFromClassPaper(paper.classPaperId)">移除</a>
+                    </div>
+                  </li>
+                </ul>
+                <ul ng-if="!count">
+                  <li class="paper-title">
+                    <div class="paper-name-title">试卷名字</div>
+                    <div class="paper-do-title">操作</div>
+                  </li>
+                  <li class="paper-list-info">
+                    <div class="paper-list-none">该班级还未添加试卷哦</div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+    </div>
+  </div>
+  <!-- 添加班级试卷 -->
+  <div class="add-class-paper" ng-if="showAddPaper">
+    <div class="big-class-paper">
+      <div class="class-paper-title">
+        <div class="class-paper-title-font">选择班级试卷</div>
+        <!-- <div class="class-paper-close">关闭</div> -->
+      </div>
+      <div class="paper-list-box">
+        <div class="paper-list">
+          <div class="paper-list-title">我的试卷列表</div>
+          <ul>
+            <li class="paper-header">
+              <div class="paper-name">试卷名称</div>
+              <div class="paper-do">操作</div>
+            </li>
+            <li class="paper-main" ng-repeat="newPaper in newPaperList">
+              <div class="paper-name" title="{{newPaper.paperName}}">{{newPaper.paperNameShort}}</div>
+              <div class="paper-do" ng-if="!newPaper.showStatus">
+                <a ng-click="addToTheLocal(newPaper.paperNameShort,newPaper.paperName,newPaper.pid,$index)">添加</a>
+              </div>
+              <div class="paper-do" ng-if="newPaper.showStatus">
+                <a>已选</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="choosed-box">
+          <div class="choosed-box-title">选定待添加班级试卷列表</div>
+          <ul>
+            <li class="choosed-header">
+              <div class="paper-name">试卷名称</div>
+              <div class="paper-do">操作</div>
+            </li>
+            <li class="choosed-main" ng-repeat="localPaper in localPaperList">
+              <div class="paper-name" title="{{localPaper.paperName}}">{{localPaper.paperNameShort}}</div>
+              <div class="paper-do">
+                <a ng-click="removeFromLocal($index)">删除</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="sure-box">
+        <div class="sure-box-yes">
+          <div class="sure-box-yes-btn" ng-click="sureAddPaper()">确定添加</div>
+        </div>
+        <div class="sure-box-no">
+          <div class="sure-box-no-btn" ng-click="cancelPaperBox()">取消</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="add-class-paper-bg" ng-if="showAddPaper"></div>
+</div>
+

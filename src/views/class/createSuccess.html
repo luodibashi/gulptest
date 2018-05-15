@@ -1,0 +1,42 @@
+<div class="main" ng-controller="createSuccess">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a ng-href="#/class/list" class="class-list">我的班级</a>
+                    <!-- <a href="#/class/public" class="class-public">公共班级</a> -->
+                    <a ng-href="#/class/create" class="class-create-selected selected">创建班级</a>
+                    <a href="#/class/live" class="class-live">班级直播</a>
+                </div>
+                <div class="detail">
+                    <div class="class-create-info">
+                        <p class="info">{{className}}&nbsp;创建成功!</p>
+                        <span class="class-name">{{className}}</span>
+                        <a href="#/class/create" class="btn btn-success goback agan">新增一个班级</a>
+                        <a href="#/class/members/{{cid}}" class="btn btn-success goback agan">进入本班管理页面</a>
+                    </div>
+                    <div class="class-detail-info class-qrcode-detail">
+                        <div class="qrCode left">
+                            <div class="class-qrcode">
+                                <div id="imgCode">
+                                </div>
+                                <p>班级二维码</p>
+                            </div>
+                        </div>
+                        <div class="detail-info right">
+                            <p>人数限制&nbsp;:&nbsp;&nbsp;{{classNumber}}人</p>
+                            <p>密码&nbsp;:&nbsp;&nbsp;{{password?password:'无'}}</p>
+                            <p>班级公告&nbsp;:&nbsp;&nbsp;{{description}}</p>
+                            <h3>*&nbsp;&nbsp;微信端轻松加入班级步骤</h3>
+                            <img src="./static/images/class-show.png" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+</div>

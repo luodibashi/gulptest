@@ -1,0 +1,142 @@
+<script type="text/javascript" src="static/js/datePicker/WdatePicker.js"></script>
+<div class="main" ng-controller="arrange">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/work/list" class="work-list">作业列表</a>
+                    <a href="#/work/arrange" class="work-create-selected selected">安排作业</a>
+                </div>
+                <div class="detail">
+                    <div class="exam-plan-from">
+                        <div class="fl select-term">
+                            <!-- <p for="select-homework" class="select-homework"><img src="http://teacher.mstudy.me/admin/images/examplan_01.png" />&nbsp;&nbsp;1.选择试卷（最后敲定的试卷）</p> -->
+                            <p for="select-homework" class="select-homework fl"><img src="http://teacher.mstudy.me/admin/images/examplan_01.png" />&nbsp;&nbsp;1.选择试卷</p>
+                            <div class="class-list-type fr">
+                                <span ng-class="{'type-selected':type==0}" ng-click="checkType(0)">本地习题</span><span>|</span><span ng-class="{'type-selected':type==1}" ng-click="checkType(1)">外部获取</span>
+                            </div>
+                            <input type="text" class="form-control fl select-term-input" placeholder="选择作业名" ng-model="paperName" ng-keyup="pKeyup($event)">
+                            <button class="fl" id="search-paper" ng-click="searchPaper()">搜索</button>
+                            <div class="clear"></div>
+                            <div class="select-paper-div">
+                                <div class="select-paper-name scroll-div">
+                                    <div class="paper-lists" ng-show="type==0" ng-repeat="paper in paperlist">
+                                        <p class="paper-lists-info">
+                                            <img src="./static/images/radio_selected.png" ng-show="visible[paper['pid']] && {{paper.isFinish}}==1" ng-click='check(paper["pid"])' />
+                                            <img src="./static/images/radio_select.png" ng-hide="visible[paper['pid']] || {{paper.isFinish}}==0" ng-click='check(paper["pid"])' />
+                                            <span ng-show="{{paper.isFinish}}==1">【已敲定】</span>
+                                            <span class="no-confrim" ng-show="{{paper.isFinish}}==0">【未敲定】</span> {{paper.paperName}}
+                                        </p>
+                                    </div>
+                                    <div class="paper-lists" ng-show="type==1" ng-repeat="paper in goodsPaperlist">
+                                        <p class="paper-lists-info">
+                                            <img src="./static/images/radio_selected.png" ng-show="visible[paper['goodsId']][paper['pid']]" ng-click='check(paper["pid"],paper["goodsId"])' />
+                                            <img src="./static/images/radio_select.png" ng-hide="visible[paper['goodsId']][paper['pid']]" ng-click='check(paper["pid"],paper["goodsId"])' />
+                                            <span>{{paper.paperPrice}}学豆</span>
+                                            <i title="{{paper.goodsPaperName}}">{{paper.goodsPaperName | limitword:true:20}}</i>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-class="{'selected-paper-name':true,'selected-goods-paper-name':type==1}">
+                                <div class="checkedPaper" style="display: none;margin-top: 6px;font-size: 14px;">
+                                    <img class="classes-lists-img" src="./static/images/remove.png" ng-click="checkedPaper()" style="margin-left: 26px;margin-right: 12px;cursor: pointer;" /><span ng-show="price" class="choose-paper-price">{{price}}学豆</span><i title="{{pname}}">{{pname | limitword:true:20}}</i>
+                                </div>
+                            </div>
+                            <div class="select-goods-type" ng-show="type==1">
+                                作业类型:
+                                <div>
+                                    <img src="./static/images/radio_selected.png" ng-show="workType==3" ng-click='workType = 2' />
+                                    <img src="./static/images/radio_select.png" ng-hide="workType==3" ng-click='workType = 3' />
+                                    <span>普通商品作业</span>
+                                </div>
+                                <div>
+                                    <img src="./static/images/radio_selected.png" ng-show="workType==2" ng-click='workType = 3' />
+                                    <img src="./static/images/radio_select.png" ng-hide="workType==2" ng-click='workType = 2' />
+                                    <span>推荐商品作业</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fl select-term">
+                            <p for="select-class" class="select-homework"><img src="http://teacher.mstudy.me/admin/images/examplan_02.png" />&nbsp;&nbsp;2.选择班级</p>
+                            <input type="text" class="form-control fl select-term-input" placeholder="选择班级名" ng-model="className" ng-keyup="cKeyup($event)">
+                            <button class="fl" id="search-paper" ng-click="searchClass()">搜索</button>
+                            <div class="clear"></div>
+                            <div class="select-classes-div">
+                                <div class="select-classes-name scroll-div">
+                                    <div class="classes-lists" ng-repeat="class in classlist">
+                                        <img class="classes-lists-img" ng-src="./static/images/radio_select.png" ng-click='classCheck(class["cid"],$index)' ng-hide="unchecked[class['cid']]" />
+                                        <img class="classes-lists-img" src="./static/images/radio_selected.png" ng-click='classCheck(class["cid"],$index)' ng-show="checked[class['cid']]" />
+                                        <span ng-click="switch($index)" title="{{class.className}}">({{classTypeName[class.type]}}){{class.shortClassName}}</span>
+                                        <ul class="student-lists none" id="index{{$index}}">
+                                            <li ng-repeat="user in userlist[class.cid] track by $index" class="li-indent">
+                                                <!-- 选择 false-->
+                                                <img class="classes-lists-img" src="./static/images/radio_selected.png" ng-click='userCheck(class["cid"],user["studentId"])' ng-hide="userUnchecked[class['cid']][user['studentId']]" />
+                                                <!-- 不选择 -->
+                                                <img class="classes-lists-img" src="./static/images/radio_select.png" ng-click='userCheck(class["cid"],user["studentId"])' ng-show="userUnchecked[class['cid']][user['studentId']]" /> {{user.studentName}}
+                                                <span ng-if="user.remarkName">({{user.remarkName}})</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="getMore" ng-if="loadMore" ng-click="getMoreClass()">获取更多班级</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group submit-work">
+                            <button type="button" id="setWork" class="btn btn-default" ng-click="submit()">发布作业</button>
+                            <button type="button" id="setting" class="btn btn-default" ng-click="setting()">高级设置</button>
+                        </div>
+                        <div class="fl switch none">
+                            <div>
+                                <div class="notice">
+                                    <p class="select-homework"><img src="http://teacher.mstudy.me/admin/images/examplan_03.png" />&nbsp;&nbsp;作业何时通知</p>
+                                    <input type="text" class="form-control Wdate noticeTime" placeholder="默认当前时间" readonly onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d'})">
+                                </div>
+                                <div class="startend">
+                                    <p class="select-homework"><img src="http://teacher.mstudy.me/admin/images/examplan_03.png" />&nbsp;&nbsp;设置作业时间（超出规定区间的学生将不能获取作业）</p>
+                                    <input type="text" class="form-control startime Wdate" placeholder="起始时间" readonly onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d'})">
+                                    <input type="text" class="form-control endtime Wdate" placeholder="截至时间" readonly onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d'})">
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                            <!--作业时长-->
+                            <div class="work-duration">
+                                <p class="select-homework"><img src="http://teacher.mstudy.me/admin/images/examplan_04.png" />&nbsp;&nbsp;作业时长</p>
+                                <div class="fl">
+                                    <input type="text" class="form-control hours" ng-model="hours" maxlength="2" placeholder="0">
+                                    <span>小时</span>
+                                </div>
+                                <div class="fl">
+                                    <input type="text" class="form-control minute" ng-model="minute" maxlength="2" placeholder="0">
+                                    <span>分钟</span>
+                                </div>
+                                <div class="fl">
+                                    <input type="text" class="form-control second" ng-model="second" maxlength="2" placeholder="0">
+                                    <span>&nbsp;秒</span>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="form-group check all">
+                                <img ng-src="./static/images/{{isall==true ? 'checked.png' : 'uncheck.png'}}" ng-click="isAll()"> 设置为全班作业&nbsp;&nbsp;(
+                                <span class="tips">提示：勾选该选项被布置后，对于新加入班级的学生可以收到作业</span>)
+                            </div>
+                            <div class="form-group check order">
+                                <img ng-src="./static/images/{{isorder==true ? 'checked.png' : 'uncheck.png'}}" ng-click="isOrder()"> 客观题选项打乱顺序
+                            </div>
+                            <div class="form-group check is_see">
+                                <img ng-src="./static/images/{{issee==true?'checked.png':'uncheck.png'}}" ng-click="isSee()"> 学生作业提交后,答案解析直接公布
+                            </div>
+                            <div class="form-group check is_join">
+                                <img ng-src="./static/images/{{isjoin==true?'checked.png':'uncheck.png'}}" ng-click="isJoin()"> 本次作业加入班级统计报告
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+</div>

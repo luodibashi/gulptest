@@ -1,0 +1,78 @@
+<div class="indexCtrl main" ng-controller="index">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="update-tips">2018-03-16功能更新说明：班级管理新增班级题库功能(可用于学生智能随机组卷)，快去试用新功能吧;</div>
+                <div class="shouye">
+                    <div class="shouye-guide">
+                        当前 ({{loginTime | timeFormat1}})
+                    </div>
+                    <div class="shouye-total-stat">
+                        <div class="total-stat">
+                            <p class="total-stat-summary">班级总数</p>
+                            <p class="total-stat-count">{{classesInfo.total?classesInfo.total:0}}</p>
+                            <p class="total-stat-base">学生总数&nbsp;&nbsp;<span class="stat-base-data">{{classesInfo.number?classesInfo.number:0}}</span></p>
+                            <p class="total-stat-base">平均每个班人数&nbsp;&nbsp;<span class="stat-base-data">{{classesInfo.average?(classesInfo.average | number:2):0}}</span></p>
+                        </div>
+                        <div class="total-stat">
+                            <p class="total-stat-summary">布置的作业次数</p>
+                            <p class="total-stat-count">{{worksInfo.total?worksInfo.total:0}}</p>
+                            <p class="total-stat-base">提交做作业人数&nbsp;&nbsp;<span class="stat-base-data">{{worksInfo.number?worksInfo.number:0}}</span></p>
+                            <p class="total-stat-base">平均每次作业提交人数&nbsp;&nbsp;<span class="stat-base-data">{{worksInfo.average?(worksInfo.average | number:2):0}}</span></p>
+                        </div>
+                        <div class="total-stat">
+                            <p class="total-stat-summary">作业习题份数</p>
+                            <p class="total-stat-count">{{papersInfo.total?papersInfo.total:0}}</p>
+                            <p class="total-stat-base">题目总数&nbsp;&nbsp;<span class="stat-base-data">{{papersInfo.number?papersInfo.number:0}}</span></p>
+                            <p class="total-stat-base">平均每次作业题目数&nbsp;&nbsp;<span class="stat-base-data">{{papersInfo.average?(papersInfo.average | number:2):0}}</span></p>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="shouye-exam-stat">
+                        <p class="exam-stat">最近作业情况</p>
+                        <div class="exam-stat-detail">
+                            <ul class="exam-stat-info">
+                                <li class="witdth15">开始取卷时间</li>
+                                <li class="witdth30" style="text-align: center;">作业名</li>
+                                <li class="witdth15">参与班级</li>
+                                <li class="witdth10">提交人数</li>
+                                <li class="witdth10">作业平均分</li>
+                                <li class="witdth10">最高分</li>
+                                <li class="witdth10">最低分</li>
+                            </ul>
+                            <ul class="exam-stat-data" style="padding:0;">
+                                <!-- ng-repeat指令 -->
+                                <li ng-repeat="work in worklist">
+                                    <p>{{work.startTime}}</p>
+                                    <p>{{work.workName}}</p>
+                                    <p>{{work.className}}</p>
+                                    <p>{{work.submitNumber?work.submitNumber:0}}</p>
+                                    <p>{{work.avgScore?work.avgScore:0}}</p>
+                                    <p>{{work.maxScore?work.maxScore:0}}</p>
+                                    <p>{{work.minScore?work.minScore:0}}</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--分页-->
+                        <div class="exam-stat-p">
+                            <div class="p-detail">
+                                共 <span>{{count}}</span> 条记录 ,每页显示<span>{{pageSize}}</span>条
+                            </div>
+                            <div class="p-fenye">
+                                <a href='#/index?currentPage=1' class="home">&lt;&lt;</a>
+                                <i class="pageModel" ng-repeat="pageNum in pageNums">
+                                    <a href='#/index?currentPage={{pageNum+1}}' ng-class="{'current':pageNum==currentPage-1}" ng-click="skip($event)">{{pageNum+1}}</a>
+                                </i>
+                                <a href='#/index?currentPage={{num}}' class="final">&gt;&gt;</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2016&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,274 @@
+<script type="text/javascript" src="static/js/datePicker/WdatePicker.js"></script>
+<div class="workdetail main" ng-controller="result">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/class/list" class="class-list-selected selected">我的班级</a>
+                    <!-- <a href="#/class/public" class="class-public">公共班级</a> -->
+                    <a href="#/class/create" class="class-create">创建班级</a>
+                    <a href="#/class/live" class="class-live">班级直播</a>
+                </div>
+                <div class="detail">
+                    <div class-info></div>
+                    <div class="sub-sidebar left">
+                        <div qrCode></div>
+                        <ul class="three-navigation">
+                            <li><a ng-href="#/class/members/{{cid}}">本班学员</a></li>
+                            <li><a ng-href="#/class/represent/{{cid}}">本班助教</a></li>
+                            <li><a ng-href="#/class/record/{{cid}}" class="selected">作业记录</a></li>
+                            <li><a ng-href="#/class/permission/{{cid}}">班级教师</a></li>
+                            <li><a ng-href="#/class/questionbank/{{cid}}">班级题库</a></li>
+                            <li><a ng-href="#/class/modify/{{cid}}">修改班级信息</a></li>
+                        </ul>
+                    </div>
+                    <div class="student-info left">
+                        <div class="student-info-header">
+                            <div class="userinfo-test">
+                                <h2 class="fn">{{wname}}</h2>
+                                <p class="totalShow">
+                                    已提交人数<span class="green">{{submitNum}}</span>人&nbsp;&nbsp;出答案时间:<span class="green" style="padding-left: 8px;">{{ansSeenTime==1 ? "交卷后立即查看":endTime}}</span>
+                                </p>
+                                <div class="clear"></div>
+                                <!-- <p class="preset-time">
+                                    出答案时间<span class="green" style="padding-left: 8px;">{{ansSeenTime==1 ? "交卷后立即查看":endTime}}</span>
+                                </p> -->
+                            </div>
+                            <div ng-click="changeShowStatus()" class="wrongWorkShow">
+                                {{showStat?'查看错题统计详情':'查看作业统计图表'}}
+                            </div>
+                        </div>
+                        <div class="student-info-body" ng-if="showSingleTable&&showStat">
+                            <div class="usedcount">
+                                <h3>平均分/分</h3>
+                                <div class="num">{{avgScore | number:2}}</div>
+                            </div>
+                            <div class="usedcount rightcount">
+                                <h3>最高分/分</h3>
+                                <div class="num"><span class="green">{{maxScore}}</span></div>
+                            </div>
+                            <div class="show-single-table">
+                                <div ng-click="showSingleCountTable(1)">查看单题作答统计图表展开</div>
+                            </div>
+                        </div>
+                        <div class="student-info-body" ng-if="!showSingleTable&&showStat">
+                            <div class="usedcount">
+                                <h3>平均分/分</h3>
+                                <div class="num">{{avgScore | number:2}}</div>
+                            </div>
+                            <div class="usedcount rightcount">
+                                <h3>最高分/分</h3>
+                                <div class="num"><span class="green">{{maxScore}}</span></div>
+                            </div>
+                            <div class="show-single-table">
+                                <div ng-click="showSingleCountTable(2)">收起单题作答统计图表</div>
+                            </div>
+                            <div class="clear"></div>
+                            <div id="redactor_modal_overlay" ng-if="load">
+                                <a href="javascript:;" class="loading-info"></a>
+                            </div>
+                            <div stat></div>
+                        </div>
+                        <div class="student-info-rank" ng-if="showStat">
+                            <div class="rank-type">
+                                <p class="rank-type-p">本次作业学生排名统计</p>
+                                <div class="rank-type-title">
+                                    <select name="rank" class="select-option" ng-options="type.type as type.name for type in typeList" ng-change="selected(type)" ng-model="type">
+                                        <!-- <option value="1" ng-selected="true">分数</option>
+                                        <option value="3">正确题数</option>
+                                        <option value="2">答题时间</option> -->
+                                    </select>
+                                    <span>排名</span>
+                                </div>
+                                <div class="rank-all" ng-repeat="user in userlist">
+                                    <div class="fl rank-score" ng-if="type==1">{{user.isAnswer==0 ? "未作答" : user.score}}<i ng-if="user.isAnswer">分</i></div>
+                                    <div class="fl rank-score" ng-if="type==2">{{user.isAnswer==0 ? "未作答" : (user.durationTime | hmdFormat)}}</div>
+                                    <!-- <div class="fl rank-score" ng-if="type==3">{{user.duration==0 ? "未作答" : user.subRightNum}}<i ng-if="user.duration!=0">道</i></div> -->
+                                    <div class="fl rank-nickname"> <img class="student_img_icon" ng-src="{{user.photo ? user.photo : 'http://institu.mstudy.me/img/youtu.jpg'}}" style="width: 30px;height: 30px; margin-right: 8px; border=0 " />{{user.rank}}.{{user.studentName}}<i ng-if="user.remarkName">({{user.remarkName}})</i></div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="student-info-box" ng-if="!showStat">
+                            <ul>
+                                <li class="question-title">
+                                    <div class="questionNumber">题号</div>
+                                    <div class="questionType">题型</div>
+                                    <div class="questionScore">本题总分</div>
+                                    <!-- <div class="questionAnswer">正确答案</div> -->
+                                    <div class="questionStatus">作答情况</div>
+                                    <div class="doingSomeThing">操作</div>
+                                </li>
+                                <li ng-repeat="question in worklist">
+                                    <div class="questionNumber">{{question.qNumber}}</div>
+                                    <div class="questionType">{{questionTypeName[question.qType]}}</div>
+                                    <div class="questionScore">{{question.score}}分</div>
+                                    <!-- <div class="questionAnswer">
+                                        <span ng-if="question.qType==1" ng-repeat="answer in question.qAnswer">{{questionAnswerName[answer]}}</span>
+                                        <span ng-if="question.qType==2">无</span>
+                                    </div> -->
+                                    <div class="questionStatus">
+                                        <span ng-if="question.qType==1">答对人数：{{question.rightNumber}}&nbsp;&nbsp;答错人数：{{question.wrongNumber}}</span>
+                                        <span ng-if="question.qType==2">无</span>
+                                    </div>
+                                    <div class="doingSomeThing">
+                                        <span ng-click="showQuestion(question.qid,question.qType,question.qNumber)">查看错题详情</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="student-info-question" ng-if="showQuestionBox">
+                        <div class="question-info-all">
+                            <p>试题错误人员统计</p>
+                            <p class="questionWorkName">{{wname}}</p>
+                            <div class="quesitonIndexInfo">
+                                <div class="quesitonIndexInfoLeft">
+                                    <span>试题序号：{{questionNumber}}</span>
+                                    <span>试题类型：{{questionTypeName[questionType]}}</span>
+                                    <span>试题总分：{{questionScore}}分</span>
+                                    <span ng-if="questionType==1&&questionAnswer.length>0">
+                                        正确答案：
+                                        <i ng-repeat="option in questionAnswer">{{questionAnswerName[option]}}</i>
+                                    </span>
+                                </div>
+                                <div class="quesitonIndexInfoRight">
+                                    <span ng-click="assignmentWork()" ng-if="!assignmentNow">布置作业</span>
+                                    <span ng-click="returnQuestion()" ng-if="assignmentNow">取消作业布置</span>
+                                </div>
+                            </div>
+                            <span class="closeBox" ng-click="closeStudentBox()">关闭</span>
+                        </div>
+                        <ul ng-if="!assignmentNow">
+                            <li class="student-question-title">
+                                <div class="studentNumber">序号</div>
+                                <div class="studentPhotoAndName">学生姓名</div>
+                                <div class="studentSubmitTime">交卷时间</div>
+                                <div class="studentAnswer" ng-if="questionType==1">学生作答</div>
+                                <div class="studentCheck" ng-if="questionType==2">是否批改</div>
+                                <div class="studentScore">得分</div>
+                                <div class="studentScoreRatio">得分比例</div>
+                            </li>
+                            <li ng-repeat="student in wrongStudentList" >
+                                <div class="studentNumber">{{$index+1}}</div>
+                                <div class="studentPhotoAndName">
+                                    <img src="{{student.photo?student.photo:'http://www.maixuexi.cn/teacher/static/images/youtu.png'}}" />{{student.studentName}}
+                                </div>
+                                <div class="studentSubmitTime">{{student.submitTime}}</div>
+                                <div class="studentAnswer" ng-if="questionType==1&&student.answer&&student.answer.length>0">
+                                    <i ng-repeat="answers in student.answer">{{questionAnswerName[answers]}}</i>
+                                </div>
+                                <div class="studentAnswer" ng-if="questionType==1&&((student.answer&&student.answer.length==0)||!student.answer)">
+                                    <i>未作答</i>
+                                </div>
+                                <div class="studentCheck" ng-if="questionType==2">{{checkStatus[student.isCheck]}}</div>
+                                <div class="studentScore">{{student.score}}分</div>
+                                <div class="studentScoreRatio">{{student.percentage}}%</div>
+                            </li>
+                            <li ng-if="showNoneStudent" class="student-none">该题没有学生做错哦</li>
+                        </ul>
+                        <div ng-if="assignmentNow" class="workAssignment">
+                            <div class="showStudents">
+                                <p>1.错题学生列表</p>
+                                <ul>
+                                    <li ng-repeat="student in wrongStudentList" title="{{student.studentName}}">
+                                        <img src="{{student.photo?student.photo:'http://www.maixuexi.cn/teacher/static/images/youtu.png'}}" />{{student.studentName}}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="choosePaper">
+                                <p>2.请选择试卷</p>
+                                <!-- <p></p> -->
+                                <div class="searchPaper">
+                                    <input type="text" placeholder="请输入试卷名" id="newPaperName" name="newPaperName" value="newPaperName" ng-model="newPaperName">
+                                    <img src="./static/images/search.png" ng-click="searchPaperFromName()" />
+                                </div>
+                                <div class="chooseBox" ng-click="cancelPaper()" title="{{targetPaperName}}">
+                                    <img src="./static/images/remove.png" ng-if="targetPid" />
+                                    {{shortTargetPaperName?shortTargetPaperName:targetPaperName}}
+                                    <div ng-if="!targetPid">您还没有选择试卷</div>
+                                </div>
+                                <ul>
+                                    <li ng-repeat="paper in paperlist" title="{{paper.paperName}}" ng-click='choosePaper(paper.pid,paper.isFinish)'>
+                                        <img src="./static/images/radio_selected.png" ng-if="targetPid==paper.pid&&paper.isFinish==1" />
+                                        <img src="./static/images/radio_select.png" ng-if="targetPid!=paper.pid&&paper.isFinish==1"/>
+                                        <span ng-if="paper.isFinish==1">【已敲定】</span>
+                                        <span ng-if="paper.isFinish!=1" class="no-confrim">【未敲定】</span> {{paper.shortPaperName?paper.shortPaperName:paper.paperName}}
+                                    </li>
+                                    <li class="noneSearchPaper" ng-if="paperCount==0">没有搜索到试卷<span ng-click="getAllPaper()">查看所有试卷</span></li>
+                                </ul>
+                            </div>
+                            <div class="workParameter">
+                                <p>3.设置作业参数</p>
+                                <div class="workDiv">
+                                    <span>作业名字(选填)</span><br>
+                                    <input type="text" name="workName" placeholder="请输入作业名字" ng-model="workName" value="{{workName}}" id="workName">
+                                </div>
+                                <div class="workDiv">
+                                    <span>作业通知时间(选填)</span><br>
+                                    <input type="text" class="form-control Wdate noticeTime" placeholder="默认当前时间" readonly onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d'})">
+                                </div>
+                                <div class="workTimeDiv">
+                                    <span>作业取卷时间(选填)</span><br>
+                                    <input type="text" class="beginTime" placeholder="起始时间" readonly onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d'})">
+                                    <input type="text" class="endTime" placeholder="截至时间" readonly onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d'})">
+                                </div>
+                                <div class="workDurationDiv">
+                                    <span>作业时长(选填)</span><br>
+                                    <input type="text" class="hours" name="" value="" maxlength="2" placeholder="时">
+                                    <input type="text" class="minutes" name="" value="" maxlength="2" placeholder="分">
+                                    <input type="text" class="second" name="" value="" maxlength="2" placeholder="秒">
+                                </div>
+                                <div class="workBooleanDiv" ng-click="changeWholeWork()">
+                                    <div class="checkBox" ng-class="{'selected':isWholeWork}"></div>
+                                    <div class="explain">全班作业</div>
+                                </div>
+                                <div class="workBooleanDiv" ng-click="changeOutOfOrder()">
+                                    <div class="checkBox" ng-class="{'selected':isOutOfOrder}"></div>
+                                    <div class="explain">客观题选项打乱顺序</div>
+                                </div>
+                                <div class="workBooleanDiv" ng-click="changeViewResolution()">
+                                    <div class="checkBox" ng-class="{'selected':isViewResolution==1}"></div>
+                                    <div class="explain">学生作业提交后，答案解析直接公布</div>
+                                </div>
+                                <div class="workBooleanDiv" ng-click="changeJoinReport()">
+                                    <div class="checkBox" ng-class="{'selected':isJoinReport}"></div>
+                                    <div class="explain">本次作业加入班级统计报告</div>
+                                </div>
+                                <div class="workAssignmentBtn" ng-click="doneWorkAssignment()">
+                                    布置作业
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="questionBgBox" ng-if="showQuestionBox"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+    <div class="returnTop" id="returnTop" title="返回顶部"></div>
+    <script type="text/javascript">
+    $(function() {
+        $("#returnTop").on("click", function(){
+            $('body,html').animate({
+                scrollTop:0
+            },1000);
+            return false;
+        });
+
+        $(window).scroll(function() {
+            var sHeight = $(document).scrollTop();
+            var vHeigtht = $(window).height();
+            if (sHeight > vHeigtht) {
+                $("#returnTop").css("display", "block")
+            } else {
+                $("#returnTop").css("display", "none")
+            }
+        })
+    })
+    </script>
+</div>

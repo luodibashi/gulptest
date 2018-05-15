@@ -1,0 +1,30 @@
+<div class="stat" id="achive"></div>
+<div class="paper-info stat-info">
+    <div style="overflow: hidden;">
+        <span class="title" style="font-size: 16px; color: #009245;margin-right: 12px; float: left; width: 150px;line-height: 40px; display: block;">学生作业提交的记录:</span>
+        <select ng-options="work.workId as work.workName for work in allWorkList" ng-model="work.workId" ng-change="update(work.workId)" style="padding: 2px 8px; float: right; line-height: 40px; height: 40px; width:450px; border-radius: 4px; border: 1px #ddd solid; font-size: 16px;">
+        </select>
+    </div>
+    <div class="stat-detail">
+        <p class="title paper-title"><span class="lightgray">试 卷 名：{{workInfo.workName}}</span></p>
+        <p class="title paper-time"><span class="lightgray">答题耗时：{{workInfo.uDurationTime ==0?'0分钟':workInfo.uDurationTime | hmdFormat}}</span></p>
+        <div class="exam-info">
+            <div class="exam-info-block">总共<span class="num">{{workInfo.totalNumber}}</span>道</div>
+            <div class="exam-info-block">得分<span class="num">{{workInfo.userScore}}</span>分</div>
+            <div class="exam-info-block">第<span class="num"><span class="green">{{workInfo.rank}}</span></span>名</div>
+            <div class="exam-info-block">试卷总分<span class="num">{{workInfo.totalScore}}</span>分</div>
+            <div class="exam-info-block">平均分<span class="num">{{workInfo.avgScore | number:2}}</span>分</div>
+            <div class="exam-info-block">最高分<span class="num">{{workInfo.maxScore}}</span>分</div>
+            <ul class="paper-sort">
+                <li ng-class="userQues.qType==2?'subject':(userQues.isRight==1?'':'error')" ng-repeat="userQues in userQuesList">
+                    <div class="no">{{userQues.qNumber}}</div>
+                    <div class="stat-score">
+                        <span>{{userQues.qType==2?"主观":"客观"}}({{userQues.qScore}}分)</span>
+                        <strong ng-if="userQues.qType==1 || userQues.qType==2 && userQues.score">(得{{userQues.score}}分)</strong>
+                        <strong ng-if="userQues.qType==2 && !userQues.score">未批改</strong>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

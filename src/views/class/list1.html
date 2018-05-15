@@ -1,0 +1,67 @@
+<div class="main" ng-controller="classlist">
+    <div id="box">
+        <div user-Top></div>
+        <div class="main common">
+            <div my-Tab></div>
+            <div class="content right">
+                <div class="sub-navigation">
+                    <a href="#/class/list" class="class-list-selected selected">我的班级</a>
+                    <!-- <a href="#/class/public" class="class-public">公共班级</a> -->
+                    <a href="#/class/create" class="class-create">创建班级</a>
+                    <a href="#/class/live" class="class-live">班级直播</a>
+                </div>
+                <div class="detail">
+                    <div class="class-list">
+                        <div class="class-list-handle">
+                            <img src="./static/images/checked.png" class="allcheck" ng-show="isAllVisible" ng-click="allCheck()" />
+                            <img src="./static/images/uncheck.png" class="allcheck" ng-hide="isAllVisible" ng-click="allCheck()" />
+                            <div pagination></div>
+                            <div class="search">
+                                <div class="input-search">
+                                    <input type="text" placeholder='班级搜索' ng-model="className" />
+                                </div>
+                                <button class="btn btn-success search-class" type="button" ng-click="search()">搜索</button>
+                            </div>
+                            <div id="handle" ng-mouseover="mouse.mouseover()" style="text-align:center; line-height:60px;" ng-mouseout="mouse.mouseout()">
+                                操作
+                                <ul class="handle-menu">
+                                    <li class="delete-class" ng-click="delete()">删除班级</li>
+                                    <li class="modify-class" ng-click="change()">更改班级信息</li>
+                                    <li style="color:#999;cursor:default;">班级链接分享</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <table class="class-list-table">
+                            <thead>
+                                <tr class="class-list-header">
+                                    <td>序号</td>
+                                    <td>班级名</td>
+                                    <td>班级编号</td>
+                                    <td>密码</td>
+                                    <td>人数</td>
+                                    <td>班级动态</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="class in classlist">
+                                    <td class="class-list-number">
+                                        <img src="./static/images/checked.png" class="allcheck" ng-show="visible[class['cid']]" ng-click='oneCheck(class["cid"])' />
+                                        <img src="./static/images/uncheck.png" class="allcheck" ng-hide="!visible[class['cid']] == false" ng-click='oneCheck(class["cid"])' />
+                                        <span>{{$index+1}}</span>
+                                    </td>
+                                    <td>{{class.className}}</td>
+                                    <td>{{class.cid}}</td>
+                                    <td>{{class.password?class.password:'无'}}</td>
+                                    <td>{{class.userNumber||0}}/{{class.maxNumber}}</td>
+                                    <td><a ng-href="#/class/members/{{class.cid}}"><span class="lookup">查看</span></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="admin-icp">©2015&nbsp;麦学习作业软件&nbsp;WWW.MAIXUEXI.CN&nbsp;鄂ICP备12001098号-5</div>
+        </div>
+    </div>
+</div>

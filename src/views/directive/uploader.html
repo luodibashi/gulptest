@@ -1,0 +1,13 @@
+<!--上传按钮-->
+<div class="import-a">
+    <a class="mtk-paper-back fl" href="javascript:void(0);" ng-click="forward()">返回上一步</a>
+    <a id="pickfiles" class="import-word" href="javascript:void(0);">导入word文档</a>
+    <a class="local-paper" href="javascript:void(0);" ng-mouseover="mouse.mouseover()" ng-mouseout="mouse.mouseout()">选择已有习题
+    	<ul class="handle-menu">
+        	<li ng-click="localWork()">选择试卷</li>
+        	<li ng-click="localTest()">选择试题</li>
+    	</ul>
+    </a>
+    <a class="mtk-paper-preview" href="javascript:void(0);" ng-click="preview()">预览</a>
+</div>
+<div id="self-editor" class="none"></div>
